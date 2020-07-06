@@ -1,2 +1,2 @@
-# eduline-sms
-eduline-v5短信发送功能组件
+# eduline-upload
+eduline-v5上传功能组件
