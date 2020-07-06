@@ -1,0 +1,23 @@
+{
+    "name": "eduline/eduline-upload",
+    "description": "eduline-v5 upload",
+    "require": {
+        "php": ">=7.1.0",
+        "aliyuncs/oss-sdk-php": "^2.3",
+        "qcloud/cos-sdk-v5": "^2.0"
+    },
+    "license": "Apache-2.0",
+    "authors": [{
+        "name": "sunyonghong",
+        "email": "syh@sunyonghong.com"
+    }],
+    "minimum-stability": "dev",
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "eduline\\upload\\": "src/"
+        }
+    }
+}
