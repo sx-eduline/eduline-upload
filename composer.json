@@ -3,6 +3,7 @@
     "description": "eduline-v5 上传控件,含云储存",
     "require": {
         "php": ">=7.1.0",
+	"alibabacloud/sdk": "^1.8",
         "aliyuncs/oss-sdk-php": "^2.3",
         "qcloud/cos-sdk-v5": "^2.0"
     },

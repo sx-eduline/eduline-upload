@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace eduline\upload;
 
+use app\common\model\Attach;
+
 /**
  * 上传入口类
  */
@@ -28,6 +30,11 @@ class Client
     public function putFile($savepath = '', $file, $savename)
     {
         return $this->stock->putFile($savepath, $file, $savename);
+    }
+
+    public function putYunFile(Attach $attach)
+    {
+        return $this->stock->putYunFile($attach);
     }
 
     /**

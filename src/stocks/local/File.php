@@ -39,13 +39,25 @@ class File implements FileInterface
     }
 
     /**
+     * 上传到本地,无需云端支持
+     * @Author   Martinsun<syh@sunyonghong.com>
+     * @DateTime 2020-08-15
+     * @param    Attach                         $attach [description]
+     * @return   [type]                                 [description]
+     */
+    public function putYunFile(Attach $attach)
+    {
+        throw new FileException('暂不支持该方式上传');
+    }
+
+    /**
      * 文件的url
      * @Author   Martinsun<syh@sunyonghong.com>
      * @DateTime 2020-03-30
      */
     public function url(array $data = [])
     {
-        return Request::domain().Filesystem::getDiskConfig($data['bucket'], 'url') . '/' . str_replace('\\', '/', $data['savepath'] . '/' . $data['savename']);
+        return Request::domain() . Filesystem::getDiskConfig($data['bucket'], 'url') . '/' . str_replace('\\', '/', $data['savepath'] . '/' . $data['savename']);
     }
 
     /**
