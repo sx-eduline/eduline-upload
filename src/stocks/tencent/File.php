@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 namespace eduline\upload\stocks\tencent;
 
+use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\stocks\tencent\Config;
 use Qcloud\Cos\Client;
@@ -60,6 +61,18 @@ class File implements FileInterface
 
         }
 
+    }
+
+    /**
+     * 上传到云端 待开发
+     * @Author   Martinsun<syh@sunyonghong.com>
+     * @DateTime 2020-08-15
+     * @param    Attach                         $attach [description]
+     * @return   [type]                                 [description]
+     */
+    public function putYunFile(Attach $attach)
+    {
+        throw new FileException('暂不支持该方式上传');
     }
 
     /**

@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 namespace eduline\upload\stocks\local;
 
+use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\stocks\local\Config;
 use think\exception\FileException;
