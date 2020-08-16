@@ -7,10 +7,9 @@ use AlibabaCloud\Vod\Vod;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\stocks\aliyun\Config;
+use eduline\upload\utils\Util;
 use OSS\OssClient;
 use think\exception\FileException;
-use think\facade\Validate;
-use think\File as ThinkFile;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'voduploadsdk' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 
@@ -51,7 +50,7 @@ class File implements FileInterface
             // 更新为上传中
             Attach::update(['status' => 3], ['id' => $attach->id]);
             // 判断是否是图片 音视频
-            if ($this->isVideo($attach->mimetype, $attach->extension)) {
+            if (Util::isVideo($attach->mimetype, $attach->extension)) {
                 // 视频上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
@@ -66,7 +65,7 @@ class File implements FileInterface
                 $attach->savepath = '';
                 $attach->bucket   = '';
 
-            } else if ($this->isAudio($attach->mimetype, $attach->extension)) {
+            } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
                 // 音频上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
@@ -80,7 +79,7 @@ class File implements FileInterface
                 $attach->savename = $videoId;
                 $attach->savepath = '';
                 $attach->bucket   = '';
-            } else if (Validate::is(new ThinkFile($filepath), 'image')) {
+            } else if (Util::isImageFile($filepath)) {
                 // 图片上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadImageRequest($filepath, $attach->filename);
@@ -132,14 +131,14 @@ class File implements FileInterface
             ->connectTimeout(1)
             ->timeout(3)
             ->name('AliyunVod');
-        if (stripos($data['mimetype'], 'image') !== false) {
+        if (Util::isImage($data['mimetype'])) {
             // 图片
             $result = Vod::V20170321()->getImageInfo()->client('AliyunVod')->withImageId($data['savename'])->format('JSON')->request();
             if ($result->isSuccess()) {
                 $url = $result->ImageInfo->URL;
             }
 
-        } else if ($this->isAudio($data['mimetype'], $data['extension']) || $this->isVideo($data['mimetype'], $data['extension'])) {
+        } else if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
             // 音视频
             $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
             if ($result->isSuccess()) {
@@ -164,31 +163,5 @@ class File implements FileInterface
     {
         $path = $data['bucket'] . ':' . $data['savepath'] . '/' . $data['savename'];
         return str_replace('\\', '/', $path);
-    }
-
-    /**
-     * 是否视频
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
-     * @param    [type]                         $mimetype  [description]
-     * @param    [type]                         $extension [description]
-     * @return   boolean                                   [description]
-     */
-    protected function isVideo($mimetype, $extension)
-    {
-        return stripos($mimetype, 'video') !== false || in_array(strtolower($extension), ['avi', 'mp4', 'wmv', 'mov', 'mkv', 'flv', 'f4v', 'm4v', 'rmvb', '3gp', 'rm', 'ts', 'dat', 'mts', 'vob', 'mpeg']);
-    }
-
-    /**
-     * 是否音频
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
-     * @param    [type]                         $mimetype  [description]
-     * @param    [type]                         $extension [description]
-     * @return   boolean                                   [description]
-     */
-    protected function isAudio($mimetype, $extension)
-    {
-        return stripos($mimetype, 'audio') !== false || in_array(strtolower($extension), ['mp3', 'wav', 'acc', 'asf']);
     }
 }
