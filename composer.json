@@ -19,6 +19,9 @@
     "autoload": {
         "psr-4": {
             "eduline\\upload\\": "src/"
-        }
+        },
+        "files": [
+            "src/route/route.php"
+        ]
     }
 }
