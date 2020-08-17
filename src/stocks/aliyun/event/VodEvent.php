@@ -43,8 +43,11 @@ class VodEvent
             case 'SnapshotComplete':
                 // 视频截图完成
                 if ($request->post('Status') == 'success') {
-                    $coverURL = $request->post('CoverURL', '');
-                    Attach::update(['cover_url' => $coverURL], ['stock' => 'aliyun', 'savename' => $videoId]);
+                    $coverURL = $request->post('CoverUrl', '');
+                    $video    = $this->getVideoInfo($videoId);
+                    // 时长向下取整
+                    $duration = floor($video->Duration);
+                    Attach::update(['duration' => $duration, 'cover_url' => $coverURL], ['stock' => 'aliyun', 'savename' => $videoId]);
                 }
                 break;
             default:
