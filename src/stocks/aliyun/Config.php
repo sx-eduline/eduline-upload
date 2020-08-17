@@ -41,12 +41,12 @@ class Config implements ConfigInterface
      * @DateTime 2020-03-28
      * @return   [type]                         [description]
      */
-    public static function get($name = null)
+    public static function get($name = null,$default = null)
     {
         $config = SystemConfig::get(self::$key, []);
 
         if ($name) {
-            return isset($config[$name]) ? $config[$name] : null;
+            return isset($config[$name]) ? $config[$name] : $default;
         }
 
         return $config;
