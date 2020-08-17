@@ -14,6 +14,8 @@ class UploadService extends Service
                 Route::get('/list', '@index')->name('system.package.upload'); // 上传配置页面
                 Route::get('/<stock>/config', '@config')->pattern(['stock' => '[a-zA-Z_]+'])->name('system.package.upload.config'); // 上传配置页面
             })->prefix('\eduline\upload\admin\service\Config')->middleware(['adminRoute']);
+            // 阿里云视频点播事件通知路由
+            Route::post('/aliyun/vod/event','\eduline\upload\stocks\aliyun\event\VodEvent@handle')->middleware(['\eduline\upload\stocks\aliyun\middleware\VodAuth']);
         });
     }
 }

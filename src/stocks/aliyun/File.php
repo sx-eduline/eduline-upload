@@ -49,6 +49,7 @@ class File implements FileInterface
             $filepath        = $attach->getAttr('filepath');
             // 更新为上传中
             Attach::update(['status' => 3], ['id' => $attach->id]);
+            $status = 1;
             // 判断是否是图片 音视频
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
                 // 视频上传
@@ -57,6 +58,7 @@ class File implements FileInterface
                 // 是否配置了视频处理流程
                 if ($this->config['vod_video_workflow_id'] ?? false) {
                     $uploadVideoRequest->setWorkflowId($this->config['vod_video_workflow_id']);
+                    $status = 4;
                 }
 
                 $videoId = $uploader->uploadLocalVideo($uploadVideoRequest);
@@ -72,6 +74,7 @@ class File implements FileInterface
                 // 是否配置了音频处理流程
                 if ($this->config['vod_audio_workflow_id'] ?? false) {
                     $uploadVideoRequest->setWorkflowId($this->config['vod_audio_workflow_id']);
+                    $status = 4;
                 }
 
                 $videoId = $uploader->uploadLocalVideo($uploadVideoRequest);
@@ -104,7 +107,7 @@ class File implements FileInterface
             }
 
             $attach->stock  = 'aliyun';
-            $attach->status = 1;
+            $attach->status = $status;
 
             return $attach->save();
         } catch (\Exception $e) {
@@ -142,7 +145,8 @@ class File implements FileInterface
             // 音视频
             $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
             if ($result->isSuccess()) {
-                $url = $result->PlayInfoList->PlayInfo[0]->PlayURL;
+                $url = $result->PlayInfoList->PlayInfo;
+                // $url = $result->PlayInfoList->PlayInfo[0]->PlayURL;
             }
         } else {
             $endpoint  = $this->config['domain'] ?? $this->config['endpoint'];
