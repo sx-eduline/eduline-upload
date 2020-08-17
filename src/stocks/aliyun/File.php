@@ -54,9 +54,9 @@ class File implements FileInterface
                 // 视频上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
-                // 是否配置了视频转码模板
-                if ($this->config['vod_video_template_group_id'] ?? false) {
-                    $uploadVideoRequest->setTemplateGroupId($this->config['vod_video_template_group_id']);
+                // 是否配置了视频处理流程
+                if ($this->config['vod_video_workflow_id'] ?? false) {
+                    $uploadVideoRequest->setWorkflowId($this->config['vod_video_workflow_id']);
                 }
 
                 $videoId = $uploader->uploadLocalVideo($uploadVideoRequest);
@@ -69,9 +69,9 @@ class File implements FileInterface
                 // 音频上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
-                // 是否配置了视频转码模板
-                if ($this->config['vod_audio_template_group_id'] ?? false) {
-                    $uploadVideoRequest->setTemplateGroupId($this->config['vod_audio_template_group_id']);
+                // 是否配置了音频处理流程
+                if ($this->config['vod_audio_workflow_id'] ?? false) {
+                    $uploadVideoRequest->setWorkflowId($this->config['vod_audio_workflow_id']);
                 }
 
                 $videoId = $uploader->uploadLocalVideo($uploadVideoRequest);
