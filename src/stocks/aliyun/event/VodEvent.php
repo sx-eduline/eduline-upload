@@ -16,6 +16,7 @@ class VodEvent
 {
     public function handle(Request $request)
     {
+
         $eventType = $request->post('EventType');
         $videoId   = $request->post('VideoId');
         $response  = BaseService::parseToData([], 1);
@@ -24,26 +25,26 @@ class VodEvent
             case 'TranscodeComplete':
                 $status = $request->post('Status') == 'success' ? 1 : 0;
                 // 更新视频信息
-                Attach::update(['status' => $status], ['stock' => 'aliyun', 'savename' => $videoId, 'status' => 4]);
-
-                break;
-            case 'FileUploadComplete':
-                // 视频文件上传成功
                 $video = $this->getVideoInfo($videoId);
                 if (false == $video) {
-                    $response = BaseService::parseToData(['error_code' => 401], 0, '鉴权出错', 401);
+                    $response = BaseService::parseToData(['error_code' => 404], 0, '文件出错', 404);
                     break;
                 }
                 // 时长向下取整
                 $duration = floor($video->Duration);
+                $update   = ['duration' => $duration, 'status' => $status];
+                if ($status == 1) {
+                    $update['cover_url'] = $video->CoverURL;
+                }
                 // 更新视频信息
-                Attach::update(['duration' => $duration, 'cover_url' => $video->CoverURL], ['stock' => 'aliyun', 'savename' => $videoId]);
+                Attach::update($update, ['stock' => 'aliyun', 'savename' => $videoId, 'status' => 4]);
+
                 break;
             case 'SnapshotComplete':
                 // 视频截图完成
-                $cover_url = $request->post('CoverURL', '');
-                if ($cover_url) {
-                    Attach::update(['cover_url' => $cover_url], ['stock' => 'aliyun', 'savename' => $videoId]);
+                if ($request->post('Status') == 'success') {
+                    $coverURL = $request->post('CoverURL', '');
+                    Attach::update(['cover_url' => $coverURL], ['stock' => 'aliyun', 'savename' => $videoId]);
                 }
                 break;
             default:
