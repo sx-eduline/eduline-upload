@@ -51,66 +51,29 @@ class File implements FileInterface
             $filepath  = $attach->getAttr('filepath');
             // 更新为上传中
             Attach::update(['status' => 3], ['id' => $attach->id]);
+            $status = 1;
             // 判断是否是图片 音视频
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
-                $storageRegion = $this->config['vod_storage_region'] ?? '';
-                $region        = $this->config['vod_region'] ?? 'ap-chengdu';
-                // 视频上传
-                $client             = new VodUploadClient($secretId, $secretKey);
-                $req                = new VodUploadRequest();
-                $req->MediaFilePath = $filepath;
-                $req->MediaName     = $attach->filename;
-                if ($storageRegion) {
-                    $req->StorageRegion = $storageRegion;
-                }
-                // 视频任务流
-                $procedure = $this->config['vod_video_procedure'];
-                if ($procedure) {
-                    $req->Procedure = $procedure;
-                }
-
-                $rsp = $client->upload($region, $req);
-
-                $attach->savename = $rsp->FileId;
-                $attach->savepath = '';
-                $attach->bucket   = '';
+                // 视频
+                $procedure            = $this->config['vod_video_procedure'] ?? false;
+                $rsp                  = $this->doUpload($filepath, $attach->filename, $procedure);
+                $attach->savename     = $rsp->FileId;
+                $attach->savepath     = '';
+                $attach->bucket       = '';
+                $procedure && $status = 4;
 
             } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
-                $storageRegion = $this->config['vod_storage_region'] ?? '';
-                $region        = $this->config['vod_region'] ?? 'ap-chengdu';
-                // 音频上传
-                $client             = new VodUploadClient($secretId, $secretKey);
-                $req                = new VodUploadRequest();
-                $req->MediaFilePath = $filepath;
-                $req->MediaName     = $attach->filename;
-                if ($storageRegion) {
-                    $req->StorageRegion = $storageRegion;
-                }
-                // 音频任务流
-                $procedure = $this->config['vod_audio_procedure'];
-                if ($procedure) {
-                    $req->Procedure = $procedure;
-                }
+                // 音频
+                $procedure            = $this->config['vod_audio_procedure'] ?? false;
+                $rsp                  = $this->doUpload($filepath, $attach->filename, $procedure);
+                $attach->savename     = $rsp->FileId;
+                $attach->savepath     = '';
+                $attach->bucket       = '';
+                $procedure && $status = 4;
 
-                $rsp = $client->upload($region, $req);
-
-                $attach->savename = $rsp->FileId;
-                $attach->savepath = '';
-                $attach->bucket   = '';
             } else if (Util::isImageFile($filepath)) {
-                $storageRegion = $this->config['vod_storage_region'] ?? '';
-                $region        = $this->config['vod_region'] ?? 'ap-chengdu';
-                // 图片上传
-                $client             = new VodUploadClient($secretId, $secretKey);
-                $req                = new VodUploadRequest();
-                $req->MediaFilePath = $filepath;
-                $req->MediaName     = $attach->filename;
-                if ($storageRegion) {
-                    $req->StorageRegion = $storageRegion;
-                }
-
-                $rsp = $client->upload($region, $req);
-
+                // 图片
+                $rsp              = $this->doUpload($filepath, $attach->filename);
                 $attach->savename = $rsp->FileId;
                 $attach->savepath = '';
                 $attach->bucket   = '';
@@ -136,7 +99,7 @@ class File implements FileInterface
             }
 
             $attach->stock  = 'tencent';
-            $attach->status = 1;
+            $attach->status = $status;
 
             return $attach->save();
         } catch (\Exception $e) {
@@ -145,6 +108,37 @@ class File implements FileInterface
 
         }
 
+    }
+
+    /**
+     * 上传方法
+     * @Author   Martinsun<syh@sunyonghong.com>
+     * @DateTime 2020-08-18
+     * @param    [type]                         $filepath  [description]
+     * @param    [type]                         $filename  [description]
+     * @param    [type]                         $procedure [description]
+     * @return   [type]                                    [description]
+     */
+    protected function doUpload($filepath, $filename, $procedure = null)
+    {
+        $secretId      = $this->config['secret_id'];
+        $secretKey     = $this->config['secret_key'];
+        $storageRegion = $this->config['vod_storage_region'] ?? '';
+        $region        = $this->config['vod_region'] ?? 'ap-chengdu';
+        // 初始化
+        $client             = new VodUploadClient($secretId, $secretKey);
+        $req                = new VodUploadRequest();
+        $req->MediaFilePath = $filepath;
+        $req->MediaName     = $filename;
+        if ($storageRegion) {
+            $req->StorageRegion = $storageRegion;
+        }
+
+        if ($procedure) {
+            $req->Procedure = $procedure;
+        }
+
+        return $client->upload($region, $req);
     }
 
     /**
