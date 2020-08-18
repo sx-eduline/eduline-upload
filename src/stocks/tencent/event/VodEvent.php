@@ -27,10 +27,10 @@ class VodEvent
         switch ($eventType) {
             // 视频任务流变更
             case 'ProcedureStateChanged':
-                $status = $body->Status == 'FINISH';
+                $status = $body['Status'] == 'FINISH';
                 if ($status) {
                     // 任务流完成了
-                    $fileId = $body->FileId;
+                    $fileId = $body['FileId'];
                     // 获取信息
                     $info   = $this->getInfo($fileId);
                     $update = [];
@@ -38,14 +38,15 @@ class VodEvent
                     if ($info->MetaData) {
                         // 时长向下取整
                         $update['duration'] = floor($info->MetaData->Duration);
+
                     }
                     // 封面
-                    if ($info->BasicInfo) {
-                        $basic = json_decode($info->BasicInfo, true);
-                        if ($basic['CoverUrl'] ?? false) {
-                            $update['cover_url'] = $basic['CoverUrl'];
-                        }
+                    $basic = $info->BasicInfo;
+                    if ($basic->CoverUrl) {
+                        $update['cover_url'] = $basic->CoverUrl;
                     }
+                    // 状态
+                    $update['status'] = $basic->Status == 'Normal' ? 1 : 0;
 
                     // 更新视频信息
                     Attach::update($update, ['stock' => 'tencent', 'savename' => $fileId, 'status' => 4]);
@@ -80,6 +81,6 @@ class VodEvent
 
         $resp = $client->DescribeMediaInfos($req);
 
-        return $resp->MediaInfoSet;
+        return $resp->MediaInfoSet[0];
     }
 }
