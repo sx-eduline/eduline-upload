@@ -16,6 +16,8 @@ class UploadService extends Service
             })->prefix('\eduline\upload\admin\service\Config')->middleware(['adminRoute']);
             // 阿里云视频点播事件通知路由
             Route::post('/aliyun/vod/event','\eduline\upload\stocks\aliyun\event\VodEvent@handle')->middleware(['\eduline\upload\stocks\aliyun\middleware\VodAuth']);
+            // 阿里云视频点播事件通知路由
+            Route::post('/tencent/vod/event','\eduline\upload\stocks\tencent\event\VodEvent@handle');
         });
     }
 }
