@@ -153,7 +153,8 @@ class File implements FileInterface
 
         $url = '';
         // 是否VOD储存
-        $isVod = Util::isImage($data['mimetype']) || Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension']);
+        $isImage = Util::isImage($data['mimetype']);
+        $isVod   = $isImage || Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension']);
         if ($isVod) {
             $cred        = new Credential($secretId, $secretKey);
             $httpProfile = new HttpProfile();
@@ -172,8 +173,42 @@ class File implements FileInterface
             $req->fromJsonString(json_encode($params));
 
             $resp = $client->DescribeMediaInfos($req);
-
-            $url = $resp->MediaInfoSet[0]->TranscodeInfo->TranscodeSet[0]->Url;
+            if ($isImage) {
+                $url = $resp->BasicInfo->MediaUrl;
+            } else {
+                $url         = [];
+                $items       = $resp->MediaInfoSet[0]->TranscodeInfo->TranscodeSet;
+                $definitions = [
+                    // FD:流畅
+                    '100010' => 'FD',
+                    '100210' => 'FD',
+                    // LD:标清
+                    '100020' => 'LD',
+                    '100220' => 'LD',
+                    // SD:高清
+                    '100030' => 'SD',
+                    '100230' => 'SD',
+                    // HD:超清
+                    '100040' => 'HD',
+                    '100240' => 'HD',
+                    // OD:原画
+                    '0'      => 'OD',
+                    // 2K
+                    '100070' => '2K',
+                    '100270' => '2K',
+                    // 4k
+                    '100080' => '4K',
+                    '100080' => '4K',
+                    '1010'   => 'OD',
+                    '1020'   => 'HD',
+                ];
+                foreach ($items as $item) {
+                    $url[] = [
+                        'definition' => $definitions[$item->Definition] ?? 'OD',
+                        'play_url'   => $item->Url,
+                    ];
+                }
+            }
 
         } else {
             $region = $this->config['cos_region'];

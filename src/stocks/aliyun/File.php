@@ -142,11 +142,17 @@ class File implements FileInterface
             }
 
         } else if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
+            $url = [];
             // 音视频
             $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
             if ($result->isSuccess()) {
-                $url = $result->PlayInfoList->PlayInfo;
-                // $url = $result->PlayInfoList->PlayInfo[0]->PlayURL;
+                $items = $result->PlayInfoList->PlayInfo;
+                foreach ($items as $item) {
+                    $url[] = [
+                        'definition' => $item->Definition,
+                        'play_url'   => $item->PlayURL,
+                    ];
+                }
             }
         } else {
             $endpoint  = $this->config['domain'] ?? $this->config['endpoint'];

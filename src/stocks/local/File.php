@@ -5,6 +5,7 @@ namespace eduline\upload\stocks\local;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\stocks\local\Config;
+use eduline\upload\utils\Util;
 use think\exception\FileException;
 use think\facade\Filesystem;
 use think\facade\Request;
@@ -58,7 +59,17 @@ class File implements FileInterface
      */
     public function url(array $data = [])
     {
-        return Request::domain() . Filesystem::getDiskConfig($data['bucket'], 'url') . '/' . str_replace('\\', '/', $data['savepath'] . '/' . $data['savename']);
+        $url = Request::domain() . Filesystem::getDiskConfig($data['bucket'], 'url') . '/' . str_replace('\\', '/', $data['savepath'] . '/' . $data['savename']);
+        if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
+            // 音视频
+            return [
+                [
+                    'definition' => 'OD',
+                    'play_url'   => $url,
+                ],
+            ];
+        }
+        return $url;
     }
 
     /**
