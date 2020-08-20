@@ -33,7 +33,7 @@ class VodEvent
                 // 时长向下取整
                 $duration = floor($video->Duration);
                 $update   = ['duration' => $duration, 'status' => $status];
-                if ($status == 1) {
+                if (property_exists($video, 'CoverURL')) {
                     $update['cover_url'] = $video->CoverURL;
                 }
                 // 更新视频信息
