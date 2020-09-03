@@ -175,7 +175,7 @@ class File implements FileInterface
 
                 $resp = $client->DescribeMediaInfos($req);
                 if ($isImage) {
-                    $url = $resp->BasicInfo->MediaUrl;
+                    $url = $resp->MediaInfoSet[0]->BasicInfo->MediaUrl;
                 } else {
                     $url         = [];
                     $items       = $resp->MediaInfoSet[0]->TranscodeInfo->TranscodeSet;
