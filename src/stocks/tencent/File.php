@@ -225,7 +225,7 @@ class File implements FileInterface
                 $url = $client->getPresignetUrl('getObject', [
                     'Bucket' => $data['bucket'],
                     'Key'    => $data['savepath'] . '/' . $data['savename'],
-                ], '+10 minutes');
+                ], '+10 minutes')->__toString();
             }
         } catch (\Exception $e) {
             $url = '';
