@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\aliyun;
 
 use AlibabaCloud\Client\AlibabaCloud;
@@ -16,6 +17,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'voduploadsdk' . DIRECTORY_SEPARATO
 class File implements FileInterface
 {
     protected $config;
+
     public function __construct()
     {
         $this->config = Config::get();
@@ -32,13 +34,14 @@ class File implements FileInterface
         throw new FileException('暂不支持该方式上传');
 
     }
+
     /**
      * 将本地文件上传到云端
      * @Author   Martinsun<syh@sunyonghong.com>
      * @DateTime 2020-03-30
-     * @param    string                         $path [description]
+     * @param string $path [description]
      * @param    [type]                         $file [description]
-     * @param    string                         $name [description]
+     * @param string $name [description]
      * @return   [type]                               [description]
      */
     public function putYunFile(Attach $attach)
@@ -134,31 +137,35 @@ class File implements FileInterface
             ->connectTimeout(1)
             ->timeout(3)
             ->name('AliyunVod');
-        if (Util::isImage($data['mimetype'])) {
-            // 图片
-            $result = Vod::V20170321()->getImageInfo()->client('AliyunVod')->withImageId($data['savename'])->format('JSON')->request();
-            if ($result->isSuccess()) {
-                $url = $result->ImageInfo->URL;
-            }
-
-        } else if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
-            $url = [];
-            // 音视频
-            $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
-            if ($result->isSuccess()) {
-                $items = $result->PlayInfoList->PlayInfo;
-                foreach ($items as $item) {
-                    $url[] = [
-                        'definition' => $item->Definition,
-                        'play_url'   => $item->PlayURL,
-                    ];
+        try {
+            if (Util::isImage($data['mimetype'])) {
+                // 图片
+                $result = Vod::V20170321()->getImageInfo()->client('AliyunVod')->withImageId($data['savename'])->format('JSON')->request();
+                if ($result->isSuccess()) {
+                    $url = $result->ImageInfo->URL;
                 }
-            }
-        } else {
-            $endpoint  = $this->config['domain'] ?? $this->config['endpoint'];
-            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
 
-            $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');
+            } else if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
+                $url = [];
+                // 音视频
+                $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
+                if ($result->isSuccess()) {
+                    $items = $result->PlayInfoList->PlayInfo;
+                    foreach ($items as $item) {
+                        $url[] = [
+                            'definition' => $item->Definition,
+                            'play_url'   => $item->PlayURL,
+                        ];
+                    }
+                }
+            } else {
+                $endpoint  = $this->config['domain'] ?? $this->config['endpoint'];
+                $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+
+                $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');
+            }
+        } catch (\Exception $e) {
+            $url = '';
         }
 
         return $url;
