@@ -1,9 +1,7 @@
 <?php
-declare (strict_types = 1);
-namespace eduline\upload\utils;
+declare (strict_types=1);
 
-use think\facade\Validate;
-use think\File as ThinkFile;
+namespace eduline\upload\utils;
 
 class Util
 {
@@ -49,11 +47,11 @@ class Util
      * 是否图片文件
      * @Author   Martinsun<syh@sunyonghong.com>
      * @DateTime 2020-08-16
-     * @param    string                         $filepath [description]
+     * @param string $filepath [description]
      * @return   boolean                                  [description]
      */
     public static function isImageFile(string $filepath)
     {
-        return Validate::is(new ThinkFile($filepath), 'image');
+        return Util::isImage($filepath) && is_file($filepath);
     }
 }
