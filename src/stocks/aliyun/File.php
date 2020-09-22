@@ -85,7 +85,7 @@ class File implements FileInterface
                 $attach->savename = $videoId;
                 $attach->savepath = '';
                 $attach->bucket   = '';
-            } else if (Util::isImageFile($filepath)) {
+            } else if (Util::isImageFile($attach->mimetype, $filepath)) {
                 // 图片上传
                 $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
                 $uploadVideoRequest = new \UploadImageRequest($filepath, $attach->filename);

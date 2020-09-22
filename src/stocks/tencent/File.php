@@ -1,10 +1,10 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\tencent;
 
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
-use eduline\upload\stocks\tencent\Config;
 use eduline\upload\utils\Util;
 use Qcloud\Cos\Client;
 use TencentCloud\Common\Credential;
@@ -19,10 +19,12 @@ use Vod\VodUploadClient;
 class File implements FileInterface
 {
     protected $config;
+
     public function __construct()
     {
         $this->config = Config::get();
     }
+
     /**
      * 本地上传 -- 不需要
      * @Author   Martinsun<syh@sunyonghong.com>
@@ -34,13 +36,14 @@ class File implements FileInterface
         throw new FileException('暂不支持该方式上传');
 
     }
+
     /**
      * 将本地文件上传到云端
      * @Author   Martinsun<syh@sunyonghong.com>
      * @DateTime 2020-03-30
-     * @param    string                         $path [description]
+     * @param string $path [description]
      * @param    [type]                         $file [description]
-     * @param    string                         $name [description]
+     * @param string $name [description]
      * @return   [type]                               [description]
      */
     public function putYunFile(Attach $attach)
@@ -55,23 +58,23 @@ class File implements FileInterface
             // 判断是否是图片 音视频
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
                 // 视频
-                $procedure            = $this->config['vod_video_procedure'] ?? false;
-                $rsp                  = $this->doUpload($filepath, $attach->filename, $procedure);
-                $attach->savename     = $rsp->FileId;
-                $attach->savepath     = '';
-                $attach->bucket       = '';
+                $procedure        = $this->config['vod_video_procedure'] ?? false;
+                $rsp              = $this->doUpload($filepath, $attach->filename, $procedure);
+                $attach->savename = $rsp->FileId;
+                $attach->savepath = '';
+                $attach->bucket   = '';
                 $procedure && $status = 4;
 
             } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
                 // 音频
-                $procedure            = $this->config['vod_audio_procedure'] ?? false;
-                $rsp                  = $this->doUpload($filepath, $attach->filename, $procedure);
-                $attach->savename     = $rsp->FileId;
-                $attach->savepath     = '';
-                $attach->bucket       = '';
+                $procedure        = $this->config['vod_audio_procedure'] ?? false;
+                $rsp              = $this->doUpload($filepath, $attach->filename, $procedure);
+                $attach->savename = $rsp->FileId;
+                $attach->savepath = '';
+                $attach->bucket   = '';
                 $procedure && $status = 4;
 
-            } else if (Util::isImageFile($filepath)) {
+            } else if (Util::isImageFile($attach->mimetype, $filepath)) {
                 // 图片
                 $rsp              = $this->doUpload($filepath, $attach->filename);
                 $attach->savename = $rsp->FileId;
@@ -168,9 +171,9 @@ class File implements FileInterface
 
                 $req = new DescribeMediaInfosRequest();
 
-                $params = array(
+                $params = [
                     "FileIds" => [$data['savename']],
-                );
+                ];
                 $req->fromJsonString(json_encode($params));
 
                 $resp = $client->DescribeMediaInfos($req);
