@@ -2,9 +2,9 @@
 
 namespace OSS\Result;
 
-
 /**
  * Class CallbackResult
+ *
  * @package OSS\Result
  */
 class CallbackResult extends PutSetDeleteResult

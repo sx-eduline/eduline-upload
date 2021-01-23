@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -21,7 +23,7 @@ namespace vod\Request\V20170321;
  * @method string getCateId()
  * @method string getAppId()
  */
-class CreateUploadImageRequest extends \RpcAcsRequest
+class CreateUploadImageRequest extends RpcAcsRequest
 {
 
     /**
@@ -50,7 +52,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -63,7 +65,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setImageType($imageType)
     {
         $this->requestParameters['ImageType'] = $imageType;
-        $this->queryParameters['ImageType'] = $imageType;
+        $this->queryParameters['ImageType']   = $imageType;
 
         return $this;
     }
@@ -76,7 +78,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -89,7 +91,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setImageExt($imageExt)
     {
         $this->requestParameters['ImageExt'] = $imageExt;
-        $this->queryParameters['ImageExt'] = $imageExt;
+        $this->queryParameters['ImageExt']   = $imageExt;
 
         return $this;
     }
@@ -102,7 +104,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description'] = $description;
+        $this->queryParameters['Description']   = $description;
 
         return $this;
     }
@@ -115,7 +117,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -128,7 +130,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title'] = $title;
+        $this->queryParameters['Title']   = $title;
 
         return $this;
     }
@@ -141,7 +143,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setTags($tags)
     {
         $this->requestParameters['Tags'] = $tags;
-        $this->queryParameters['Tags'] = $tags;
+        $this->queryParameters['Tags']   = $tags;
 
         return $this;
     }
@@ -154,7 +156,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setStorageLocation($storageLocation)
     {
         $this->requestParameters['StorageLocation'] = $storageLocation;
-        $this->queryParameters['StorageLocation'] = $storageLocation;
+        $this->queryParameters['StorageLocation']   = $storageLocation;
 
         return $this;
     }
@@ -167,7 +169,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setUserData($userData)
     {
         $this->requestParameters['UserData'] = $userData;
-        $this->queryParameters['UserData'] = $userData;
+        $this->queryParameters['UserData']   = $userData;
 
         return $this;
     }
@@ -180,7 +182,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setOriginalFileName($originalFileName)
     {
         $this->requestParameters['OriginalFileName'] = $originalFileName;
-        $this->queryParameters['OriginalFileName'] = $originalFileName;
+        $this->queryParameters['OriginalFileName']   = $originalFileName;
 
         return $this;
     }
@@ -193,7 +195,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setCateId($cateId)
     {
         $this->requestParameters['CateId'] = $cateId;
-        $this->queryParameters['CateId'] = $cateId;
+        $this->queryParameters['CateId']   = $cateId;
 
         return $this;
     }
@@ -206,7 +208,7 @@ class CreateUploadImageRequest extends \RpcAcsRequest
     public function setAppId($appId)
     {
         $this->requestParameters['AppId'] = $appId;
-        $this->queryParameters['AppId'] = $appId;
+        $this->queryParameters['AppId']   = $appId;
 
         return $this;
     }

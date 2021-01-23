@@ -11,12 +11,15 @@ namespace OSS\Model;
  * One is to get Prefix list【Can be understood as the corresponding file system directory list】
  *
  * @package OSS\Model
- * @link http://help.aliyun.com/document_detail/oss/api-reference/bucket/GetBucket.html
+ * @link    http://help.aliyun.com/document_detail/oss/api-reference/bucket/GetBucket.html
  */
 class PrefixInfo
 {
+    private $prefix;
+
     /**
      * PrefixInfo constructor.
+     *
      * @param string $prefix
      */
     public function __construct($prefix)
@@ -31,6 +34,4 @@ class PrefixInfo
     {
         return $this->prefix;
     }
-
-    private $prefix;
 }

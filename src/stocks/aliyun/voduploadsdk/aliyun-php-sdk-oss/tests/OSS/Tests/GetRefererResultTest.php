@@ -5,9 +5,9 @@ namespace OSS\Tests;
 use OSS\Result\GetRefererResult;
 use OSS\Http\ResponseCore;
 use OSS\Core\OssException;
+use PHPUnit_Framework_TestCase;
 
-
-class GetRefererResultTest extends \PHPUnit_Framework_TestCase
+class GetRefererResultTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -24,8 +24,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new GetRefererResult($response);
+        $response = new ResponseCore([], $this->validXml, 200);
+        $result   = new GetRefererResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -40,7 +40,7 @@ BBBB;
 
     public function testInvalidResponse()
     {
-        $response = new ResponseCore(array(), $this->validXml, 300);
+        $response = new ResponseCore([], $this->validXml, 300);
         try {
             new GetRefererResult($response);
             $this->assertTrue(false);

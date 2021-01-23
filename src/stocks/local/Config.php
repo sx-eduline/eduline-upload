@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\local;
 
 use app\admin\logic\system\Config as SystemConfig;
@@ -10,10 +11,12 @@ use eduline\upload\interfaces\ConfigInterface;
 class Config implements ConfigInterface
 {
     protected static $key = 'system.package.upload.local';
+
     /**
      * 配置界面
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-28
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-28
+     *
      * @return   [type]                         [description]
      */
     public static function page(): PageForm
@@ -35,8 +38,9 @@ class Config implements ConfigInterface
 
     /**
      * 获取配置
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-28
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-28
+     *
      * @return   [type]                         [description]
      */
     public static function get($name = null)

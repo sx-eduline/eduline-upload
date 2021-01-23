@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -9,7 +11,7 @@ namespace vod\Request\V20170321;
  *
  * @method string getAuditContent()
  */
-class CreateAuditRequest extends \RpcAcsRequest
+class CreateAuditRequest extends RpcAcsRequest
 {
 
     /**
@@ -38,7 +40,7 @@ class CreateAuditRequest extends \RpcAcsRequest
     public function setAuditContent($auditContent)
     {
         $this->requestParameters['AuditContent'] = $auditContent;
-        $this->queryParameters['AuditContent'] = $auditContent;
+        $this->queryParameters['AuditContent']   = $auditContent;
 
         return $this;
     }

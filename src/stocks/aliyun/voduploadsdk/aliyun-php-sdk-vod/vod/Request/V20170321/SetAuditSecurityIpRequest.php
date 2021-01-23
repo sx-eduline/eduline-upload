@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -11,7 +13,7 @@ namespace vod\Request\V20170321;
  * @method string getSecurityGroupName()
  * @method string getIps()
  */
-class SetAuditSecurityIpRequest extends \RpcAcsRequest
+class SetAuditSecurityIpRequest extends RpcAcsRequest
 {
 
     /**
@@ -40,7 +42,7 @@ class SetAuditSecurityIpRequest extends \RpcAcsRequest
     public function setOperateMode($operateMode)
     {
         $this->requestParameters['OperateMode'] = $operateMode;
-        $this->queryParameters['OperateMode'] = $operateMode;
+        $this->queryParameters['OperateMode']   = $operateMode;
 
         return $this;
     }
@@ -53,7 +55,7 @@ class SetAuditSecurityIpRequest extends \RpcAcsRequest
     public function setSecurityGroupName($securityGroupName)
     {
         $this->requestParameters['SecurityGroupName'] = $securityGroupName;
-        $this->queryParameters['SecurityGroupName'] = $securityGroupName;
+        $this->queryParameters['SecurityGroupName']   = $securityGroupName;
 
         return $this;
     }
@@ -66,7 +68,7 @@ class SetAuditSecurityIpRequest extends \RpcAcsRequest
     public function setIps($ips)
     {
         $this->requestParameters['Ips'] = $ips;
-        $this->queryParameters['Ips'] = $ips;
+        $this->queryParameters['Ips']   = $ips;
 
         return $this;
     }

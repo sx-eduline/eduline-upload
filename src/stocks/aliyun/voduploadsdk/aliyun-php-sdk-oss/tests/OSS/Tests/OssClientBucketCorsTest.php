@@ -9,13 +9,12 @@ use OSS\OssClient;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
 
-
 class OssClientBucketCorsTest extends TestOssClientBase
 {
     public function testBucket()
     {
         $corsConfig = new CorsConfig();
-        $rule = new CorsRule();
+        $rule       = new CorsRule();
         $rule->addAllowedHeader("x-oss-test");
         $rule->addAllowedHeader("x-oss-test2");
         $rule->addAllowedHeader("x-oss-test2");
@@ -42,7 +41,7 @@ class OssClientBucketCorsTest extends TestOssClientBase
         try {
             $this->ossClient->putBucketCors($this->bucket, $corsConfig);
         } catch (OssException $e) {
-            $this->assertFalse(True);
+            $this->assertFalse(true);
         }
 
         try {
@@ -61,14 +60,14 @@ class OssClientBucketCorsTest extends TestOssClientBase
             $this->assertNotNull($corsConfig2);
             $this->assertEquals($corsConfig->serializeToXml(), $corsConfig2->serializeToXml());
         } catch (OssException $e) {
-            $this->assertFalse(True);
+            $this->assertFalse(true);
         }
 
         try {
             Common::waitMetaSync();
             $this->ossClient->deleteBucketCors($this->bucket);
         } catch (OssException $e) {
-            $this->assertFalse(True);
+            $this->assertFalse(true);
         }
 
         try {
@@ -77,7 +76,7 @@ class OssClientBucketCorsTest extends TestOssClientBase
             $this->assertNotNull($corsConfig3);
             $this->assertNotEquals($corsConfig->serializeToXml(), $corsConfig3->serializeToXml());
         } catch (OssException $e) {
-            $this->assertFalse(True);
+            $this->assertFalse(true);
         }
 
     }

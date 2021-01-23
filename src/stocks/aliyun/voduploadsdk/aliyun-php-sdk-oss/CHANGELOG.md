@@ -65,10 +65,10 @@
 * Increase the ListObjects/ListMultipartUploads special characters
 * Provides the interface to get the details of the OssException
 
-
 ## 2015.11.25
 
-* **Large version upgrade, no longer compatible with previous interface, new version has made great improvements to ease of use, suggesting that users migrate to a new version.**
+* **Large version upgrade, no longer compatible with previous interface, new version has made great improvements to ease
+  of use, suggesting that users migrate to a new version.**
 
 ## Modify the content
 
@@ -79,7 +79,8 @@
 * Introduce namespace
 * Interface naming and modification, using hump naming
 * The interface is modified, and the common parameters are extracted from the Options parameter.
-* The interface returns the result modification, processing the return result, and the user can directly get the data structure easily processed　
+* The interface returns the result modification, processing the return result, and the user can directly get the data
+  structure easily processed
 * OssClient's constructor changes
 * The Endpoint address that support CNAME and IP formats
 * Rearrange the sample file organization structure and use function to organize the function points

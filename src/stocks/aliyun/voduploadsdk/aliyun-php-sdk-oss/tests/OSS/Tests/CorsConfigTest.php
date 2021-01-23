@@ -2,12 +2,12 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Model\CorsConfig;
 use OSS\Model\CorsRule;
 use OSS\Core\OssException;
+use PHPUnit_Framework_TestCase;
 
-class CorsConfigTest extends \PHPUnit_Framework_TestCase
+class CorsConfigTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -84,7 +84,7 @@ BBBB;
     public function testCreateCorsConfigFromMoreThan10Rules()
     {
         $corsConfig = new CorsConfig();
-        $rule = new CorsRule();
+        $rule       = new CorsRule();
         for ($i = 0; $i < CorsConfig::OSS_MAX_RULES; $i += 1) {
             $corsConfig->addRule($rule);
         }
@@ -99,7 +99,7 @@ BBBB;
     public function testCreateCorsConfigParamAbsent()
     {
         $corsConfig = new CorsConfig();
-        $rule = new CorsRule();
+        $rule       = new CorsRule();
         $corsConfig->addRule($rule);
 
         try {
@@ -113,7 +113,7 @@ BBBB;
     public function testCreateCorsConfigFromScratch()
     {
         $corsConfig = new CorsConfig();
-        $rule = new CorsRule();
+        $rule       = new CorsRule();
         $rule->addAllowedHeader("x-oss-test");
         $rule->addAllowedHeader("x-oss-test2");
         $rule->addAllowedHeader("x-oss-test2");

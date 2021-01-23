@@ -8,10 +8,11 @@
 
 ## 概述
 
-阿里云对象存储（Object Storage Service，简称OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。用户可以通过调用API，在任何应用、任何时间、任何地点上传和下载数据，也可以通过用户Web控制台对数据进行简单的管理。OSS适合存放任意文件类型，适合各种网站、开发企业及开发者使用。
-
+阿里云对象存储（Object Storage
+Service，简称OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。用户可以通过调用API，在任何应用、任何时间、任何地点上传和下载数据，也可以通过用户Web控制台对数据进行简单的管理。OSS适合存放任意文件类型，适合各种网站、开发企业及开发者使用。
 
 ## 运行环境
+
 - PHP 5.3+
 - cURL extension
 
@@ -35,8 +36,7 @@
 
         require_once __DIR__ . '/vendor/autoload.php';
 
-2. 您也可以直接下载已经打包好的[phar文件][releases-page]，然后在你
-   的代码中引入这个文件即可：
+2. 您也可以直接下载已经打包好的[phar文件][releases-page]，然后在你 的代码中引入这个文件即可：
 
         require_once '/path/to/oss-sdk-php.phar';
 
@@ -59,7 +59,7 @@ SDK的OSS操作通过OssClient类完成的，下面代码创建一个OssClient�
 
 ```php
 <?php
-$accessKeyId = "<您从OSS获得的AccessKeyId>"; ;
+$accessKeyId = "<您从OSS获得的AccessKeyId>";
 $accessKeySecret = "<您从OSS获得的AccessKeySecret>";
 $endpoint = "<您选定的OSS数据中心访问域名，例如oss-cn-hangzhou.aliyuncs.com>";
 try {
@@ -114,8 +114,8 @@ foreach($bucketList as $bucket) {
     print($bucket->getLocation() . "\t" . $bucket->getName() . "\t" . $bucket->getCreatedate() . "\n");
 }
 ```
-上面代码中的$bucketListInfo的数据类型是 `OSS\Model\BucketListInfo`
 
+上面代码中的$bucketListInfo的数据类型是 `OSS\Model\BucketListInfo`
 
 ### 运行Sample程序
 
@@ -146,4 +146,5 @@ foreach($bucketList as $bucket) {
 - 阿里云官方技术支持：[提交工单](https://workorder.console.aliyun.com/#/ticket/createIndex)
 
 [releases-page]: https://github.com/aliyun/aliyun-oss-php-sdk/releases
+
 [phar-composer]: https://github.com/clue/phar-composer

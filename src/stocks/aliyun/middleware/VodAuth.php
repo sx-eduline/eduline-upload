@@ -1,8 +1,10 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\aliyun\middleware;
 
 use app\common\service\BaseService;
+use Closure;
 use eduline\upload\stocks\aliyun\Config;
 
 /**
@@ -11,7 +13,7 @@ use eduline\upload\stocks\aliyun\Config;
 class VodAuth
 {
 
-    public function handle($request, \Closure $next)
+    public function handle($request, Closure $next)
     {
         // 鉴权
         $vodTimestamp = $request->header('x-vod-timestamp');

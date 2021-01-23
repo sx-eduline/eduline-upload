@@ -28,7 +28,7 @@ abstract class RpcAcsRequest extends AcsRequest
     /**
      * @var array
      */
-    private $domainParameters = array();
+    private $domainParameters = [];
     /**
      * @var string
      */
@@ -131,7 +131,7 @@ abstract class RpcAcsRequest extends AcsRequest
     protected function percentEncode($str)
     {
         $res = urlencode($str);
-        $res = str_replace(array('+', '*'), array('%20', '%2A'), $res);
+        $res = str_replace(['+', '*'], ['%20', '%2A'], $res);
         $res = preg_replace('/%7E/', '~', $res);
         return $res;
     }

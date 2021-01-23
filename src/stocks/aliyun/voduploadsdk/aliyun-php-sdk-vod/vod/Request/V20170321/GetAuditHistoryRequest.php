@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -12,7 +14,7 @@ namespace vod\Request\V20170321;
  * @method string getVideoId()
  * @method string getSortBy()
  */
-class GetAuditHistoryRequest extends \RpcAcsRequest
+class GetAuditHistoryRequest extends RpcAcsRequest
 {
 
     /**
@@ -41,7 +43,7 @@ class GetAuditHistoryRequest extends \RpcAcsRequest
     public function setPageNo($pageNo)
     {
         $this->requestParameters['PageNo'] = $pageNo;
-        $this->queryParameters['PageNo'] = $pageNo;
+        $this->queryParameters['PageNo']   = $pageNo;
 
         return $this;
     }
@@ -54,7 +56,7 @@ class GetAuditHistoryRequest extends \RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize'] = $pageSize;
+        $this->queryParameters['PageSize']   = $pageSize;
 
         return $this;
     }
@@ -67,7 +69,7 @@ class GetAuditHistoryRequest extends \RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId'] = $videoId;
+        $this->queryParameters['VideoId']   = $videoId;
 
         return $this;
     }
@@ -80,7 +82,7 @@ class GetAuditHistoryRequest extends \RpcAcsRequest
     public function setSortBy($sortBy)
     {
         $this->requestParameters['SortBy'] = $sortBy;
-        $this->queryParameters['SortBy'] = $sortBy;
+        $this->queryParameters['SortBy']   = $sortBy;
 
         return $this;
     }

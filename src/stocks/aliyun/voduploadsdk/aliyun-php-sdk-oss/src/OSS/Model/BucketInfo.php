@@ -2,15 +2,34 @@
 
 namespace OSS\Model;
 
-
 /**
  * Bucket information class. This is the type of element in BucketListInfo's
  *
  * Class BucketInfo
+ *
  * @package OSS\Model
  */
 class BucketInfo
 {
+    /**
+     * bucket region
+     *
+     * @var string
+     */
+    private $location;
+    /**
+     * bucket name
+     *
+     * @var string
+     */
+    private $name;
+    /**
+     * bucket creation time
+     *
+     * @var string
+     */
+    private $createDate;
+
     /**
      * BucketInfo constructor.
      *
@@ -20,8 +39,8 @@ class BucketInfo
      */
     public function __construct($location, $name, $createDate)
     {
-        $this->location = $location;
-        $this->name = $name;
+        $this->location   = $location;
+        $this->name       = $name;
         $this->createDate = $createDate;
     }
 
@@ -54,25 +73,5 @@ class BucketInfo
     {
         return $this->createDate;
     }
-
-    /**
-     * bucket region
-     *
-     * @var string
-     */
-    private $location;
-    /**
-     * bucket name
-     *
-     * @var string
-     */
-    private $name;
-
-    /**
-     * bucket creation time
-     *
-     * @var string
-     */
-    private $createDate;
 
 }

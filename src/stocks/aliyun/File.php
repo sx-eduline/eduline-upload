@@ -5,12 +5,15 @@ namespace eduline\upload\stocks\aliyun;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Vod\Vod;
+use AliyunVodUploader;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
-use eduline\upload\stocks\aliyun\Config;
 use eduline\upload\utils\Util;
+use Exception;
 use OSS\OssClient;
 use think\exception\FileException;
+use UploadImageRequest;
+use UploadVideoRequest;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'voduploadsdk' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 
@@ -25,8 +28,9 @@ class File implements FileInterface
 
     /**
      * 本地上传 -- 不需要
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-15
+     *
      * @return   [type]                         [description]
      */
     public function putFile()
@@ -37,8 +41,9 @@ class File implements FileInterface
 
     /**
      * 将本地文件上传到云端
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
+     *
      * @param string $path [description]
      * @param    [type]                         $file [description]
      * @param string $name [description]
@@ -56,8 +61,8 @@ class File implements FileInterface
             // 判断是否是图片 音视频
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
                 // 视频上传
-                $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
-                $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploadVideoRequest = new UploadVideoRequest($filepath, $attach->filename);
                 // 是否配置了视频处理流程
                 if ($this->config['vod_video_workflow_id'] ?? false) {
                     $uploadVideoRequest->setWorkflowId($this->config['vod_video_workflow_id']);
@@ -72,8 +77,8 @@ class File implements FileInterface
 
             } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
                 // 音频上传
-                $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
-                $uploadVideoRequest = new \UploadVideoRequest($filepath, $attach->filename);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploadVideoRequest = new UploadVideoRequest($filepath, $attach->filename);
                 // 是否配置了音频处理流程
                 if ($this->config['vod_audio_workflow_id'] ?? false) {
                     $uploadVideoRequest->setWorkflowId($this->config['vod_audio_workflow_id']);
@@ -87,8 +92,8 @@ class File implements FileInterface
                 $attach->bucket   = '';
             } else if (Util::isImageFile($attach->mimetype, $filepath)) {
                 // 图片上传
-                $uploader           = new \AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
-                $uploadVideoRequest = new \UploadImageRequest($filepath, $attach->filename);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploadVideoRequest = new UploadImageRequest($filepath, $attach->filename);
 
                 $image = $uploader->uploadLocalImage($uploadVideoRequest);
 
@@ -113,7 +118,7 @@ class File implements FileInterface
             $attach->status = $status;
 
             return $attach->save();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Attach::update(['status' => 0], ['id' => $attach->id]);
             throw new FileException($e->getMessage());
 
@@ -123,8 +128,8 @@ class File implements FileInterface
 
     /**
      * 文件的url
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function url(array $data = [])
     {
@@ -164,7 +169,7 @@ class File implements FileInterface
 
                 $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $url = '';
         }
 
@@ -173,8 +178,8 @@ class File implements FileInterface
 
     /**
      * 文件的储存路径
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function path(array $data = [])
     {

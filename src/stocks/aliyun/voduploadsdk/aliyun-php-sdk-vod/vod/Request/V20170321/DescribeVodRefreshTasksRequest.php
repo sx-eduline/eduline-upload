@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -20,7 +22,7 @@ namespace vod\Request\V20170321;
  * @method string getTaskId()
  * @method string getStatus()
  */
-class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
+class DescribeVodRefreshTasksRequest extends RpcAcsRequest
 {
 
     /**
@@ -49,7 +51,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setObjectPath($objectPath)
     {
         $this->requestParameters['ObjectPath'] = $objectPath;
-        $this->queryParameters['ObjectPath'] = $objectPath;
+        $this->queryParameters['ObjectPath']   = $objectPath;
 
         return $this;
     }
@@ -62,7 +64,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setDomainName($domainName)
     {
         $this->requestParameters['DomainName'] = $domainName;
-        $this->queryParameters['DomainName'] = $domainName;
+        $this->queryParameters['DomainName']   = $domainName;
 
         return $this;
     }
@@ -75,7 +77,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime'] = $endTime;
+        $this->queryParameters['EndTime']   = $endTime;
 
         return $this;
     }
@@ -88,7 +90,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime'] = $startTime;
+        $this->queryParameters['StartTime']   = $startTime;
 
         return $this;
     }
@@ -101,7 +103,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -114,7 +116,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setPageNumber($pageNumber)
     {
         $this->requestParameters['PageNumber'] = $pageNumber;
-        $this->queryParameters['PageNumber'] = $pageNumber;
+        $this->queryParameters['PageNumber']   = $pageNumber;
 
         return $this;
     }
@@ -127,7 +129,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setResourceGroupId($resourceGroupId)
     {
         $this->requestParameters['ResourceGroupId'] = $resourceGroupId;
-        $this->queryParameters['ResourceGroupId'] = $resourceGroupId;
+        $this->queryParameters['ResourceGroupId']   = $resourceGroupId;
 
         return $this;
     }
@@ -140,7 +142,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setSecurityToken($securityToken)
     {
         $this->requestParameters['SecurityToken'] = $securityToken;
-        $this->queryParameters['SecurityToken'] = $securityToken;
+        $this->queryParameters['SecurityToken']   = $securityToken;
 
         return $this;
     }
@@ -153,7 +155,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize'] = $pageSize;
+        $this->queryParameters['PageSize']   = $pageSize;
 
         return $this;
     }
@@ -166,7 +168,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setObjectType($objectType)
     {
         $this->requestParameters['ObjectType'] = $objectType;
-        $this->queryParameters['ObjectType'] = $objectType;
+        $this->queryParameters['ObjectType']   = $objectType;
 
         return $this;
     }
@@ -179,7 +181,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setTaskId($taskId)
     {
         $this->requestParameters['TaskId'] = $taskId;
-        $this->queryParameters['TaskId'] = $taskId;
+        $this->queryParameters['TaskId']   = $taskId;
 
         return $this;
     }
@@ -192,7 +194,7 @@ class DescribeVodRefreshTasksRequest extends \RpcAcsRequest
     public function setStatus($status)
     {
         $this->requestParameters['Status'] = $status;
-        $this->queryParameters['Status'] = $status;
+        $this->queryParameters['Status']   = $status;
 
         return $this;
     }

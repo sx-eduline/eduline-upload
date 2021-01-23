@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +16,7 @@ namespace vod\Request\V20170321;
  * @method string getEndTime()
  * @method string getOwnerId()
  */
-class DescribeVodDomainLogRequest extends \RpcAcsRequest
+class DescribeVodDomainLogRequest extends RpcAcsRequest
 {
 
     /**
@@ -43,7 +45,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime'] = $startTime;
+        $this->queryParameters['StartTime']   = $startTime;
 
         return $this;
     }
@@ -56,7 +58,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setPageNumber($pageNumber)
     {
         $this->requestParameters['PageNumber'] = $pageNumber;
-        $this->queryParameters['PageNumber'] = $pageNumber;
+        $this->queryParameters['PageNumber']   = $pageNumber;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize'] = $pageSize;
+        $this->queryParameters['PageSize']   = $pageSize;
 
         return $this;
     }
@@ -82,7 +84,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setDomainName($domainName)
     {
         $this->requestParameters['DomainName'] = $domainName;
-        $this->queryParameters['DomainName'] = $domainName;
+        $this->queryParameters['DomainName']   = $domainName;
 
         return $this;
     }
@@ -95,7 +97,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime'] = $endTime;
+        $this->queryParameters['EndTime']   = $endTime;
 
         return $this;
     }
@@ -108,7 +110,7 @@ class DescribeVodDomainLogRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }

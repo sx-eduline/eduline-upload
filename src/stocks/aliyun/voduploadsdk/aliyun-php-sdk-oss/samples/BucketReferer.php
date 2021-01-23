@@ -5,7 +5,7 @@ use OSS\OssClient;
 use OSS\Core\OssException;
 use \OSS\Model\RefererConfig;
 
-$bucket = Common::getBucketName();
+$bucket    = Common::getBucketName();
 $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 
@@ -27,7 +27,6 @@ $refererConfig = new RefererConfig();
 $ossClient->putBucketReferer($bucket, $refererConfig);
 Common::println("bucket $bucket refererConfig deleted");
 
-
 //******************************* For complete usage, see the following functions ****************************************************
 
 putBucketReferer($ossClient, $bucket);
@@ -39,7 +38,7 @@ getBucketReferer($ossClient, $bucket);
  * Set bucket referer configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function putBucketReferer($ossClient, $bucket)
@@ -62,7 +61,7 @@ function putBucketReferer($ossClient, $bucket)
  * Get bucket referer configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getBucketReferer($ossClient, $bucket)
@@ -84,7 +83,7 @@ function getBucketReferer($ossClient, $bucket)
  * Referer whitelist cannot be directly deleted. So use a empty one to overwrite it.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function deleteBucketReferer($ossClient, $bucket)

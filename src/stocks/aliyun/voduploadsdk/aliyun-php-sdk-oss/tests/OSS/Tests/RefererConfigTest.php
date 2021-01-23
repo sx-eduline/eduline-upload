@@ -2,10 +2,10 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Model\RefererConfig;
+use PHPUnit_Framework_TestCase;
 
-class RefererConfigTest extends \PHPUnit_Framework_TestCase
+class RefererConfigTest extends PHPUnit_Framework_TestCase
 {
 
     private $validXml = <<<BBBB

@@ -5,8 +5,9 @@ namespace OSS\Tests;
 use OSS\Core\OssException;
 use OSS\Http\ResponseCore;
 use OSS\Result\PutSetDeleteResult;
+use PHPUnit_Framework_TestCase;
 
-class ResultTest extends \PHPUnit_Framework_TestCase
+class ResultTest extends PHPUnit_Framework_TestCase
 {
 
     public function testNullResponse()
@@ -22,18 +23,18 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     public function testOkResponse()
     {
-        $header= array(
+        $header   = [
             'x-oss-request-id' => '582AA51E004C4550BD27E0E4',
-            'etag' => '595FA1EA77945233921DF12427F9C7CE',
-            'content-md5' => 'WV+h6neUUjOSHfEkJ/nHzg==',
-            'info' => array(
+            'etag'             => '595FA1EA77945233921DF12427F9C7CE',
+            'content-md5'      => 'WV+h6neUUjOSHfEkJ/nHzg==',
+            'info'             => [
                 'http_code' => '200',
-                'method' => 'PUT'
-            ),
-        );
+                'method'    => 'PUT'
+            ],
+        ];
         $response = new ResponseCore($header, "this is a mock body, just for test", 200);
-        $result = new PutSetDeleteResult($response);
-        $data = $result->getData();
+        $result   = new PutSetDeleteResult($response);
+        $data     = $result->getData();
         $this->assertTrue($result->isOK());
         $this->assertEquals("this is a mock body, just for test", $data['body']);
         $this->assertEquals('582AA51E004C4550BD27E0E4', $data['x-oss-request-id']);
@@ -45,7 +46,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     public function testFailResponse()
     {
-        $response = new ResponseCore(array(), "", 301);
+        $response = new ResponseCore([], "", 301);
         try {
             new PutSetDeleteResult($response);
             $this->assertFalse(true);

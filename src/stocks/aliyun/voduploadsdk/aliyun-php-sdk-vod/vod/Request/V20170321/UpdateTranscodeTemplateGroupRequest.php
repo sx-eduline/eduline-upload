@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -15,7 +17,7 @@ namespace vod\Request\V20170321;
  * @method string getLocked()
  * @method string getTranscodeTemplateGroupId()
  */
-class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
+class UpdateTranscodeTemplateGroupRequest extends RpcAcsRequest
 {
 
     /**
@@ -44,7 +46,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setTranscodeTemplateList($transcodeTemplateList)
     {
         $this->requestParameters['TranscodeTemplateList'] = $transcodeTemplateList;
-        $this->queryParameters['TranscodeTemplateList'] = $transcodeTemplateList;
+        $this->queryParameters['TranscodeTemplateList']   = $transcodeTemplateList;
 
         return $this;
     }
@@ -57,7 +59,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -70,7 +72,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -83,7 +85,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setName($name)
     {
         $this->requestParameters['Name'] = $name;
-        $this->queryParameters['Name'] = $name;
+        $this->queryParameters['Name']   = $name;
 
         return $this;
     }
@@ -96,7 +98,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -109,7 +111,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setLocked($locked)
     {
         $this->requestParameters['Locked'] = $locked;
-        $this->queryParameters['Locked'] = $locked;
+        $this->queryParameters['Locked']   = $locked;
 
         return $this;
     }
@@ -122,7 +124,7 @@ class UpdateTranscodeTemplateGroupRequest extends \RpcAcsRequest
     public function setTranscodeTemplateGroupId($transcodeTemplateGroupId)
     {
         $this->requestParameters['TranscodeTemplateGroupId'] = $transcodeTemplateGroupId;
-        $this->queryParameters['TranscodeTemplateGroupId'] = $transcodeTemplateGroupId;
+        $this->queryParameters['TranscodeTemplateGroupId']   = $transcodeTemplateGroupId;
 
         return $this;
     }

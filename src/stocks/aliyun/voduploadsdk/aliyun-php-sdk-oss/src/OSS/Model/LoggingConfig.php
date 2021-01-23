@@ -2,16 +2,22 @@
 
 namespace OSS\Model;
 
+use SimpleXMLElement;
 
 /**
  * Class LoggingConfig
+ *
  * @package OSS\Model
- * @link http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketLogging.html
+ * @link    http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketLogging.html
  */
 class LoggingConfig implements XmlConfig
 {
+    private $targetBucket = "";
+    private $targetPrefix = "";
+
     /**
      * LoggingConfig constructor.
+     *
      * @param null $targetBucket
      * @param null $targetPrefix
      */
@@ -33,7 +39,7 @@ class LoggingConfig implements XmlConfig
             foreach ($status as $key => $value) {
                 if ($key === 'TargetBucket') {
                     $this->targetBucket = strval($value);
-                } elseif ($key === 'TargetPrefix') {
+                } else if ($key === 'TargetPrefix') {
                     $this->targetPrefix = strval($value);
                 }
             }
@@ -42,26 +48,26 @@ class LoggingConfig implements XmlConfig
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->serializeToXml();
+    }
+
+    /**
      *  Serialize to xml string
      *
      */
     public function serializeToXml()
     {
-        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><BucketLoggingStatus></BucketLoggingStatus>');
+        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><BucketLoggingStatus></BucketLoggingStatus>');
         if (isset($this->targetBucket) && isset($this->targetPrefix)) {
             $loggingEnabled = $xml->addChild('LoggingEnabled');
             $loggingEnabled->addChild('TargetBucket', $this->targetBucket);
             $loggingEnabled->addChild('TargetPrefix', $this->targetPrefix);
         }
         return $xml->asXML();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->serializeToXml();
     }
 
     /**
@@ -79,8 +85,5 @@ class LoggingConfig implements XmlConfig
     {
         return $this->targetPrefix;
     }
-
-    private $targetBucket = "";
-    private $targetPrefix = "";
 
 }

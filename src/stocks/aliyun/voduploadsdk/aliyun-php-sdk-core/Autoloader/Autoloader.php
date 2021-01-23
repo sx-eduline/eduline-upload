@@ -24,14 +24,14 @@ class Autoloader
     /**
      * @var array
      */
-    private static $autoloadPathArray = array(
+    private static $autoloadPathArray = [
         'aliyun-php-sdk-core',
         'aliyun-php-sdk-core/Auth',
         'aliyun-php-sdk-core/Http',
         'aliyun-php-sdk-core/Profile',
         'aliyun-php-sdk-core/Regions',
         'aliyun-php-sdk-core/Exception',
-    );
+    ];
 
     /**
      * Automatically find the class and load it.

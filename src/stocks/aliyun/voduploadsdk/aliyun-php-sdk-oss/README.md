@@ -8,39 +8,44 @@
 
 ## Overview
 
-Alibaba Cloud Object Storage Service (OSS) is a cloud storage service provided by Alibaba Cloud, featuring a massive capacity, security, a low cost, and high reliability. You can upload and download data on any application anytime and anywhere by calling APIs, and perform simple management of data through the web console. The OSS can store any type of files and therefore applies to various websites, development enterprises and developers.
-
+Alibaba Cloud Object Storage Service (OSS) is a cloud storage service provided by Alibaba Cloud, featuring a massive
+capacity, security, a low cost, and high reliability. You can upload and download data on any application anytime and
+anywhere by calling APIs, and perform simple management of data through the web console. The OSS can store any type of
+files and therefore applies to various websites, development enterprises and developers.
 
 ## Run environment
+
 - PHP 5.3+.
 - cURL extension.
 
 Tips:
 
-- In Ubuntu, you can use the ***apt-get*** package manager to install the *PHP cURL extension*: `sudo apt-get install php5-curl`.
+- In Ubuntu, you can use the ***apt-get*** package manager to install the *PHP cURL
+  extension*: `sudo apt-get install php5-curl`.
 
 ## Install OSS PHP SDK
 
-- If you use the ***composer*** to manage project dependencies, run the following command in your project's root directory:
+- If you use the ***composer*** to manage project dependencies, run the following command in your project's root
+  directory:
 
         composer require aliyuncs/oss-sdk-php
 
-   You can also declare the dependency on Alibaba Cloud OSS SDK for PHP in the `composer.json` file.
+  You can also declare the dependency on Alibaba Cloud OSS SDK for PHP in the `composer.json` file.
 
         "require": {
             "aliyuncs/oss-sdk-php": "~2.0"
         }
 
-   Then run `composer install` to install the dependency. After the Composer Dependency Manager is installed, import the dependency in your PHP code: 
+  Then run `composer install` to install the dependency. After the Composer Dependency Manager is installed, import the
+  dependency in your PHP code:
 
         require_once __DIR__ . '/vendor/autoload.php';
 
-- You can also directly download the packaged [PHAR File][releases-page], and 
-   introduce the file to your code: 
+- You can also directly download the packaged [PHAR File][releases-page], and introduce the file to your code:
 
         require_once '/path/to/oss-sdk-php.phar';
 
-- Download the SDK source code, and introduce the `autoload.php` file under the SDK directory to your code: 
+- Download the SDK source code, and introduce the `autoload.php` file under the SDK directory to your code:
 
         require_once '/path/to/oss-sdk/autoload.php';
 
@@ -71,7 +76,8 @@ try {
 
 ### Operations on objects
 
-Objects are the most basic data units on the OSS. You can simply consider objects as files. The following code uploads an object:
+Objects are the most basic data units on the OSS. You can simply consider objects as files. The following code uploads
+an object:
 
 ```php
 <?php
@@ -87,7 +93,8 @@ try {
 
 ### Operations on buckets
 
-Buckets are the space that you use to manage the stored objects. It is an object management unit for users. Each object must belong to a bucket. You can create a bucket with the following code:
+Buckets are the space that you use to manage the stored objects. It is an object management unit for users. Each object
+must belong to a bucket. You can create a bucket with the following code:
 
 ```php
 <?php
@@ -103,8 +110,10 @@ try {
 
 The OSSClient provides the following two types of returned data from interfaces:
 
-- Put and Delete interfaces: The *PUT* and *DELETE* operations are deemed successful if *null* is returned by the interfaces without *OSSException*.
-- Get and List interfaces: The *GET* and *LIST* operations are deemed successful if the desired data is returned by the interfaces without *OSSException*. For example, 
+- Put and Delete interfaces: The *PUT* and *DELETE* operations are deemed successful if *null* is returned by the
+  interfaces without *OSSException*.
+- Get and List interfaces: The *GET* and *LIST* operations are deemed successful if the desired data is returned by the
+  interfaces without *OSSException*. For example,
 
     ```php
     <?php
@@ -114,18 +123,18 @@ The OSSClient provides the following two types of returned data from interfaces:
         print($bucket->getLocation() . "\t" . $bucket->getName() . "\t" . $bucket->getCreatedate() . "\n");
     }
     ```
-In the above code, $bucketListInfo falls into the 'OSS\Model\BucketListInfo' data type.
 
+In the above code, $bucketListInfo falls into the 'OSS\Model\BucketListInfo' data type.
 
 ### Run a sample project
 
-- Modify `samples/Config.php` to complete the configuration information. 
-- Run `cd samples/ && php RunAll.php`. 
+- Modify `samples/Config.php` to complete the configuration information.
+- Run `cd samples/ && php RunAll.php`.
 
 ### Run a unit test
 
-- Run `composer install` to download the dependent libraries. 
-- Set the environment variable. 
+- Run `composer install` to download the dependent libraries.
+- Set the environment variable.
 
         export OSS_ACCESS_KEY_ID=access-key-id
         export OSS_ACCESS_KEY_SECRET=access-key-secret
@@ -143,8 +152,10 @@ In the above code, $bucketListInfo falls into the 'OSS\Model\BucketListInfo' dat
 - [Alibaba Cloud OSS official website](http://oss.aliyun.com).
 - [Alibaba Cloud OSS official forum](http://bbs.aliyun.com).
 - [Alibaba Cloud OSS official documentation center](http://www.aliyun.com/product/oss#Docs).
-- Alibaba Cloud official technical support: [Submit a ticket](https://workorder.console.aliyun.com/#/ticket/createIndex).
+- Alibaba Cloud official technical support: [Submit a ticket](https://workorder.console.aliyun.com/#/ticket/createIndex)
+  .
 
 [releases-page]: https://github.com/aliyun/aliyun-oss-php-sdk/releases
+
 [phar-composer]: https://github.com/clue/phar-composer
 

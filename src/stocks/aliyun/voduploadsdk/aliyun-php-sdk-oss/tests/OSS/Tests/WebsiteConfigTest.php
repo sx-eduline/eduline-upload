@@ -2,10 +2,10 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Model\WebsiteConfig;
+use PHPUnit_Framework_TestCase;
 
-class WebsiteConfigTest extends \PHPUnit_Framework_TestCase
+class WebsiteConfigTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>

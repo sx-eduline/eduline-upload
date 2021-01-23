@@ -2,11 +2,11 @@
 
 namespace OSS\Result;
 
-
 use OSS\Model\LifecycleConfig;
 
 /**
  * Class GetLifecycleResult
+ *
  * @package OSS\Result
  */
 class GetLifecycleResult extends Result
@@ -19,7 +19,7 @@ class GetLifecycleResult extends Result
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
-        $config = new LifecycleConfig();
+        $config  = new LifecycleConfig();
         $config->parseFromXml($content);
         return $config;
     }

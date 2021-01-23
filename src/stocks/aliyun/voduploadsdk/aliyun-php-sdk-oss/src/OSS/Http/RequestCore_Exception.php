@@ -2,7 +2,9 @@
 
 namespace OSS\Http;
 
-class RequestCore_Exception extends \Exception
+use Exception;
+
+class RequestCore_Exception extends Exception
 {
 
 }

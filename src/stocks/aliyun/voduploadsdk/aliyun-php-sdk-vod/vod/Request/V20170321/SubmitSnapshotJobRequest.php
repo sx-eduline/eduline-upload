@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -19,7 +21,7 @@ namespace vod\Request\V20170321;
  * @method string getSnapshotTemplateId()
  * @method string getHeight()
  */
-class SubmitSnapshotJobRequest extends \RpcAcsRequest
+class SubmitSnapshotJobRequest extends RpcAcsRequest
 {
 
     /**
@@ -48,7 +50,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -61,7 +63,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -74,7 +76,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setCount($count)
     {
         $this->requestParameters['Count'] = $count;
-        $this->queryParameters['Count'] = $count;
+        $this->queryParameters['Count']   = $count;
 
         return $this;
     }
@@ -87,7 +89,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId'] = $videoId;
+        $this->queryParameters['VideoId']   = $videoId;
 
         return $this;
     }
@@ -100,7 +102,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -113,7 +115,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setSpecifiedOffsetTime($specifiedOffsetTime)
     {
         $this->requestParameters['SpecifiedOffsetTime'] = $specifiedOffsetTime;
-        $this->queryParameters['SpecifiedOffsetTime'] = $specifiedOffsetTime;
+        $this->queryParameters['SpecifiedOffsetTime']   = $specifiedOffsetTime;
 
         return $this;
     }
@@ -126,7 +128,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setWidth($width)
     {
         $this->requestParameters['Width'] = $width;
-        $this->queryParameters['Width'] = $width;
+        $this->queryParameters['Width']   = $width;
 
         return $this;
     }
@@ -139,7 +141,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setInterval($interval)
     {
         $this->requestParameters['Interval'] = $interval;
-        $this->queryParameters['Interval'] = $interval;
+        $this->queryParameters['Interval']   = $interval;
 
         return $this;
     }
@@ -152,7 +154,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setSpriteSnapshotConfig($spriteSnapshotConfig)
     {
         $this->requestParameters['SpriteSnapshotConfig'] = $spriteSnapshotConfig;
-        $this->queryParameters['SpriteSnapshotConfig'] = $spriteSnapshotConfig;
+        $this->queryParameters['SpriteSnapshotConfig']   = $spriteSnapshotConfig;
 
         return $this;
     }
@@ -165,7 +167,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setSnapshotTemplateId($snapshotTemplateId)
     {
         $this->requestParameters['SnapshotTemplateId'] = $snapshotTemplateId;
-        $this->queryParameters['SnapshotTemplateId'] = $snapshotTemplateId;
+        $this->queryParameters['SnapshotTemplateId']   = $snapshotTemplateId;
 
         return $this;
     }
@@ -178,7 +180,7 @@ class SubmitSnapshotJobRequest extends \RpcAcsRequest
     public function setHeight($height)
     {
         $this->requestParameters['Height'] = $height;
-        $this->queryParameters['Height'] = $height;
+        $this->queryParameters['Height']   = $height;
 
         return $this;
     }

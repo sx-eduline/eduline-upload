@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\tencent\event;
 
 use app\common\model\Attach;
@@ -74,9 +75,9 @@ class VodEvent
         $client    = new VodClient($cred, $vodRegion, $clientProfile);
         $req       = new DescribeMediaInfosRequest();
 
-        $params = array(
+        $params = [
             "FileIds" => [$fileId],
-        );
+        ];
         $req->fromJsonString(json_encode($params));
 
         $resp = $client->DescribeMediaInfos($req);

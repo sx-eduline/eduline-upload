@@ -7,7 +7,6 @@ use OSS\Model\WebsiteConfig;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
 
-
 class OssClientBucketWebsiteTest extends TestOssClientBase
 {
     public function testBucket()

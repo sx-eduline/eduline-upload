@@ -8,7 +8,9 @@
 
 namespace UnitTest\Ft;
 
-class TestRoaApiRequest extends \RoaAcsRequest
+use RoaAcsRequest;
+
+class TestRoaApiRequest extends RoaAcsRequest
 {
     public function __construct()
     {

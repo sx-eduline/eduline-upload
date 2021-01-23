@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload;
 
 use app\common\model\Attach;
@@ -10,6 +11,7 @@ use app\common\model\Attach;
 class Client
 {
     protected $stock;
+
     public function __construct($stock = null)
     {
         // 当前处理类
@@ -20,9 +22,10 @@ class Client
 
     /**
      * 上传文件
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-29
-     * @param    string                         $savepath 需要保存的路径
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-29
+     *
+     * @param string $savepath 需要保存的路径
      * @param    [type]                         $file     [description]
      * @param    [type]                         $savename [description]
      * @return   [type]                                   [description]
@@ -39,8 +42,9 @@ class Client
 
     /**
      * 动态调用
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-29
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-29
+     *
      * @param    [type]                         $method [description]
      * @param    [type]                         $args   [description]
      * @return   [type]                                 [description]

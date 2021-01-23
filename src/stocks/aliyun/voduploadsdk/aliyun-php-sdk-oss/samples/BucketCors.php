@@ -10,12 +10,11 @@ $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 $bucket = Common::getBucketName();
 
-
 //******************************* Simple usage****************************************************************
 
 // Set cors configuration
 $corsConfig = new CorsConfig();
-$rule = new CorsRule();
+$rule       = new CorsRule();
 $rule->addAllowedHeader("x-oss-header");
 $rule->addAllowedOrigin("http://www.b.com");
 $rule->addAllowedMethod("POST");
@@ -43,13 +42,13 @@ getBucketCors($ossClient, $bucket);
  * Set bucket cores
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function putBucketCors($ossClient, $bucket)
 {
     $corsConfig = new CorsConfig();
-    $rule = new CorsRule();
+    $rule       = new CorsRule();
     $rule->addAllowedHeader("x-oss-header");
     $rule->addAllowedOrigin("http://www.b.com");
     $rule->addAllowedMethod("POST");
@@ -70,7 +69,7 @@ function putBucketCors($ossClient, $bucket)
  * Get and print the cors configuration of a bucket
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getBucketCors($ossClient, $bucket)
@@ -91,7 +90,7 @@ function getBucketCors($ossClient, $bucket)
  * Delete all cors configuraiton of a bucket
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function deleteBucketCors($ossClient, $bucket)

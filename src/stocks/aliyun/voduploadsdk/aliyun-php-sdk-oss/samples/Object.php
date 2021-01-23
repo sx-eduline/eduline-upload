@@ -4,7 +4,7 @@ require_once __DIR__ . '/Common.php';
 use OSS\OssClient;
 use OSS\Core\OssException;
 
-$bucket = Common::getBucketName();
+$bucket    = Common::getBucketName();
 $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 //******************************* Simple usage ***************************************************************
@@ -41,9 +41,9 @@ $content = $ossClient->getSymlink($bucket, "test-symlink");
 Common::println("test-symlink refer to : " . $content[OssClient::OSS_SYMLINK_TARGET]);
 
 // Download an object to a local file.
-$options = array(
+$options = [
     OssClient::OSS_FILE_DOWNLOAD => "./c.file.localcopy",
-);
+];
 $ossClient->getObject($bucket, "c.file", $options);
 Common::println("b.file is fetched to the local file: c.file.localcopy");
 Common::println("b.file is created");
@@ -68,8 +68,8 @@ $doesExist = $ossClient->doesObjectExist($bucket, "c.file.copy");
 Common::println("file c.file.copy exist? " . ($doesExist ? "yes" : "no"));
 
 // Delete multiple objects in batch
-$result = $ossClient->deleteObjects($bucket, array("b.file", "c.file"));
-foreach($result as $object)
+$result = $ossClient->deleteObjects($bucket, ["b.file", "c.file"]);
+foreach ($result as $object)
     Common::println($object);
 
 sleep(2);
@@ -96,7 +96,7 @@ putSymlink($ossClient, $bucket);
  * Create a 'virtual' folder
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function createObjectDir($ossClient, $bucket)
@@ -117,14 +117,14 @@ function createObjectDir($ossClient, $bucket)
  * Simple upload---upload specified in-memory data to an OSS object
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function putObject($ossClient, $bucket)
 {
-    $object = "oss-php-sdk-test/upload-test-object-name.txt";
+    $object  = "oss-php-sdk-test/upload-test-object-name.txt";
     $content = file_get_contents(__FILE__);
-    $options = array();
+    $options = [];
     try {
         $ossClient->putObject($bucket, $object, $content, $options);
     } catch (OssException $e) {
@@ -135,19 +135,18 @@ function putObject($ossClient, $bucket)
     print(__FUNCTION__ . ": OK" . "\n");
 }
 
-
 /**
  * Uploads a local file to OSS
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function uploadFile($ossClient, $bucket)
 {
-    $object = "oss-php-sdk-test/upload-test-object-name.txt";
+    $object   = "oss-php-sdk-test/upload-test-object-name.txt";
     $filePath = __FILE__;
-    $options = array();
+    $options  = [];
 
     try {
         $ossClient->uploadFile($bucket, $object, $filePath, $options);
@@ -160,26 +159,26 @@ function uploadFile($ossClient, $bucket)
 }
 
 /**
- * Lists all files and folders in the bucket. 
+ * Lists all files and folders in the bucket.
  * Note if there's more items than the max-keys specified, the caller needs to use the nextMarker returned as the value for the next call's maker paramter.
  * Loop through all the items returned from ListObjects.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function listObjects($ossClient, $bucket)
 {
-    $prefix = 'oss-php-sdk-test/';
-    $delimiter = '/';
+    $prefix     = 'oss-php-sdk-test/';
+    $delimiter  = '/';
     $nextMarker = '';
-    $maxkeys = 1000;
-    $options = array(
+    $maxkeys    = 1000;
+    $options    = [
         'delimiter' => $delimiter,
-        'prefix' => $prefix,
-        'max-keys' => $maxkeys,
-        'marker' => $nextMarker,
-    );
+        'prefix'    => $prefix,
+        'max-keys'  => $maxkeys,
+        'marker'    => $nextMarker,
+    ];
     try {
         $listObjectInfo = $ossClient->listObjects($bucket, $options);
     } catch (OssException $e) {
@@ -208,7 +207,7 @@ function listObjects($ossClient, $bucket)
  * Lists all folders and files under the bucket. Use nextMarker repeatedly to get all objects.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function listAllObjects($ossClient, $bucket)
@@ -219,18 +218,18 @@ function listAllObjects($ossClient, $bucket)
         $ossClient->createObjectDir($bucket, "dir/obj" . strval($i));
     }
 
-    $prefix = 'dir/';
-    $delimiter = '/';
+    $prefix     = 'dir/';
+    $delimiter  = '/';
     $nextMarker = '';
-    $maxkeys = 30;
+    $maxkeys    = 30;
 
     while (true) {
-        $options = array(
+        $options = [
             'delimiter' => $delimiter,
-            'prefix' => $prefix,
-            'max-keys' => $maxkeys,
-            'marker' => $nextMarker,
-        );
+            'prefix'    => $prefix,
+            'max-keys'  => $maxkeys,
+            'marker'    => $nextMarker,
+        ];
         var_dump($options);
         try {
             $listObjectInfo = $ossClient->listObjects($bucket, $options);
@@ -255,13 +254,13 @@ function listAllObjects($ossClient, $bucket)
  * Get the content of an object.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getObject($ossClient, $bucket)
 {
-    $object = "oss-php-sdk-test/upload-test-object-name.txt";
-    $options = array();
+    $object  = "oss-php-sdk-test/upload-test-object-name.txt";
+    $options = [];
     try {
         $content = $ossClient->getObject($bucket, $object, $options);
     } catch (OssException $e) {
@@ -280,14 +279,14 @@ function getObject($ossClient, $bucket)
 /**
  * Put symlink
  *
- * @param OssClient $ossClient  The Instance of OssClient
- * @param string $bucket bucket name
+ * @param OssClient $ossClient The Instance of OssClient
+ * @param string    $bucket    bucket name
  * @return null
  */
 function putSymlink($ossClient, $bucket)
 {
     $symlink = "test-samples-symlink";
-    $object = "test-samples-object";
+    $object  = "test-samples-object";
     try {
         $ossClient->putObject($bucket, $object, 'test-content');
         $ossClient->putSymlink($bucket, $symlink, $object);
@@ -308,14 +307,14 @@ function putSymlink($ossClient, $bucket)
 /**
  * Get symlink
  *
- * @param OssClient $ossClient  OssClient instance
- * @param string $bucket  bucket name
+ * @param OssClient $ossClient OssClient instance
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getSymlink($ossClient, $bucket)
 {
     $symlink = "test-samples-symlink";
-    $object = "test-samples-object";
+    $object  = "test-samples-object";
     try {
         $ossClient->putObject($bucket, $object, 'test-content');
         $ossClient->putSymlink($bucket, $symlink, $object);
@@ -340,16 +339,16 @@ function getSymlink($ossClient, $bucket)
  * Download object to a specified file.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getObjectToLocalFile($ossClient, $bucket)
 {
-    $object = "oss-php-sdk-test/upload-test-object-name.txt";
+    $object    = "oss-php-sdk-test/upload-test-object-name.txt";
     $localfile = "upload-test-object-name.txt";
-    $options = array(
+    $options   = [
         OssClient::OSS_FILE_DOWNLOAD => $localfile,
-    );
+    ];
 
     try {
         $ossClient->getObject($bucket, $object, $options);
@@ -374,16 +373,16 @@ function getObjectToLocalFile($ossClient, $bucket)
  * When the source object is same as the target one, copy operation will just update the metadata.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function copyObject($ossClient, $bucket)
 {
     $fromBucket = $bucket;
     $fromObject = "oss-php-sdk-test/upload-test-object-name.txt";
-    $toBucket = $bucket;
-    $toObject = $fromObject . '.copy';
-    $options = array();
+    $toBucket   = $bucket;
+    $toObject   = $fromObject . '.copy';
+    $options    = [];
 
     try {
         $ossClient->copyObject($fromBucket, $fromObject, $toBucket, $toObject, $options);
@@ -400,21 +399,21 @@ function copyObject($ossClient, $bucket)
  * it leverages the feature of copyObject： when the source object is just the target object, the metadata could be updated via copy
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function modifyMetaForObject($ossClient, $bucket)
 {
-    $fromBucket = $bucket;
-    $fromObject = "oss-php-sdk-test/upload-test-object-name.txt";
-    $toBucket = $bucket;
-    $toObject = $fromObject;
-    $copyOptions = array(
-        OssClient::OSS_HEADERS => array(
-            'Cache-Control' => 'max-age=60',
+    $fromBucket  = $bucket;
+    $fromObject  = "oss-php-sdk-test/upload-test-object-name.txt";
+    $toBucket    = $bucket;
+    $toObject    = $fromObject;
+    $copyOptions = [
+        OssClient::OSS_HEADERS => [
+            'Cache-Control'       => 'max-age=60',
             'Content-Disposition' => 'attachment; filename="xxxxxx"',
-        ),
-    );
+        ],
+    ];
     try {
         $ossClient->copyObject($fromBucket, $fromObject, $toBucket, $toObject, $copyOptions);
     } catch (OssException $e) {
@@ -429,7 +428,7 @@ function modifyMetaForObject($ossClient, $bucket)
  * Get object meta, that is, getObjectMeta
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function getObjectMeta($ossClient, $bucket)
@@ -456,7 +455,7 @@ function getObjectMeta($ossClient, $bucket)
  * Delete an object
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function deleteObject($ossClient, $bucket)
@@ -472,17 +471,16 @@ function deleteObject($ossClient, $bucket)
     print(__FUNCTION__ . ": OK" . "\n");
 }
 
-
 /**
  * Delete multiple objects in batch
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function deleteObjects($ossClient, $bucket)
 {
-    $objects = array();
+    $objects   = [];
     $objects[] = "oss-php-sdk-test/upload-test-object-name.txt";
     $objects[] = "oss-php-sdk-test/upload-test-object-name.txt.copy";
     try {
@@ -499,7 +497,7 @@ function deleteObjects($ossClient, $bucket)
  * Check whether an object exists
  *
  * @param OssClient $ossClient OssClient instance
- * @param string $bucket bucket name
+ * @param string    $bucket    bucket name
  * @return null
  */
 function doesObjectExist($ossClient, $bucket)

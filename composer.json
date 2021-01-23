@@ -1,33 +1,35 @@
 {
-    "name": "eduline/eduline-upload",
-    "description": "eduline-v5 上传控件,含云储存",
-    "require": {
-        "php": ">=7.1.0",
-        "alibabacloud/sdk": "^1.8",
-        "aliyuncs/oss-sdk-php": "^2.3",
-        "qcloud/cos-sdk-v5": "^2.0",
-        "qcloud/vod-sdk-v5": "^2.4",
-        "topthink/framework": "^6.0.0"
-    },
-    "license": "Apache-2.0",
-    "authors": [{
-        "name": "sunyonghong",
-        "email": "syh@sunyonghong.com"
-    }],
-    "minimum-stability": "dev",
-    "config": {
-        "sort-packages": true
-    },
-    "autoload": {
-        "psr-4": {
-            "eduline\\upload\\": "src/"
-        }
-    },
-    "extra": {
-        "think": {
-            "services": [
-                "eduline\\upload\\UploadService"
-            ]       
-        }
+  "name": "eduline/eduline-upload",
+  "description": "eduline-v5 上传控件,含云储存",
+  "require": {
+    "php": ">=7.1.0",
+    "alibabacloud/sdk": "^1.8",
+    "aliyuncs/oss-sdk-php": "^2.3",
+    "qcloud/cos-sdk-v5": "^2.0",
+    "qcloud/vod-sdk-v5": "^2.4",
+    "topthink/framework": "^6.0.0"
+  },
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "sunyonghong",
+      "email": "syh@sunyonghong.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "eduline\\upload\\": "src/"
+    }
+  },
+  "extra": {
+    "think": {
+      "services": [
+        "eduline\\upload\\UploadService"
+      ]
+    }
+  }
 }

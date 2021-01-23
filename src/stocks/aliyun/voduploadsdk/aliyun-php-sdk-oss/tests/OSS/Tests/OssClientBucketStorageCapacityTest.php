@@ -1,4 +1,5 @@
 <?php
+
 namespace OSS\Tests;
 
 use OSS\Core\OssException;
@@ -38,10 +39,10 @@ class OssClientBucketStorageCapacityTest extends TestOssClientBase
             $storageCapacity = $this->ossClient->getBucketStorageCapacity($this->bucket);
             $this->assertEquals($storageCapacity, 0);
 
-            $this->ossClient->putObject($this->bucket, 'test-storage-capacity','test-content');
+            $this->ossClient->putObject($this->bucket, 'test-storage-capacity', 'test-content');
             $this->assertTrue(false);
         } catch (OssException $e) {
-            $this->assertEquals('Bucket storage exceed max storage capacity.',$e->getErrorMessage());
+            $this->assertEquals('Bucket storage exceed max storage capacity.', $e->getErrorMessage());
         }
 
         try {

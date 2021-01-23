@@ -1,4 +1,5 @@
 <?php
+
 namespace OSS\Result;
 
 use OSS\Core\OssException;
@@ -14,7 +15,7 @@ class GetLocationResult extends Result
 
     /**
      * Parse data from response
-     * 
+     *
      * @return string
      * @throws OssException
      */

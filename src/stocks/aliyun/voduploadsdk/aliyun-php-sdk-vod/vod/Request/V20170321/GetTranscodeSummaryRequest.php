@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -12,7 +14,7 @@ namespace vod\Request\V20170321;
  * @method string getOwnerId()
  * @method string getVideoIds()
  */
-class GetTranscodeSummaryRequest extends \RpcAcsRequest
+class GetTranscodeSummaryRequest extends RpcAcsRequest
 {
 
     /**
@@ -41,7 +43,7 @@ class GetTranscodeSummaryRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -54,7 +56,7 @@ class GetTranscodeSummaryRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -67,7 +69,7 @@ class GetTranscodeSummaryRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -80,7 +82,7 @@ class GetTranscodeSummaryRequest extends \RpcAcsRequest
     public function setVideoIds($videoIds)
     {
         $this->requestParameters['VideoIds'] = $videoIds;
-        $this->queryParameters['VideoIds'] = $videoIds;
+        $this->queryParameters['VideoIds']   = $videoIds;
 
         return $this;
     }

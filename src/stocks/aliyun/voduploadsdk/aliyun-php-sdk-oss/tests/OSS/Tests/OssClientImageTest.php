@@ -5,8 +5,9 @@ namespace OSS\Tests;
 require_once __DIR__ . '/Common.php';
 
 use OSS\OssClient;
+use PHPUnit_Framework_TestCase;
 
-class OssClinetImageTest extends \PHPUnit_Framework_TestCase
+class OssClinetImageTest extends PHPUnit_Framework_TestCase
 {
     private $bucketName;
     private $client;
@@ -16,12 +17,12 @@ class OssClinetImageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->client = Common::getOssClient();
+        $this->client     = Common::getOssClient();
         $this->bucketName = 'php-sdk-test-bucket-image-' . strval(rand(0, 10000));
         $this->client->createBucket($this->bucketName);
         Common::waitMetaSync();
-        $this->local_file = "example.jpg";
-        $this->object = "oss-example.jpg";
+        $this->local_file    = "example.jpg";
+        $this->object        = "oss-example.jpg";
         $this->download_file = "image.jpg";
 
         $this->client->uploadFile($this->bucketName, $this->object, $this->local_file);
@@ -29,63 +30,63 @@ class OssClinetImageTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->client->deleteObject($this->bucketName, $this->object);     
+        $this->client->deleteObject($this->bucketName, $this->object);
         $this->client->deleteBucket($this->bucketName);
     }
-    
+
     public function testImageResize()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/resize,m_fixed,h_100,w_100", );
+            OssClient::OSS_PROCESS       => "image/resize,m_fixed,h_100,w_100",];
         $this->check($options, 100, 100, 3267, 'jpg');
     }
-    
+
     public function testImageCrop()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/crop,w_100,h_100,x_100,y_100,r_1", );
+            OssClient::OSS_PROCESS       => "image/crop,w_100,h_100,x_100,y_100,r_1",];
         $this->check($options, 100, 100, 1969, 'jpg');
     }
 
     public function testImageRotate()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/rotate,90", );
+            OssClient::OSS_PROCESS       => "image/rotate,90",];
         $this->check($options, 267, 400, 20998, 'jpg');
     }
 
     public function testImageSharpen()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/sharpen,100", );
+            OssClient::OSS_PROCESS       => "image/sharpen,100",];
         $this->check($options, 400, 267, 23015, 'jpg');
     }
 
     public function testImageWatermark()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/watermark,text_SGVsbG8g5Zu-54mH5pyN5YqhIQ", );
+            OssClient::OSS_PROCESS       => "image/watermark,text_SGVsbG8g5Zu-54mH5pyN5YqhIQ",];
         $this->check($options, 400, 267, 26369, 'jpg');
     }
 
     public function testImageFormat()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/format,png", );
+            OssClient::OSS_PROCESS       => "image/format,png",];
         $this->check($options, 400, 267, 160733, 'png');
     }
 
     public function testImageTofile()
     {
-        $options = array(
+        $options = [
             OssClient::OSS_FILE_DOWNLOAD => $this->download_file,
-            OssClient::OSS_PROCESS => "image/resize,m_fixed,w_100,h_100", );
+            OssClient::OSS_PROCESS       => "image/resize,m_fixed,w_100,h_100",];
         $this->check($options, 100, 100, 3267, 'jpg');
     }
 

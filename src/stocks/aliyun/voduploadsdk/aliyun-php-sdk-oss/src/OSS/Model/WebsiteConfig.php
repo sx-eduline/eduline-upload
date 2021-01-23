@@ -2,21 +2,25 @@
 
 namespace OSS\Model;
 
-
 use OSS\Core\OssException;
-
+use SimpleXMLElement;
 
 /**
  * Class WebsiteConfig
+ *
  * @package OSS\Model
- * @link http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketWebsite.html
+ * @link    http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketWebsite.html
  */
 class WebsiteConfig implements XmlConfig
 {
+    private $indexDocument = "";
+    private $errorDocument = "";
+
     /**
      * WebsiteConfig constructor.
-     * @param  string $indexDocument
-     * @param  string $errorDocument
+     *
+     * @param string $indexDocument
+     * @param string $errorDocument
      */
     public function __construct($indexDocument = "", $errorDocument = "")
     {
@@ -47,7 +51,7 @@ class WebsiteConfig implements XmlConfig
      */
     public function serializeToXml()
     {
-        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><WebsiteConfiguration></WebsiteConfiguration>');
+        $xml                 = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><WebsiteConfiguration></WebsiteConfiguration>');
         $index_document_part = $xml->addChild('IndexDocument');
         $error_document_part = $xml->addChild('ErrorDocument');
         $index_document_part->addChild('Suffix', $this->indexDocument);
@@ -70,7 +74,4 @@ class WebsiteConfig implements XmlConfig
     {
         return $this->errorDocument;
     }
-
-    private $indexDocument = "";
-    private $errorDocument = "";
 }

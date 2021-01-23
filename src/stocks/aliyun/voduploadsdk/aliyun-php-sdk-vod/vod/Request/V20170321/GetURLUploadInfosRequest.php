@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -13,7 +15,7 @@ namespace vod\Request\V20170321;
  * @method string getUploadURLs()
  * @method string getOwnerId()
  */
-class GetURLUploadInfosRequest extends \RpcAcsRequest
+class GetURLUploadInfosRequest extends RpcAcsRequest
 {
 
     /**
@@ -42,7 +44,7 @@ class GetURLUploadInfosRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -55,7 +57,7 @@ class GetURLUploadInfosRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -68,7 +70,7 @@ class GetURLUploadInfosRequest extends \RpcAcsRequest
     public function setJobIds($jobIds)
     {
         $this->requestParameters['JobIds'] = $jobIds;
-        $this->queryParameters['JobIds'] = $jobIds;
+        $this->queryParameters['JobIds']   = $jobIds;
 
         return $this;
     }
@@ -81,7 +83,7 @@ class GetURLUploadInfosRequest extends \RpcAcsRequest
     public function setUploadURLs($uploadURLs)
     {
         $this->requestParameters['UploadURLs'] = $uploadURLs;
-        $this->queryParameters['UploadURLs'] = $uploadURLs;
+        $this->queryParameters['UploadURLs']   = $uploadURLs;
 
         return $this;
     }
@@ -94,7 +96,7 @@ class GetURLUploadInfosRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }

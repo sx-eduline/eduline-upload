@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -16,7 +18,7 @@ namespace vod\Request\V20170321;
  * @method string getDeleteImageType()
  * @method string getImageIds()
  */
-class DeleteImageRequest extends \RpcAcsRequest
+class DeleteImageRequest extends RpcAcsRequest
 {
 
     /**
@@ -45,7 +47,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -58,7 +60,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setImageType($imageType)
     {
         $this->requestParameters['ImageType'] = $imageType;
-        $this->queryParameters['ImageType'] = $imageType;
+        $this->queryParameters['ImageType']   = $imageType;
 
         return $this;
     }
@@ -71,7 +73,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -84,7 +86,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setImageURLs($imageURLs)
     {
         $this->requestParameters['ImageURLs'] = $imageURLs;
-        $this->queryParameters['ImageURLs'] = $imageURLs;
+        $this->queryParameters['ImageURLs']   = $imageURLs;
 
         return $this;
     }
@@ -97,7 +99,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId'] = $videoId;
+        $this->queryParameters['VideoId']   = $videoId;
 
         return $this;
     }
@@ -110,7 +112,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -123,7 +125,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setDeleteImageType($deleteImageType)
     {
         $this->requestParameters['DeleteImageType'] = $deleteImageType;
-        $this->queryParameters['DeleteImageType'] = $deleteImageType;
+        $this->queryParameters['DeleteImageType']   = $deleteImageType;
 
         return $this;
     }
@@ -136,7 +138,7 @@ class DeleteImageRequest extends \RpcAcsRequest
     public function setImageIds($imageIds)
     {
         $this->requestParameters['ImageIds'] = $imageIds;
-        $this->queryParameters['ImageIds'] = $imageIds;
+        $this->queryParameters['ImageIds']   = $imageIds;
 
         return $this;
     }

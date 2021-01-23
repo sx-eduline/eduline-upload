@@ -2,11 +2,11 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Model\CnameConfig;
 use OSS\Core\OssException;
+use PHPUnit_Framework_TestCase;
 
-class CnameConfigTest extends \PHPUnit_Framework_TestCase
+class CnameConfigTest extends PHPUnit_Framework_TestCase
 {
     private $xml1 = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -46,7 +46,7 @@ BBBB;
         $cnameConfig->addCname('www.foo.com');
         $cnameConfig->addCname('bar.com');
 
-        $xml = $cnameConfig->serializeToXml();
+        $xml  = $cnameConfig->serializeToXml();
         $comp = new CnameConfig();
         $comp->parseFromXml($xml);
 

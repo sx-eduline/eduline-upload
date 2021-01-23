@@ -11,6 +11,10 @@ namespace OSS\Model;
  */
 class UploadInfo
 {
+    private $key = "";
+    private $uploadId = "";
+    private $initiated = "";
+
     /**
      * UploadInfo constructor.
      *
@@ -20,8 +24,8 @@ class UploadInfo
      */
     public function __construct($key, $uploadId, $initiated)
     {
-        $this->key = $key;
-        $this->uploadId = $uploadId;
+        $this->key       = $key;
+        $this->uploadId  = $uploadId;
         $this->initiated = $initiated;
     }
 
@@ -48,8 +52,4 @@ class UploadInfo
     {
         return $this->initiated;
     }
-
-    private $key = "";
-    private $uploadId = "";
-    private $initiated = "";
 }

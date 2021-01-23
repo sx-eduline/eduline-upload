@@ -4,12 +4,14 @@ namespace OSS\Tests;
 
 use OSS\Result\ListMultipartUploadResult;
 use OSS\Http\ResponseCore;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Class ListMultipartUploadResultTest
+ *
  * @package OSS\Tests
  */
-class ListMultipartUploadResultTest extends \PHPUnit_Framework_TestCase
+class ListMultipartUploadResultTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?>
@@ -74,8 +76,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new ListMultipartUploadResult($response);
+        $response                = new ResponseCore([], $this->validXml, 200);
+        $result                  = new ListMultipartUploadResult($response);
         $listMultipartUploadInfo = $result->getData();
         $this->assertEquals("oss-example", $listMultipartUploadInfo->getBucket());
         $this->assertEquals("xx", $listMultipartUploadInfo->getKeyMarker());
@@ -94,8 +96,8 @@ BBBB;
 
     public function testParseValidXmlWithEncodedKey()
     {
-        $response = new ResponseCore(array(), $this->validXmlWithEncodedKey, 200);
-        $result = new ListMultipartUploadResult($response);
+        $response                = new ResponseCore([], $this->validXmlWithEncodedKey, 200);
+        $result                  = new ListMultipartUploadResult($response);
         $listMultipartUploadInfo = $result->getData();
         $this->assertEquals("oss-example", $listMultipartUploadInfo->getBucket());
         $this->assertEquals("php+key-marker", $listMultipartUploadInfo->getKeyMarker());

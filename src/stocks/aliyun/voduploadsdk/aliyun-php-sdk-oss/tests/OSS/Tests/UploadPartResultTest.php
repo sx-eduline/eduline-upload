@@ -2,21 +2,21 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Core\OssException;
 use OSS\Result\UploadPartResult;
 use OSS\Http\ResponseCore;
+use PHPUnit_Framework_TestCase;
 
-class UploadPartResultTest extends \PHPUnit_Framework_TestCase
+class UploadPartResultTest extends PHPUnit_Framework_TestCase
 {
-    private $validHeader = array('etag' => '7265F4D211B56873A381D321F586E4A9');
-    private $invalidHeader = array();
+    private $validHeader = ['etag' => '7265F4D211B56873A381D321F586E4A9'];
+    private $invalidHeader = [];
 
     public function testParseValidHeader()
     {
         $response = new ResponseCore($this->validHeader, "", 200);
-        $result = new UploadPartResult($response);
-        $eTag = $result->getData();
+        $result   = new UploadPartResult($response);
+        $eTag     = $result->getData();
         $this->assertEquals('7265F4D211B56873A381D321F586E4A9', $eTag);
     }
 

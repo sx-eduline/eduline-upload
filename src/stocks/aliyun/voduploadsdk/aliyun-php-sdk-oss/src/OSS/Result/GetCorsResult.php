@@ -12,7 +12,7 @@ class GetCorsResult extends Result
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
-        $config = new CorsConfig();
+        $config  = new CorsConfig();
         $config->parseFromXml($content);
         return $config;
     }

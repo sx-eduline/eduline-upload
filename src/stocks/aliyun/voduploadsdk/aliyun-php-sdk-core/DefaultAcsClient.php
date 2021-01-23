@@ -126,9 +126,9 @@ class DefaultAcsClient implements IAcsClient
         if (null != $request->getLocationServiceCode()) {
             $domain =
                 $this->locationService->findProductDomain($request->getRegionId(),
-                                                          $request->getLocationServiceCode(),
-                                                          $request->getLocationEndpointType(),
-                                                          $request->getProduct());
+                    $request->getLocationServiceCode(),
+                    $request->getLocationEndpointType(),
+                    $request->getProduct());
         }
         if ($domain == null) {
             $domain = EndpointProvider::findProductDomain($request->getRegionId(), $request->getProduct());
@@ -146,9 +146,9 @@ class DefaultAcsClient implements IAcsClient
         if (count($request->getDomainParameter()) > 0) {
             $httpResponse =
                 HttpHelper::curl($requestUrl,
-                                 $request->getMethod(),
-                                 $request->getDomainParameter(),
-                                 $request->getHeaders());
+                    $request->getMethod(),
+                    $request->getDomainParameter(),
+                    $request->getHeaders());
         } else {
             $httpResponse =
                 HttpHelper::curl($requestUrl, $request->getMethod(), $request->getContent(), $request->getHeaders());
@@ -161,15 +161,15 @@ class DefaultAcsClient implements IAcsClient
             if (count($request->getDomainParameter()) > 0) {
                 $httpResponse =
                     HttpHelper::curl($requestUrl,
-                                     $request->getMethod(),
-                                     $request->getDomainParameter(),
-                                     $request->getHeaders());
+                        $request->getMethod(),
+                        $request->getDomainParameter(),
+                        $request->getHeaders());
             } else {
                 $httpResponse =
                     HttpHelper::curl($requestUrl,
-                                     $request->getMethod(),
-                                     $request->getContent(),
-                                     $request->getHeaders());
+                        $request->getMethod(),
+                        $request->getContent(),
+                        $request->getHeaders());
             }
             $retryTimes++;
         }
@@ -245,7 +245,7 @@ class DefaultAcsClient implements IAcsClient
 
         if ($httpStatus === 400 && $errorCode === 'SignatureDoesNotMatch'
             && strpos($errorMessage,
-                      $request->stringToBeSigned()) !== false) {
+                $request->stringToBeSigned()) !== false) {
             $errorCode    = 'InvalidAccessKeySecret';
             $errorMessage = 'Specified Access Key Secret is not valid.';
         }
@@ -268,9 +268,9 @@ class DefaultAcsClient implements IAcsClient
     {
         if ('JSON' === $format) {
             $respObject = json_decode($body);
-        } elseif ('XML' === $format) {
+        } else if ('XML' === $format) {
             $respObject = @simplexml_load_string($body);
-        } elseif ('RAW' === $format) {
+        } else if ('RAW' === $format) {
             $respObject = $body;
         }
         return $respObject;

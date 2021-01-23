@@ -2,9 +2,9 @@
 
 namespace OSS\Result;
 
-
 /**
  * Class CopyObjectResult
+ *
  * @package OSS\Result
  */
 class CopyObjectResult extends Result
@@ -14,10 +14,10 @@ class CopyObjectResult extends Result
      */
     protected function parseDataFromResponse()
     {
-        $body = $this->rawResponse->body;
-        $xml = simplexml_load_string($body); 
-        $result = array();
-        
+        $body   = $this->rawResponse->body;
+        $xml    = simplexml_load_string($body);
+        $result = [];
+
         if (isset($xml->LastModified)) {
             $result[] = $xml->LastModified;
         }
@@ -25,6 +25,6 @@ class CopyObjectResult extends Result
             $result[] = $xml->ETag;
         }
 
-         return $result;
+        return $result;
     }
 }

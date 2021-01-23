@@ -3,17 +3,25 @@
 namespace OSS\Model;
 /**
  * Class LiveChannelInfo
+ *
  * @package OSS\Model
  *
  */
 class LiveChannelInfo implements XmlConfig
 {
+    private $name;
+    private $description;
+    private $publishUrls;
+    private $playUrls;
+    private $status;
+    private $lastModified;
+
     public function __construct($name = null, $description = null)
     {
-        $this->name = $name;
+        $this->name        = $name;
         $this->description = $description;
-        $this->publishUrls = array();
-        $this->playUrls = array();
+        $this->publishUrls = [];
+        $this->playUrls    = [];
     }
 
     public function getName()
@@ -56,6 +64,12 @@ class LiveChannelInfo implements XmlConfig
         $this->description = $description;
     }
 
+    public function parseFromXml($strXml)
+    {
+        $xml = simplexml_load_string($strXml);
+        $this->parseFromXmlNode($xml);
+    }
+
     public function parseFromXmlNode($xml)
     {
         if (isset($xml->Name)) {
@@ -87,21 +101,8 @@ class LiveChannelInfo implements XmlConfig
         }
     }
 
-    public function parseFromXml($strXml)
-    {
-        $xml = simplexml_load_string($strXml);
-        $this->parseFromXmlNode($xml);
-    }
-
     public function serializeToXml()
     {
         throw new OssException("Not implemented.");
     }
-    
-    private $name;
-    private $description;
-    private $publishUrls;
-    private $playUrls;
-    private $status;
-    private $lastModified;
 }

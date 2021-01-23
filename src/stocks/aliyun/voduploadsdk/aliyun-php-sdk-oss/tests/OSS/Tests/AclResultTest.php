@@ -2,11 +2,12 @@
 
 namespace OSS\Tests;
 
-use OSS\Result\AclResult;
 use OSS\Core\OssException;
 use OSS\Http\ResponseCore;
+use OSS\Result\AclResult;
+use PHPUnit_Framework_TestCase;
 
-class AclResultTest extends \PHPUnit_Framework_TestCase
+class AclResultTest extends PHPUnit_Framework_TestCase
 {
 
     private $validXml = <<<BBBB
@@ -30,14 +31,14 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new AclResult($response);
+        $response = new ResponseCore([], $this->validXml, 200);
+        $result   = new AclResult($response);
         $this->assertEquals("public-read", $result->getData());
     }
 
     public function testParseNullXml()
     {
-        $response = new ResponseCore(array(), "", 200);
+        $response = new ResponseCore([], "", 200);
         try {
             new AclResult($response);
             $this->assertTrue(false);
@@ -48,7 +49,7 @@ BBBB;
 
     public function testParseInvalidXml()
     {
-        $response = new ResponseCore(array(), $this->invalidXml, 200);
+        $response = new ResponseCore([], $this->invalidXml, 200);
         try {
             new AclResult($response);
             $this->assertFalse(true);

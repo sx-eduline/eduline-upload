@@ -56,11 +56,11 @@ abstract class AcsRequest
     /**
      * @var array
      */
-    protected $queryParameters = array();
+    protected $queryParameters = [];
     /**
      * @var array
      */
-    protected $headers = array();
+    protected $headers = [];
     /**
      * @var null|string
      */
@@ -72,7 +72,7 @@ abstract class AcsRequest
     /**
      * @var array The original parameters of the request object.
      */
-    protected $requestParameters = array();
+    protected $requestParameters = [];
     /**
      * @var string
      */
@@ -289,7 +289,7 @@ abstract class AcsRequest
      */
     public function __call($name, $arguments)
     {
-        if (\strpos($name, 'get', 0) !== false) {
+        if (strpos($name, 'get', 0) !== false) {
             $parameterName = $this->propertyNameByMethodName($name);
             return isset($this->requestParameters[$parameterName])
                 ? $this->requestParameters[$parameterName]
@@ -305,7 +305,7 @@ abstract class AcsRequest
      */
     protected function propertyNameByMethodName($methodName)
     {
-        return \mb_strcut($methodName, 3);
+        return mb_strcut($methodName, 3);
     }
 
     /**

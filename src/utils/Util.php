@@ -7,8 +7,9 @@ class Util
 {
     /**
      * 是否视频
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-15
+     *
      * @param    [type]                         $mimetype  [description]
      * @param    [type]                         $extension [description]
      * @return   boolean                                   [description]
@@ -20,8 +21,9 @@ class Util
 
     /**
      * 是否音频
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-15
+     *
      * @param    [type]                         $mimetype  [description]
      * @param    [type]                         $extension [description]
      * @return   boolean                                   [description]
@@ -32,26 +34,28 @@ class Util
     }
 
     /**
-     * 是否图片格式
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-16
-     * @param    [type]                         $mimetype [description]
-     * @return   boolean                                  [description]
-     */
-    public static function isImage(string $mimetype)
-    {
-        return stripos($mimetype, 'image') !== false;
-    }
-
-    /**
      * 是否图片文件
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-16
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-16
+     *
      * @param string $filepath [description]
      * @return   boolean                                  [description]
      */
     public static function isImageFile(string $mimetype, string $filepath)
     {
         return Util::isImage($mimetype) && is_file($filepath);
+    }
+
+    /**
+     * 是否图片格式
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-16
+     *
+     * @param    [type]                         $mimetype [description]
+     * @return   boolean                                  [description]
+     */
+    public static function isImage(string $mimetype)
+    {
+        return stripos($mimetype, 'image') !== false;
     }
 }

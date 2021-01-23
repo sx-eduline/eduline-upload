@@ -3,10 +3,11 @@
 namespace OSS\Tests;
 
 use OSS\OssClient;
+use PHPUnit_Framework_TestCase;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Common.php';
 
-class TestOssClientBase extends \PHPUnit_Framework_TestCase
+class TestOssClientBase extends PHPUnit_Framework_TestCase
 {
     /**
      * @var OssClient
@@ -20,10 +21,10 @@ class TestOssClientBase extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->bucket = Common::getBucketName() . rand(100000, 999999);
+        $this->bucket    = Common::getBucketName() . rand(100000, 999999);
         $this->ossClient = Common::getOssClient();
         $this->ossClient->createBucket($this->bucket);
-	Common::waitMetaSync();
+        Common::waitMetaSync();
     }
 
     public function tearDown()
@@ -33,8 +34,8 @@ class TestOssClientBase extends \PHPUnit_Framework_TestCase
         }
 
         $objects = $this->ossClient->listObjects(
-            $this->bucket, array('max-keys' => 1000, 'delimiter' => ''))->getObjectList();
-        $keys = array();
+            $this->bucket, ['max-keys' => 1000, 'delimiter' => ''])->getObjectList();
+        $keys    = [];
         foreach ($objects as $obj) {
             $keys[] = $obj->getKey();
         }

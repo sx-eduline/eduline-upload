@@ -1,13 +1,15 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload;
 
 class Stock
 {
     /**
      * 获取储存空间列表
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-27
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-27
+     *
      * @return   [type]                         [description]
      */
     public static function getStocks()
@@ -33,9 +35,10 @@ class Stock
 
     /**
      * 获取配置界面表单
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-28
-     * @param    string                         $stock [description]
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-28
+     *
+     * @param string $stock [description]
      * @return   [type]                                [description]
      */
     public static function getStockConfigPage(string $stock)
@@ -47,9 +50,10 @@ class Stock
 
     /**
      * 获取储存配置字段信息
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-27
-     * @param    string                         $stock 储存端标识
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-27
+     *
+     * @param string $stock 储存端标识
      * @return   [type]                                [description]
      */
     public static function getStockConfig(string $stock, $getClass = false)

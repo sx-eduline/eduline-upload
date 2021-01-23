@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -19,7 +21,7 @@ namespace vod\Request\V20170321;
  * @method string getSortBy()
  * @method string getStatus()
  */
-class SearchEditingProjectRequest extends \RpcAcsRequest
+class SearchEditingProjectRequest extends RpcAcsRequest
 {
 
     /**
@@ -48,7 +50,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -61,7 +63,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -74,7 +76,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setOwnerAccount($ownerAccount)
     {
         $this->requestParameters['OwnerAccount'] = $ownerAccount;
-        $this->queryParameters['OwnerAccount'] = $ownerAccount;
+        $this->queryParameters['OwnerAccount']   = $ownerAccount;
 
         return $this;
     }
@@ -87,7 +89,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime'] = $endTime;
+        $this->queryParameters['EndTime']   = $endTime;
 
         return $this;
     }
@@ -100,7 +102,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime'] = $startTime;
+        $this->queryParameters['StartTime']   = $startTime;
 
         return $this;
     }
@@ -113,7 +115,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -126,7 +128,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title'] = $title;
+        $this->queryParameters['Title']   = $title;
 
         return $this;
     }
@@ -139,7 +141,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setPageNo($pageNo)
     {
         $this->requestParameters['PageNo'] = $pageNo;
-        $this->queryParameters['PageNo'] = $pageNo;
+        $this->queryParameters['PageNo']   = $pageNo;
 
         return $this;
     }
@@ -152,7 +154,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize'] = $pageSize;
+        $this->queryParameters['PageSize']   = $pageSize;
 
         return $this;
     }
@@ -165,7 +167,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setSortBy($sortBy)
     {
         $this->requestParameters['SortBy'] = $sortBy;
-        $this->queryParameters['SortBy'] = $sortBy;
+        $this->queryParameters['SortBy']   = $sortBy;
 
         return $this;
     }
@@ -178,7 +180,7 @@ class SearchEditingProjectRequest extends \RpcAcsRequest
     public function setStatus($status)
     {
         $this->requestParameters['Status'] = $status;
-        $this->queryParameters['Status'] = $status;
+        $this->queryParameters['Status']   = $status;
 
         return $this;
     }

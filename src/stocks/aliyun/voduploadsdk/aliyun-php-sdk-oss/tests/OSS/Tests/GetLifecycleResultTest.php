@@ -2,13 +2,13 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Http\ResponseCore;
 use OSS\Core\OssException;
 use OSS\Model\LifecycleConfig;
 use OSS\Result\GetLifecycleResult;
+use PHPUnit_Framework_TestCase;
 
-class GetLifecycleResultTest extends \PHPUnit_Framework_TestCase
+class GetLifecycleResultTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -31,8 +31,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new GetLifecycleResult($response);
+        $response = new ResponseCore([], $this->validXml, 200);
+        $result   = new GetLifecycleResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -47,7 +47,7 @@ BBBB;
 
     public function testInvalidResponse()
     {
-        $response = new ResponseCore(array(), $this->validXml, 300);
+        $response = new ResponseCore([], $this->validXml, 300);
         try {
             new GetLifecycleResult($response);
             $this->assertTrue(false);

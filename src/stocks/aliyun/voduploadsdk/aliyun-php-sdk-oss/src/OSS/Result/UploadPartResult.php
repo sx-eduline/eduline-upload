@@ -6,6 +6,7 @@ use OSS\Core\OssException;
 
 /**
  * Class UploadPartResult
+ *
  * @package OSS\Result
  */
 class UploadPartResult extends Result

@@ -2,14 +2,23 @@
 
 namespace OSS\Model;
 
+use SimpleXMLElement;
 
 /**
  * Class LiveChannelConfig
+ *
  * @package OSS\Model
  */
 class LiveChannelConfig implements XmlConfig
 {
-    public function __construct($option = array())
+    private $description;
+    private $status = "enabled";
+    private $type;
+    private $fragDuration = 5;
+    private $fragCount = 3;
+    private $playListName = "playlist.m3u8";
+
+    public function __construct($option = [])
     {
         if (isset($option['description'])) {
             $this->description = $option['description'];
@@ -63,14 +72,19 @@ class LiveChannelConfig implements XmlConfig
 
     public function parseFromXml($strXml)
     {
-        $xml = simplexml_load_string($strXml);
-        $this->description = strval($xml->Description);
-        $this->status = strval($xml->Status);
-        $target = $xml->Target;
-        $this->type = strval($target->Type);
+        $xml                = simplexml_load_string($strXml);
+        $this->description  = strval($xml->Description);
+        $this->status       = strval($xml->Status);
+        $target             = $xml->Target;
+        $this->type         = strval($target->Type);
         $this->fragDuration = intval($target->FragDuration);
-        $this->fragCount = intval($target->FragCount);
+        $this->fragCount    = intval($target->FragCount);
         $this->playListName = strval($target->PlayListName);
+    }
+
+    public function __toString()
+    {
+        return $this->serializeToXml();
     }
 
     public function serializeToXml()
@@ -80,7 +94,7 @@ class LiveChannelConfig implements XmlConfig
 <LiveChannelConfiguration>
 </LiveChannelConfiguration>
 EOF;
-        $xml = new \SimpleXMLElement($strXml);
+        $xml    = new SimpleXMLElement($strXml);
         if (isset($this->description)) {
             $xml->addChild('Description', $this->description);
         }
@@ -106,16 +120,4 @@ EOF;
 
         return $xml->asXML();
     }
-
-    public function __toString()
-    {
-        return $this->serializeToXml();
-    }
-    
-    private $description;
-    private $status = "enabled";
-    private $type;
-    private $fragDuration = 5;
-    private $fragCount = 3;
-    private $playListName = "playlist.m3u8";
 }

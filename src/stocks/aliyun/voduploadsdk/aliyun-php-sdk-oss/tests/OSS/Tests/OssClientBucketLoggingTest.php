@@ -7,7 +7,6 @@ use OSS\Model\LoggingConfig;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
 
-
 class OssClientBucketLoggingTest extends TestOssClientBase
 {
     public function testBucket()

@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -20,7 +22,7 @@ namespace vod\Request\V20170321;
  * @method string getResultTypes()
  * @method string getFields()
  */
-class SearchMediaRequest extends \RpcAcsRequest
+class SearchMediaRequest extends RpcAcsRequest
 {
 
     /**
@@ -49,7 +51,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -62,7 +64,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -75,7 +77,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setMatch($match)
     {
         $this->requestParameters['Match'] = $match;
-        $this->queryParameters['Match'] = $match;
+        $this->queryParameters['Match']   = $match;
 
         return $this;
     }
@@ -88,7 +90,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setSessionId($sessionId)
     {
         $this->requestParameters['SessionId'] = $sessionId;
-        $this->queryParameters['SessionId'] = $sessionId;
+        $this->queryParameters['SessionId']   = $sessionId;
 
         return $this;
     }
@@ -101,7 +103,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -114,7 +116,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setScrollToken($scrollToken)
     {
         $this->requestParameters['ScrollToken'] = $scrollToken;
-        $this->queryParameters['ScrollToken'] = $scrollToken;
+        $this->queryParameters['ScrollToken']   = $scrollToken;
 
         return $this;
     }
@@ -127,7 +129,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setPageNo($pageNo)
     {
         $this->requestParameters['PageNo'] = $pageNo;
-        $this->queryParameters['PageNo'] = $pageNo;
+        $this->queryParameters['PageNo']   = $pageNo;
 
         return $this;
     }
@@ -140,7 +142,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setSearchType($searchType)
     {
         $this->requestParameters['SearchType'] = $searchType;
-        $this->queryParameters['SearchType'] = $searchType;
+        $this->queryParameters['SearchType']   = $searchType;
 
         return $this;
     }
@@ -153,7 +155,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize'] = $pageSize;
+        $this->queryParameters['PageSize']   = $pageSize;
 
         return $this;
     }
@@ -166,7 +168,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setSortBy($sortBy)
     {
         $this->requestParameters['SortBy'] = $sortBy;
-        $this->queryParameters['SortBy'] = $sortBy;
+        $this->queryParameters['SortBy']   = $sortBy;
 
         return $this;
     }
@@ -179,7 +181,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setResultTypes($resultTypes)
     {
         $this->requestParameters['ResultTypes'] = $resultTypes;
-        $this->queryParameters['ResultTypes'] = $resultTypes;
+        $this->queryParameters['ResultTypes']   = $resultTypes;
 
         return $this;
     }
@@ -192,7 +194,7 @@ class SearchMediaRequest extends \RpcAcsRequest
     public function setFields($fields)
     {
         $this->requestParameters['Fields'] = $fields;
-        $this->queryParameters['Fields'] = $fields;
+        $this->queryParameters['Fields']   = $fields;
 
         return $this;
     }

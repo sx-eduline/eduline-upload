@@ -20,7 +20,9 @@
 
 namespace UnitTest\BatchCompute\Request;
 
-class ListImagesRequest extends \RoaAcsRequest
+use RoaAcsRequest;
+
+class ListImagesRequest extends RoaAcsRequest
 {
     public function __construct()
     {

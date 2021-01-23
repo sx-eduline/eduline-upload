@@ -2,17 +2,16 @@
 
 namespace OSS\Tests;
 
-
 use OSS\Core\OssException;
 use OSS\Core\OssUtil;
-use OSS\OssClient;
+use PHPUnit_Framework_TestCase;
 
-class OssUtilTest extends \PHPUnit_Framework_TestCase
+class OssUtilTest extends PHPUnit_Framework_TestCase
 {
     public function testIsChinese()
     {
         $this->assertEquals(OssUtil::chkChinese("hello,world"), 0);
-        $str = '你好,这里是卖咖啡!';
+        $str    = '你好,这里是卖咖啡!';
         $strGBK = OssUtil::encodePath($str);
         $this->assertEquals(OssUtil::chkChinese($str), 1);
         $this->assertEquals(OssUtil::chkChinese($strGBK), 1);
@@ -47,7 +46,7 @@ class OssUtilTest extends \PHPUnit_Framework_TestCase
 
     public function testToQueryString()
     {
-        $option = array("a" => "b");
+        $option = ["a" => "b"];
         $this->assertEquals('a=b', OssUtil::toQueryString($option));
     }
 
@@ -94,8 +93,13 @@ class OssUtilTest extends \PHPUnit_Framework_TestCase
         $xml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?><Delete><Quiet>true</Quiet><Object><Key>obj1</Key></Object></Delete>
 BBBB;
-        $a = array('obj1');
+        $a   = ['obj1'];
         $this->assertEquals($xml, $this->cleanXml(OssUtil::createDeleteObjectsXmlBody($a, 'true')));
+    }
+
+    private function cleanXml($xml)
+    {
+        return str_replace("\n", "", str_replace("\r", "", $xml));
     }
 
     public function testCreateCompleteMultipartUploadXmlBody()
@@ -103,16 +107,16 @@ BBBB;
         $xml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload><Part><PartNumber>2</PartNumber><ETag>xx</ETag></Part></CompleteMultipartUpload>
 BBBB;
-        $a = array(array("PartNumber" => 2, "ETag" => "xx"));
+        $a   = [["PartNumber" => 2, "ETag" => "xx"]];
         $this->assertEquals($this->cleanXml(OssUtil::createCompleteMultipartUploadXmlBody($a)), $xml);
     }
 
     public function testCreateBucketXmlBody()
     {
-        $xml = <<<BBBB
+        $xml          = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration><StorageClass>Standard</StorageClass></CreateBucketConfiguration>
 BBBB;
-        $storageClass ="Standard";
+        $storageClass = "Standard";
         $this->assertEquals($this->cleanXml(OssUtil::createBucketXmlBody($storageClass)), $xml);
     }
 
@@ -211,15 +215,10 @@ BBBB;
         $null = "xx";
         try {
             OssUtil::throwOssExceptionWithMessageIfEmpty($null, "xx");
-            $this->assertTrue(True);
+            $this->assertTrue(true);
         } catch (OssException $e) {
             $this->assertTrue(false);
         }
-    }
-
-    private function cleanXml($xml)
-    {
-        return str_replace("\n", "", str_replace("\r", "", $xml));
     }
 
 }

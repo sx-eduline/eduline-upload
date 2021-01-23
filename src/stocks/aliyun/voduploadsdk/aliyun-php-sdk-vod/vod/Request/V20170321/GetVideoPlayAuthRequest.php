@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -15,7 +17,7 @@ namespace vod\Request\V20170321;
  * @method string getVideoId()
  * @method string getOwnerId()
  */
-class GetVideoPlayAuthRequest extends \RpcAcsRequest
+class GetVideoPlayAuthRequest extends RpcAcsRequest
 {
 
     /**
@@ -44,7 +46,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -57,7 +59,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -70,7 +72,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setReAuthInfo($reAuthInfo)
     {
         $this->requestParameters['ReAuthInfo'] = $reAuthInfo;
-        $this->queryParameters['ReAuthInfo'] = $reAuthInfo;
+        $this->queryParameters['ReAuthInfo']   = $reAuthInfo;
 
         return $this;
     }
@@ -83,7 +85,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setPlayConfig($playConfig)
     {
         $this->requestParameters['PlayConfig'] = $playConfig;
-        $this->queryParameters['PlayConfig'] = $playConfig;
+        $this->queryParameters['PlayConfig']   = $playConfig;
 
         return $this;
     }
@@ -96,7 +98,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setAuthInfoTimeout($authInfoTimeout)
     {
         $this->requestParameters['AuthInfoTimeout'] = $authInfoTimeout;
-        $this->queryParameters['AuthInfoTimeout'] = $authInfoTimeout;
+        $this->queryParameters['AuthInfoTimeout']   = $authInfoTimeout;
 
         return $this;
     }
@@ -109,7 +111,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId'] = $videoId;
+        $this->queryParameters['VideoId']   = $videoId;
 
         return $this;
     }
@@ -122,7 +124,7 @@ class GetVideoPlayAuthRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }

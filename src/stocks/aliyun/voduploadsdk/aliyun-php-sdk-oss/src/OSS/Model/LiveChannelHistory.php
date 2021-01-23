@@ -3,11 +3,16 @@
 namespace OSS\Model;
 /**
  * Class LiveChannelHistory
+ *
  * @package OSS\Model
  *
  */
 class LiveChannelHistory implements XmlConfig
 {
+    private $startTime;
+    private $endTime;
+    private $remoteAddr;
+
     public function __construct()
     {
     }
@@ -27,6 +32,12 @@ class LiveChannelHistory implements XmlConfig
         return $this->remoteAddr;
     }
 
+    public function parseFromXml($strXml)
+    {
+        $xml = simplexml_load_string($strXml);
+        $this->parseFromXmlNode($xml);
+    }
+
     public function parseFromXmlNode($xml)
     {
         if (isset($xml->StartTime)) {
@@ -42,18 +53,8 @@ class LiveChannelHistory implements XmlConfig
         }
     }
 
-    public function parseFromXml($strXml)
-    {
-        $xml = simplexml_load_string($strXml);
-        $this->parseFromXmlNode($xml);
-    }
-
     public function serializeToXml()
     {
         throw new OssException("Not implemented.");
     }
-    
-    private $startTime;
-    private $endTime;
-    private $remoteAddr;
 }

@@ -6,6 +6,7 @@ namespace eduline\upload\stocks\tencent;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\utils\Util;
+use Exception;
 use Qcloud\Cos\Client;
 use TencentCloud\Common\Credential;
 use TencentCloud\Common\Profile\ClientProfile;
@@ -27,8 +28,9 @@ class File implements FileInterface
 
     /**
      * 本地上传 -- 不需要
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-15
+     *
      * @return   [type]                         [description]
      */
     public function putFile()
@@ -39,8 +41,9 @@ class File implements FileInterface
 
     /**
      * 将本地文件上传到云端
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
+     *
      * @param string $path [description]
      * @param    [type]                         $file [description]
      * @param string $name [description]
@@ -105,7 +108,7 @@ class File implements FileInterface
             $attach->status = $status;
 
             return $attach->save();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Attach::update(['status' => 0], ['id' => $attach->id]);
             throw new FileException($e->getMessage());
 
@@ -115,8 +118,9 @@ class File implements FileInterface
 
     /**
      * 上传方法
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-18
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-18
+     *
      * @param    [type]                         $filepath  [description]
      * @param    [type]                         $filename  [description]
      * @param    [type]                         $procedure [description]
@@ -146,8 +150,8 @@ class File implements FileInterface
 
     /**
      * 文件的url
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function url(array $data = [])
     {
@@ -230,7 +234,7 @@ class File implements FileInterface
                     'Key'    => $data['savepath'] . '/' . $data['savename'],
                 ], '+10 minutes')->__toString();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $url = '';
         }
         return $url;
@@ -238,8 +242,8 @@ class File implements FileInterface
 
     /**
      * 文件的储存路径
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function path(array $data = [])
     {

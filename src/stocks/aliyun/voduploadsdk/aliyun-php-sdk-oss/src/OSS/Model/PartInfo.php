@@ -4,24 +4,30 @@ namespace OSS\Model;
 
 /**
  * Class PartInfo
+ *
  * @package OSS\Model
  */
 class PartInfo
 {
+    private $partNumber = 0;
+    private $lastModified = "";
+    private $eTag = "";
+    private $size = 0;
+
     /**
      * PartInfo constructor.
      *
-     * @param int $partNumber
+     * @param int    $partNumber
      * @param string $lastModified
      * @param string $eTag
-     * @param int $size
+     * @param int    $size
      */
     public function __construct($partNumber, $lastModified, $eTag, $size)
     {
-        $this->partNumber = $partNumber;
+        $this->partNumber   = $partNumber;
         $this->lastModified = $lastModified;
-        $this->eTag = $eTag;
-        $this->size = $size;
+        $this->eTag         = $eTag;
+        $this->size         = $size;
     }
 
     /**
@@ -55,9 +61,4 @@ class PartInfo
     {
         return $this->size;
     }
-
-    private $partNumber = 0;
-    private $lastModified = "";
-    private $eTag = "";
-    private $size = 0;
 }

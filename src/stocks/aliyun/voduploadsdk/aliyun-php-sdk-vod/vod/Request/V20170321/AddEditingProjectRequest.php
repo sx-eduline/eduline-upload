@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -17,7 +19,7 @@ namespace vod\Request\V20170321;
  * @method string getOwnerId()
  * @method string getTitle()
  */
-class AddEditingProjectRequest extends \RpcAcsRequest
+class AddEditingProjectRequest extends RpcAcsRequest
 {
 
     /**
@@ -46,7 +48,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setCoverURL($coverURL)
     {
         $this->requestParameters['CoverURL'] = $coverURL;
-        $this->queryParameters['CoverURL'] = $coverURL;
+        $this->queryParameters['CoverURL']   = $coverURL;
 
         return $this;
     }
@@ -59,7 +61,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setDivision($division)
     {
         $this->requestParameters['Division'] = $division;
-        $this->queryParameters['Division'] = $division;
+        $this->queryParameters['Division']   = $division;
 
         return $this;
     }
@@ -72,7 +74,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -85,7 +87,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -98,7 +100,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setOwnerAccount($ownerAccount)
     {
         $this->requestParameters['OwnerAccount'] = $ownerAccount;
-        $this->queryParameters['OwnerAccount'] = $ownerAccount;
+        $this->queryParameters['OwnerAccount']   = $ownerAccount;
 
         return $this;
     }
@@ -111,7 +113,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description'] = $description;
+        $this->queryParameters['Description']   = $description;
 
         return $this;
     }
@@ -124,7 +126,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setTimeline($timeline)
     {
         $this->requestParameters['Timeline'] = $timeline;
-        $this->queryParameters['Timeline'] = $timeline;
+        $this->queryParameters['Timeline']   = $timeline;
 
         return $this;
     }
@@ -137,7 +139,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -150,7 +152,7 @@ class AddEditingProjectRequest extends \RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title'] = $title;
+        $this->queryParameters['Title']   = $title;
 
         return $this;
     }

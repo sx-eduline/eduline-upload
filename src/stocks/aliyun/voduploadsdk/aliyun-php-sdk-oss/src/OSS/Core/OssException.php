@@ -2,6 +2,8 @@
 
 namespace OSS\Core;
 
+use Exception;
+
 /**
  * Class OssException
  *
@@ -10,15 +12,15 @@ namespace OSS\Core;
  *
  * @package OSS\Core
  */
-class OssException extends \Exception
+class OssException extends Exception
 {
-    private $details = array();
+    private $details = [];
 
     function __construct($details)
     {
         if (is_array($details)) {
             $message = $details['code'] . ': ' . $details['message']
-                     . ' RequestId: ' . $details['request-id'];
+                . ' RequestId: ' . $details['request-id'];
             parent::__construct($message);
             $this->details = $details;
         } else {

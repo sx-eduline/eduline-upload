@@ -3,8 +3,9 @@
 namespace OSS\Tests;
 
 use OSS\Model\LoggingConfig;
+use PHPUnit_Framework_TestCase;
 
-class LoggingConfigTest extends \PHPUnit_Framework_TestCase
+class LoggingConfigTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>

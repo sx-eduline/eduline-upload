@@ -2,21 +2,25 @@
 
 namespace OSS\Model;
 
-
 use OSS\Core\OssException;
+use SimpleXMLElement;
 
 /**
  * Class CnameConfig
+ *
  * @package OSS\Model
  *
  * TODO: fix link
- * @link http://help.aliyun.com/document_detail/oss/api-reference/cors/PutBucketcors.html
+ * @link    http://help.aliyun.com/document_detail/oss/api-reference/cors/PutBucketcors.html
  */
 class CnameConfig implements XmlConfig
 {
+    const OSS_MAX_RULES = 10;
+    private $cnameList = [];
+
     public function __construct()
     {
-        $this->cnameList = array();
+        $this->cnameList = [];
     }
 
     /**
@@ -48,14 +52,13 @@ class CnameConfig implements XmlConfig
         return $this->cnameList;
     }
 
-
     public function addCname($cname)
     {
         if (count($this->cnameList) >= self::OSS_MAX_RULES) {
             throw new OssException(
                 "num of cname in the config exceeds self::OSS_MAX_RULES: " . strval(self::OSS_MAX_RULES));
         }
-        $this->cnameList[] = array('Domain' => $cname);
+        $this->cnameList[] = ['Domain' => $cname];
     }
 
     public function parseFromXml($strXml)
@@ -63,12 +66,17 @@ class CnameConfig implements XmlConfig
         $xml = simplexml_load_string($strXml);
         if (!isset($xml->Cname)) return;
         foreach ($xml->Cname as $entry) {
-            $cname = array();
+            $cname = [];
             foreach ($entry as $key => $value) {
                 $cname[strval($key)] = strval($value);
             }
             $this->cnameList[] = $cname;
         }
+    }
+
+    public function __toString()
+    {
+        return $this->serializeToXml();
     }
 
     public function serializeToXml()
@@ -78,7 +86,7 @@ class CnameConfig implements XmlConfig
 <BucketCnameConfiguration>
 </BucketCnameConfiguration>
 EOF;
-        $xml = new \SimpleXMLElement($strXml);
+        $xml    = new SimpleXMLElement($strXml);
         foreach ($this->cnameList as $cname) {
             $node = $xml->addChild('Cname');
             foreach ($cname as $key => $value) {
@@ -87,13 +95,4 @@ EOF;
         }
         return $xml->asXML();
     }
-
-    public function __toString()
-    {
-        return $this->serializeToXml();
-    }
-
-    const OSS_MAX_RULES = 10;
-
-    private $cnameList = array();
 }

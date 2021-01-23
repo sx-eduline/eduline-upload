@@ -5,8 +5,9 @@ namespace OSS\Tests;
 use OSS\Core\OssException;
 use OSS\Http\ResponseCore;
 use OSS\Result\CopyObjectResult;
+use PHPUnit_Framework_TestCase;
 
-class CopyObjectResultTest extends \PHPUnit_Framework_TestCase
+class CopyObjectResultTest extends PHPUnit_Framework_TestCase
 {
     private $body = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -29,10 +30,10 @@ BBBB;
 
     public function testOkResponse()
     {
-        $header= array();
+        $header   = [];
         $response = new ResponseCore($header, $this->body, 200);
-        $result = new CopyObjectResult($response);
-        $data = $result->getData();
+        $result   = new CopyObjectResult($response);
+        $data     = $result->getData();
         $this->assertTrue($result->isOK());
         $this->assertEquals("Fri, 24 Feb 2012 07:18:48 GMT", $data[0]);
         $this->assertEquals("\"5B3C1A2E053D763E1B002CC607C5A0FE\"", $data[1]);
@@ -40,7 +41,7 @@ BBBB;
 
     public function testFailResponse()
     {
-        $response = new ResponseCore(array(), "", 404);
+        $response = new ResponseCore([], "", 404);
         try {
             new CopyObjectResult($response);
             $this->assertFalse(true);

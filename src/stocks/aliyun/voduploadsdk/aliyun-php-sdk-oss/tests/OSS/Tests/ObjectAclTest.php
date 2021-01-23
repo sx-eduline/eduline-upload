@@ -2,9 +2,11 @@
 
 namespace OSS\Tests;
 
+use PHPUnit_Framework_TestCase;
+
 require_once __DIR__ . '/Common.php';
 
-class ObjectAclTest extends \PHPUnit_Framework_TestCase
+class ObjectAclTest extends PHPUnit_Framework_TestCase
 {
     public function testGetSet()
     {

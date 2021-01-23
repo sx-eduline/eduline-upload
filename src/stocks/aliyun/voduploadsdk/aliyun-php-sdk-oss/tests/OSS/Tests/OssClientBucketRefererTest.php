@@ -7,7 +7,6 @@ use OSS\Model\RefererConfig;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
 
-
 class OssClientBucketRefererTest extends TestOssClientBase
 {
 

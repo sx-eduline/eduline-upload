@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -15,7 +17,7 @@ namespace vod\Request\V20170321;
  * @method string getResourceType()
  * @method string getResourceIds()
  */
-class MoveAppResourceRequest extends \RpcAcsRequest
+class MoveAppResourceRequest extends RpcAcsRequest
 {
 
     /**
@@ -44,7 +46,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setTargetAppId($targetAppId)
     {
         $this->requestParameters['TargetAppId'] = $targetAppId;
-        $this->queryParameters['TargetAppId'] = $targetAppId;
+        $this->queryParameters['TargetAppId']   = $targetAppId;
 
         return $this;
     }
@@ -57,7 +59,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -70,7 +72,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -83,7 +85,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setResourceRealOwnerId($resourceRealOwnerId)
     {
         $this->requestParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
-        $this->queryParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
+        $this->queryParameters['ResourceRealOwnerId']   = $resourceRealOwnerId;
 
         return $this;
     }
@@ -96,7 +98,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -109,7 +111,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setResourceType($resourceType)
     {
         $this->requestParameters['ResourceType'] = $resourceType;
-        $this->queryParameters['ResourceType'] = $resourceType;
+        $this->queryParameters['ResourceType']   = $resourceType;
 
         return $this;
     }
@@ -122,7 +124,7 @@ class MoveAppResourceRequest extends \RpcAcsRequest
     public function setResourceIds($resourceIds)
     {
         $this->requestParameters['ResourceIds'] = $resourceIds;
-        $this->queryParameters['ResourceIds'] = $resourceIds;
+        $this->queryParameters['ResourceIds']   = $resourceIds;
 
         return $this;
     }

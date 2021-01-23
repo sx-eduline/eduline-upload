@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +16,7 @@ namespace vod\Request\V20170321;
  * @method string getResultTypes()
  * @method string getOwnerId()
  */
-class GetVideoInfoRequest extends \RpcAcsRequest
+class GetVideoInfoRequest extends RpcAcsRequest
 {
 
     /**
@@ -43,7 +45,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -56,7 +58,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId'] = $videoId;
+        $this->queryParameters['VideoId']   = $videoId;
 
         return $this;
     }
@@ -82,7 +84,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setAdditionType($additionType)
     {
         $this->requestParameters['AdditionType'] = $additionType;
-        $this->queryParameters['AdditionType'] = $additionType;
+        $this->queryParameters['AdditionType']   = $additionType;
 
         return $this;
     }
@@ -95,7 +97,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setResultTypes($resultTypes)
     {
         $this->requestParameters['ResultTypes'] = $resultTypes;
-        $this->queryParameters['ResultTypes'] = $resultTypes;
+        $this->queryParameters['ResultTypes']   = $resultTypes;
 
         return $this;
     }
@@ -108,7 +110,7 @@ class GetVideoInfoRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }

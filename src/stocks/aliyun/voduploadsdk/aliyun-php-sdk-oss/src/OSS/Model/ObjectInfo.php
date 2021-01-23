@@ -16,6 +16,13 @@ namespace OSS\Model;
  */
 class ObjectInfo
 {
+    private $key = "";
+    private $lastModified = "";
+    private $eTag = "";
+    private $type = "";
+    private $size = 0;
+    private $storageClass = "";
+
     /**
      * ObjectInfo constructor.
      *
@@ -23,16 +30,16 @@ class ObjectInfo
      * @param string $lastModified
      * @param string $eTag
      * @param string $type
-     * @param int $size
+     * @param int    $size
      * @param string $storageClass
      */
     public function __construct($key, $lastModified, $eTag, $type, $size, $storageClass)
     {
-        $this->key = $key;
+        $this->key          = $key;
         $this->lastModified = $lastModified;
-        $this->eTag = $eTag;
-        $this->type = $type;
-        $this->size = $size;
+        $this->eTag         = $eTag;
+        $this->type         = $type;
+        $this->size         = $size;
         $this->storageClass = $storageClass;
     }
 
@@ -83,11 +90,4 @@ class ObjectInfo
     {
         return $this->storageClass;
     }
-
-    private $key = "";
-    private $lastModified = "";
-    private $eTag = "";
-    private $type = "";
-    private $size = 0;
-    private $storageClass = "";
 }

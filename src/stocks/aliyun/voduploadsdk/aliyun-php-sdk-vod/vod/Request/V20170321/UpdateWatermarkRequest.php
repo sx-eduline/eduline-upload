@@ -2,6 +2,8 @@
 
 namespace vod\Request\V20170321;
 
+use RpcAcsRequest;
+
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +16,7 @@ namespace vod\Request\V20170321;
  * @method string getOwnerId()
  * @method string getWatermarkConfig()
  */
-class UpdateWatermarkRequest extends \RpcAcsRequest
+class UpdateWatermarkRequest extends RpcAcsRequest
 {
 
     /**
@@ -43,7 +45,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setWatermarkId($watermarkId)
     {
         $this->requestParameters['WatermarkId'] = $watermarkId;
-        $this->queryParameters['WatermarkId'] = $watermarkId;
+        $this->queryParameters['WatermarkId']   = $watermarkId;
 
         return $this;
     }
@@ -56,7 +58,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
 
         return $this;
     }
@@ -82,7 +84,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setName($name)
     {
         $this->requestParameters['Name'] = $name;
-        $this->queryParameters['Name'] = $name;
+        $this->queryParameters['Name']   = $name;
 
         return $this;
     }
@@ -95,7 +97,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId'] = $ownerId;
+        $this->queryParameters['OwnerId']   = $ownerId;
 
         return $this;
     }
@@ -108,7 +110,7 @@ class UpdateWatermarkRequest extends \RpcAcsRequest
     public function setWatermarkConfig($watermarkConfig)
     {
         $this->requestParameters['WatermarkConfig'] = $watermarkConfig;
-        $this->queryParameters['WatermarkConfig'] = $watermarkConfig;
+        $this->queryParameters['WatermarkConfig']   = $watermarkConfig;
 
         return $this;
     }

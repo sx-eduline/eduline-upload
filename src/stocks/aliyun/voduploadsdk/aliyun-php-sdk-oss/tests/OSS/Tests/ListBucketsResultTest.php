@@ -5,8 +5,9 @@ namespace OSS\Tests;
 use OSS\Core\OssException;
 use OSS\Http\ResponseCore;
 use OSS\Result\ListBucketsResult;
+use PHPUnit_Framework_TestCase;
 
-class ListBucketsResultTest extends \PHPUnit_Framework_TestCase
+class ListBucketsResultTest extends PHPUnit_Framework_TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,8 +45,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore(array(), $this->validXml, 200);
-        $result = new ListBucketsResult($response);
+        $response = new ResponseCore([], $this->validXml, 200);
+        $result   = new ListBucketsResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -55,8 +56,8 @@ BBBB;
 
     public function testParseNullXml()
     {
-        $response = new ResponseCore(array(), $this->nullXml, 200);
-        $result = new ListBucketsResult($response);
+        $response = new ResponseCore([], $this->nullXml, 200);
+        $result   = new ListBucketsResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -66,9 +67,9 @@ BBBB;
 
     public function test403()
     {
-        $errorHeader = array(
+        $errorHeader = [
             'x-oss-request-id' => '1a2b-3c4d'
-        );
+        ];
 
         $errorBody = <<< BBBB
 <?xml version="1.0" encoding="UTF-8"?>
@@ -80,7 +81,7 @@ BBBB;
   <BucketName>hello</BucketName>
 </Error>
 BBBB;
-        $response = new ResponseCore($errorHeader, $errorBody, 403);
+        $response  = new ResponseCore($errorHeader, $errorBody, 403);
         try {
             new ListBucketsResult($response);
         } catch (OssException $e) {

@@ -1,11 +1,12 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
+
 namespace eduline\upload\stocks\local;
 
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
-use eduline\upload\stocks\local\Config;
 use eduline\upload\utils\Util;
+use Exception;
 use think\exception\FileException;
 use think\facade\Filesystem;
 use think\facade\Request;
@@ -14,11 +15,12 @@ class File implements FileInterface
 {
     /**
      * 上传文件
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
-     * @param    string                         $path [description]
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
+     *
+     * @param string $path [description]
      * @param    [type]                         $file [description]
-     * @param    string                         $name [description]
+     * @param string $name [description]
      * @return   [type]                               [description]
      */
     public function putFile($path = '', $file = null, string $name = '')
@@ -33,7 +35,7 @@ class File implements FileInterface
                 'savepath' => $savepath,
                 'savename' => $name,
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new FileException($e->getMessage());
 
         }
@@ -42,9 +44,10 @@ class File implements FileInterface
 
     /**
      * 上传到本地,无需云端支持
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-08-15
-     * @param    Attach                         $attach [description]
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-08-15
+     *
+     * @param Attach $attach [description]
      * @return   [type]                                 [description]
      */
     public function putYunFile(Attach $attach)
@@ -54,8 +57,8 @@ class File implements FileInterface
 
     /**
      * 文件的url
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function url(array $data = [])
     {
@@ -74,8 +77,8 @@ class File implements FileInterface
 
     /**
      * 文件的储存路径
-     * @Author   Martinsun<syh@sunyonghong.com>
-     * @DateTime 2020-03-30
+     * Author   Martinsun<syh@sunyonghong.com>
+     * Date:  2020-03-30
      */
     public function path(array $data = [])
     {
