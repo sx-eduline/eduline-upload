@@ -45,7 +45,7 @@ class Config implements ConfigInterface
      */
     public static function get($name = null)
     {
-        $config = SystemConfig::get(self::$key, ['bucket' => 'local', 'upload_dir' => 'upload']);
+        $config = SystemConfig::get(self::$key, ['bucket' => 'local', 'upload_dir' => 'upload'], request()->mhm_id);
 
         if ($name) {
             return isset($config[$name]) ? $config[$name] : null;

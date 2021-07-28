@@ -44,7 +44,7 @@ class Config implements ConfigInterface
      */
     public static function get($name = null, $default = null)
     {
-        $config = SystemConfig::get(self::$key, []);
+        $config = SystemConfig::get(self::$key, [], request()->mhm_id);
 
         if ($name) {
             return isset($config[$name]) ? $config[$name] : $default;
