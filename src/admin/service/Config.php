@@ -32,8 +32,8 @@ class Config extends BaseService
         }
         // 定义字段
         $keyList = [
-            'key'    => ListItem::make()->title('标识'),
             'name'   => ListItem::make()->title('名称'),
+            'key'    => ListItem::make()->title('标识'),
             'desc'   => ListItem::make()->title('描述'),
             'status' => ListItem::make('custom')->title('启用状态'),
         ];
