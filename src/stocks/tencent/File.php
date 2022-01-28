@@ -229,10 +229,10 @@ class File implements FileInterface
                     ],
                 ]);
 
-                $url = $client->getPresignetUrl('getObject', [
-                    'Bucket' => $data['bucket'],
-                    'Key'    => $data['savepath'] . '/' . $data['savename'],
-                ], '+10 minutes')->__toString();
+                $bucket = $data['bucket'];
+                $key    = $data['savepath'] . '/' . $data['savename'];
+
+                $url = $client->getObjectUrl($bucket, $key, '+10 minutes');
             }
         } catch (Exception $e) {
             $url = '';
