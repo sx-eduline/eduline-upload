@@ -107,7 +107,11 @@ class File implements FileInterface
             $attach->stock  = 'tencent';
             $attach->status = $status;
 
-            return $attach->save();
+            $re = $attach->save();
+            if ($re) {
+                @unlink($filepath);
+            }
+            return $re;
         } catch (Exception $e) {
             Attach::update(['status' => 0], ['id' => $attach->id]);
             throw new FileException($e->getMessage());
