@@ -64,8 +64,8 @@ class File implements FileInterface
                 $procedure        = $this->config['vod_video_procedure'] ?? false;
                 $rsp              = $this->doUpload($filepath, $attach->filename, $procedure);
                 $attach->savename = $rsp->FileId;
-                $attach->savepath = '';
-                $attach->bucket   = '';
+                // $attach->savepath = '';
+                // $attach->bucket   = '';
                 $procedure && $status = 4;
 
             } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
@@ -73,16 +73,16 @@ class File implements FileInterface
                 $procedure        = $this->config['vod_audio_procedure'] ?? false;
                 $rsp              = $this->doUpload($filepath, $attach->filename, $procedure);
                 $attach->savename = $rsp->FileId;
-                $attach->savepath = '';
-                $attach->bucket   = '';
+                // $attach->savepath = '';
+                // $attach->bucket   = '';
                 $procedure && $status = 4;
 
             } else if (Util::isImageFile($attach->mimetype, $filepath)) {
                 // 图片
                 $rsp              = $this->doUpload($filepath, $attach->filename);
                 $attach->savename = $rsp->FileId;
-                $attach->savepath = '';
-                $attach->bucket   = '';
+                // $attach->savepath = '';
+                // $attach->bucket   = '';
             } else {
                 $region = $this->config['cos_region'];
                 $bucket = $this->config['bucket'];
