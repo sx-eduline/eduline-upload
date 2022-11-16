@@ -37,7 +37,7 @@ class VodEvent
 
             // 视频任务流变更
             case 'ProcedureStateChanged':
-                // $body   = $request->post('ProcedureStateChangeEvent');
+                $body   = $request->post('ProcedureStateChangeEvent');
                 $status = $body['Status'] == 'FINISH';
                 if ($status) {
                     // 任务流完成了

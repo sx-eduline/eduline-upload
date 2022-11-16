@@ -4,12 +4,14 @@ declare (strict_types=1);
 namespace eduline\upload\stocks\bokecc;
 
 use app\admin\model\material\Category;
+use app\common\exception\LogicException;
 use app\common\library\Queue;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use think\exception\FileException;
 use think\facade\Db;
 
@@ -61,18 +63,16 @@ class File implements FileInterface
             // 更新为上传中
             Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
 
-            Queue::push('bokeccUpload', [
+            Queue::push('BokeccUpload', [
                 'filepath'   => $filepath,
                 'attach_id'  => $attach->id,
                 'uploadinfo' => $response['uploadinfo'],
                 'config'     => $this->config
             ]);
-        } catch (Exception $e) {
+        } catch (ClientException|FileException|Exception $e) {
+            Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
-            throw new FileException($e->getMessage());
-        } catch (FileException $e) {
-            Attach::update(['status' => 2], ['id' => $attach->id]);
-            throw new FileException($e->getMessage());
+            throw new LogicException($e->getMessage());
         }
 
     }
@@ -121,23 +121,35 @@ class File implements FileInterface
      * @param $param
      * @return mixed
      */
-    public function client($uri, $param, $debug = false)
+    public function client($uri, $param)
     {
-        ksort($param);
-        $str = '';
-        foreach ($param as $k => $v) {
-            $str .= $k . '=' . urlencode(strval($v)) . '&';
-        }
-        $str .= 'time=' . time();
-        $md5 = md5($str . '&salt=' . $this->config['apikey']);
-        $str .= '&hash=' . $md5;
-        $uri .= '?' . $str;
-
+        $param    = $this->THQS($param);
+        $uri      .= '?' . http_build_query($param);
         $client   = new Client();
         $res      = $client->get($uri);
         $response = $res->getBody()->getContents();
-        $debug && Db::name('test')->save(['msg' => $response, 'create_time' => date('Y-m-d H:i:s', time())]);
+
         return json_decode($response, true);
+    }
+
+    /**
+     * THQS
+     * Author: 亓官雨树 <lucky.max@foxmail.com>
+     * Date: 22/11/09
+     *
+     * @param $param
+     * @return mixed
+     */
+    private function THQS($param)
+    {
+        ksort($param);
+        $param['time'] = time();
+        $param['salt'] = $this->config['apikey'];
+        $value         = http_build_query($param);
+        $hash          = md5($value);
+        $param['hash'] = strtoupper($hash);
+        unset($param['salt']);
+        return $param;
     }
 
     /**
@@ -165,7 +177,6 @@ class File implements FileInterface
         $param = [
             'userid'     => $this->config['userid'],
             'title'      => $attach->getAttr('filename'),
-            // 'categoryid' => $a,
             'filename'   => $attach->getAttr('filename'),
             'filesize'   => $attach->getData('filesize'),
             'notify_url' => $this->config['notify_url'],
