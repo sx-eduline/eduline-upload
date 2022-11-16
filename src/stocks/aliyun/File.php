@@ -116,14 +116,14 @@ class File implements FileInterface
 
             $attach->stock  = 'aliyun';
             $attach->status = $status;
-            
+
             $re = $attach->save();
             if ($re) {
                 @unlink($filepath);
             }
             return $re;
         } catch (Exception $e) {
-            Attach::update(['status' => 0], ['id' => $attach->id]);
+            Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new FileException($e->getMessage());
 
         }
@@ -189,5 +189,23 @@ class File implements FileInterface
     {
         $path = $data['bucket'] . ':' . $data['savepath'] . '/' . $data['savename'];
         return str_replace('\\', '/', $path);
+    }
+
+    public function playAuth($videoId)
+    {
+        $accessKeyId     = $this->config['accessKey_id'];
+        $accessKeySecret = $this->config['accessKey_secret'];
+        $regionId        = $this->config['vod_region_id'] ?? 'cn-shanghai';
+        $url             = '';
+        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
+            ->regionId($regionId)->asDefaultClient()->options([]);
+
+        $request = Vod::v20170321()->getVideoPlayAuth();
+        $result  = $request
+            ->withVideoId($videoId)
+            ->withAuthInfoTimeout(120)
+            ->request()->toArray();
+
+        return $result['PlayAuth'] ?? '';
     }
 }

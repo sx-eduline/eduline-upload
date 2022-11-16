@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace eduline\upload\stocks\aliyun\event;
 
 use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Vod\Vod;
 use app\common\model\Attach;
 use app\common\service\BaseService;
@@ -51,6 +52,12 @@ class VodEvent
                     Attach::update(['duration' => $duration, 'cover_url' => $coverURL], ['stock' => 'aliyun', 'savename' => $videoId]);
                 }
                 break;
+            case 'FileUploadComplete':
+                // 视频上传完成
+                // if ($request->post('Status') == 'success') {
+                //     $this->submitTranscodeJobs($videoId);
+                // }
+                break;
             default:
                 # code...
                 break;
@@ -72,5 +79,22 @@ class VodEvent
         }
 
         return false;
+    }
+
+    /**
+     * 提交媒体转码作业
+     * Author: 亓官雨树 <lucky.max@foxmail.com>
+     * Date: 22/11/01
+     *
+     * @throws ClientException
+     */
+    public function submitTranscodeJobs($videoId)
+    {
+        AlibabaCloud::accessKeyClient(Config::get('accessKey_id'), Config::get('accessKey_secret'))
+            ->regionId(Config::get('vod_region_id', 'cn-shanghai'))
+            ->asDefaultClient()->options([]);
+
+        $request = Vod::v20170321()->submitTranscodeJobs();
+        $result  = $request->withTemplateGroupId(Config::get('hls_template_id'))->withVideoId($videoId)->request();
     }
 }

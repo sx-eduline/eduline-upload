@@ -113,7 +113,7 @@ class File implements FileInterface
             }
             return $re;
         } catch (Exception $e) {
-            Attach::update(['status' => 0], ['id' => $attach->id]);
+            Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new FileException($e->getMessage());
 
         }
@@ -188,8 +188,10 @@ class File implements FileInterface
                 if ($isImage) {
                     $url = $resp->MediaInfoSet[0]->BasicInfo->MediaUrl;
                 } else {
-                    $url         = [];
-                    $items       = $resp->MediaInfoSet[0]->TranscodeInfo->TranscodeSet;
+                    $url   = [];
+                    $items = $resp->MediaInfoSet[0]->TranscodeInfo->TranscodeSet;
+                    $adapt = $resp->MediaInfoSet[0]->AdaptiveDynamicStreamingInfo;
+
                     $definitions = [
                         // FD:流畅
                         '100010' => 'FD',
@@ -213,12 +215,23 @@ class File implements FileInterface
                         '100080' => '4K',
                         '1010'   => 'OD',
                         '1020'   => 'HD',
+                        // 自适应码率
+                        '12'     => 'AUTO'
                     ];
-                    foreach ($items as $item) {
-                        $url[] = [
-                            'definition' => $definitions[$item->Definition] ?? 'OD',
-                            'play_url'   => $item->Url,
-                        ];
+                    if ($adapt) {
+                        foreach ($adapt->AdaptiveDynamicStreamingSet as $value) {
+                            $url[] = [
+                                'definition' => $definitions[$value->Definition] ?? 'OD',
+                                'play_url'   => $value->Url,
+                            ];
+                        }
+                    } else {
+                        foreach ($items as $item) {
+                            $url[] = [
+                                'definition' => $definitions[$item->Definition] ?? 'OD',
+                                'play_url'   => $item->Url,
+                            ];
+                        }
                     }
                 }
 

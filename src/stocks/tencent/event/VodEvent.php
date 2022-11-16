@@ -7,9 +7,11 @@ use app\common\model\Attach;
 use app\common\service\BaseService;
 use eduline\upload\stocks\tencent\Config;
 use TencentCloud\Common\Credential;
+use TencentCloud\Common\Exception\TencentCloudSDKException;
 use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
 use TencentCloud\Vod\V20180717\Models\DescribeMediaInfosRequest;
+use TencentCloud\Vod\V20180717\Models\ProcessMediaByProcedureRequest;
 use TencentCloud\Vod\V20180717\VodClient;
 use think\Request;
 
@@ -22,12 +24,20 @@ class VodEvent
     {
 
         $eventType = $request->post('EventType');
-        $body      = $request->post('ProcedureStateChangeEvent');
 
         $response = BaseService::parseToData([], 1);
+
         switch ($eventType) {
+            // // 视频上传完成
+            // case 'NewFileUpload':
+            //     $body = $request->post('FileUploadEvent');
+            //     // 使用任务流模板进行视频处理ProcessMediaByProcedure
+            //     $this->processMediaByProcedure($body['FileId']);
+            //     break;
+
             // 视频任务流变更
             case 'ProcedureStateChanged':
+                // $body   = $request->post('ProcedureStateChangeEvent');
                 $status = $body['Status'] == 'FINISH';
                 if ($status) {
                     // 任务流完成了
@@ -61,6 +71,31 @@ class VodEvent
         }
 
         return $response;
+    }
+
+    public function processMediaByProcedure($fileId)
+    {
+        try {
+            $cred        = new Credential(Config::get('secret_id'), Config::get('secret_key'));
+            $httpProfile = new HttpProfile();
+            $httpProfile->setEndpoint("vod.tencentcloudapi.com");
+
+            $clientProfile = new ClientProfile();
+            $clientProfile->setHttpProfile($httpProfile);
+            $vodRegion = Config::get('vod_region', 'ap-chengdu');
+            $client    = new VodClient($cred, $vodRegion, $clientProfile);
+            $req       = new ProcessMediaByProcedureRequest();
+
+            $params = [
+                "FileId"        => $fileId,
+                "ProcedureName" => Config::get('vod_hls_name')
+            ];
+            $req->fromJsonString(json_encode($params));
+            $resp = $client->ProcessMediaByProcedure($req);
+            // print_r($resp->toJsonString());
+        } catch (TencentCloudSDKException $e) {
+            echo $e;
+        }
     }
 
     public function getInfo($fileId)
