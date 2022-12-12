@@ -13,6 +13,7 @@ use TencentCloud\Common\Profile\HttpProfile;
 use TencentCloud\Vod\V20180717\Models\DescribeMediaInfosRequest;
 use TencentCloud\Vod\V20180717\Models\ProcessMediaByProcedureRequest;
 use TencentCloud\Vod\V20180717\VodClient;
+use think\facade\Db;
 use think\Request;
 
 /**
@@ -92,6 +93,7 @@ class VodEvent
             ];
             $req->fromJsonString(json_encode($params));
             $resp = $client->ProcessMediaByProcedure($req);
+            // Db::name('test')->save(['msg' => 'tencent/ProcessMediaByProcedureRequest/VideoId:' . $fileId . ':Success:' . $resp->toJsonString()]);
             // print_r($resp->toJsonString());
         } catch (TencentCloudSDKException $e) {
             echo $e;

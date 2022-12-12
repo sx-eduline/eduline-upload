@@ -10,6 +10,7 @@ use app\common\model\Attach;
 use app\common\service\BaseService;
 use eduline\upload\stocks\aliyun\Config;
 use think\Request;
+use think\facade\Db;
 
 /**
  * 点播事件回调
@@ -94,7 +95,17 @@ class VodEvent
             ->regionId(Config::get('vod_region_id', 'cn-shanghai'))
             ->asDefaultClient()->options([]);
 
-        $request = Vod::v20170321()->submitTranscodeJobs();
-        $result  = $request->withTemplateGroupId(Config::get('hls_template_id'))->withVideoId($videoId)->request();
+        // try {
+            $request = Vod::v20170321()->submitTranscodeJobs();
+            $result  = $request->withTemplateGroupId(Config::get('hls_template_id'))
+                ->withVideoId($videoId)
+                // ->debug(true)
+                ->request();
+        //     Db::name('test')->save(['msg'=>'submitTranscodeJobs/VideoId:'.$videoId.':Success:' . $result]);
+        // } catch (ClientException $exception) {
+        //     Db::name('test')->save(['msg'=>'submitTranscodeJobs/VideoId:'.$videoId.':ClientException:' . $exception->getMessage()]);
+        // } catch (ServerException $exception) {
+        //     Db::name('test')->save(['msg'=>'submitTranscodeJobs/VideoId:'.$videoId.':ServerException:Message:' . $exception->getMessage() . '/ErrorCode' . $exception->getErrorCode() . '/RequestId' . $exception->getRequestId() . '/ErrorMessage' . $exception->getErrorMessage()]);
+        // }
     }
 }

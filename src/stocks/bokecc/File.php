@@ -4,16 +4,13 @@ declare (strict_types=1);
 namespace eduline\upload\stocks\bokecc;
 
 use app\admin\model\material\Category;
-use app\common\exception\LogicException;
 use app\common\library\Queue;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use think\exception\FileException;
-use think\facade\Db;
 
 class File implements FileInterface
 {
@@ -51,26 +48,32 @@ class File implements FileInterface
     public function putYunFile(Attach $attach)
     {
         try {
-            // 附件本地地址
-            $filepath = $attach->getAttr('filepath');
-            // 创建视频上传信息
-            $response = $this->createUploadInfo($attach);
-            if (isset($response['uploadinfo'])) {
-                $videoId = $response['uploadinfo']['videoid'];
-            } else {
-                throw new FileException($response['error']);
-            }
-            // 更新为上传中
-            Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
+            // if (Util::isAudio($attach->mimetype, $attach->extension) || Util::isVideo($attach->mimetype, $attach->extension)) {
+            if (Util::isVideo($attach->mimetype, $attach->extension)) {
 
-            Queue::push('BokeccUpload', [
-                'filepath'   => $filepath,
-                'attach_id'  => $attach->id,
-                'uploadinfo' => $response['uploadinfo'],
-                'config'     => $this->config
-            ]);
+                // 附件本地地址
+                $filepath = $attach->getAttr('filepath');
+                // 创建视频上传信息
+                $response = $this->createUploadInfo($attach);
+                if (isset($response['uploadinfo'])) {
+                    $videoId = $response['uploadinfo']['videoid'];
+                } else {
+                    throw new FileException($response['error']);
+                }
+                // 更新为上传中
+                Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
+
+                Queue::push('BokeccUpload', [
+                    'filepath'   => $filepath,
+                    'attach_id'  => $attach->id,
+                    'uploadinfo' => $response['uploadinfo'],
+                    'config'     => $this->config
+                ]);
+            } else {
+                Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
+            }
         } catch (ClientException|FileException|Exception $e) {
-            Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
+            // Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new LogicException($e->getMessage());
         }
