@@ -4,14 +4,12 @@ namespace OSS\Tests;
 
 use OSS\Result\ListPartsResult;
 use OSS\Http\ResponseCore;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Class ListPartsResultTest
- *
  * @package OSS\Tests
  */
-class ListPartsResultTest extends PHPUnit_Framework_TestCase
+class ListPartsResultTest extends \PHPUnit\Framework\TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?>
@@ -45,8 +43,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response      = new ResponseCore([], $this->validXml, 200);
-        $result        = new ListPartsResult($response);
+        $response = new ResponseCore(array(), $this->validXml, 200);
+        $result = new ListPartsResult($response);
         $listPartsInfo = $result->getData();
         $this->assertEquals("multipart_upload", $listPartsInfo->getBucket());
         $this->assertEquals("multipart.data", $listPartsInfo->getKey());

@@ -9,17 +9,18 @@ use OSS\Model\LifecycleAction;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
 
+
 class OssClientBucketLifecycleTest extends TestOssClientBase
 {
     public function testBucket()
     {
         $lifecycleConfig = new LifecycleConfig();
-        $actions         = [];
-        $actions[]       = new LifecycleAction("Expiration", "Days", 3);
-        $lifecycleRule   = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
+        $actions = array();
+        $actions[] = new LifecycleAction("Expiration", "Days", 3);
+        $lifecycleRule = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
         $lifecycleConfig->addRule($lifecycleRule);
-        $actions       = [];
-        $actions[]     = new LifecycleAction("Expiration", "Date", '2022-10-12T00:00:00.000Z');
+        $actions = array();
+        $actions[] = new LifecycleAction("Expiration", "Date", '2022-10-12T00:00:00.000Z');
         $lifecycleRule = new LifecycleRule("delete temporary files", "temporary/", "Enabled", $actions);
         $lifecycleConfig->addRule($lifecycleRule);
 

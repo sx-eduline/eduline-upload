@@ -4,9 +4,9 @@ namespace OSS\Result;
 
 use OSS\Model\LoggingConfig;
 
+
 /**
  * Class GetLoggingResult
- *
  * @package OSS\Result
  */
 class GetLoggingResult extends Result
@@ -19,7 +19,7 @@ class GetLoggingResult extends Result
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
-        $config  = new LoggingConfig();
+        $config = new LoggingConfig();
         $config->parseFromXml($content);
         return $config;
     }

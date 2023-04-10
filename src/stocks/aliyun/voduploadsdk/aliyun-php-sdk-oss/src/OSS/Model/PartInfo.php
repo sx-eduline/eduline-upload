@@ -4,30 +4,24 @@ namespace OSS\Model;
 
 /**
  * Class PartInfo
- *
  * @package OSS\Model
  */
 class PartInfo
 {
-    private $partNumber = 0;
-    private $lastModified = "";
-    private $eTag = "";
-    private $size = 0;
-
     /**
      * PartInfo constructor.
      *
-     * @param int    $partNumber
+     * @param int $partNumber
      * @param string $lastModified
      * @param string $eTag
-     * @param int    $size
+     * @param string $size
      */
     public function __construct($partNumber, $lastModified, $eTag, $size)
     {
-        $this->partNumber   = $partNumber;
+        $this->partNumber = $partNumber;
         $this->lastModified = $lastModified;
-        $this->eTag         = $eTag;
-        $this->size         = $size;
+        $this->eTag = $eTag;
+        $this->size = $size;
     }
 
     /**
@@ -55,10 +49,26 @@ class PartInfo
     }
 
     /**
+	 * php7 && 64bit can use it
      * @return int
      */
     public function getSize()
     {
-        return $this->size;
+        return (int)$this->size;
     }
+	
+	
+	/**
+	 * php5.x or 32bit must use it
+	 * @return string
+	 */
+	public function getSizeStr()
+	{
+		return $this->size;
+	}
+
+    private $partNumber = 0;
+    private $lastModified = "";
+    private $eTag = "";
+    private $size = "0";
 }

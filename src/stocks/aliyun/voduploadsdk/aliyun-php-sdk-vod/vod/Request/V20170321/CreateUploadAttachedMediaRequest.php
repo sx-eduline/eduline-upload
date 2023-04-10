@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -26,7 +24,7 @@ use RpcAcsRequest;
  * @method string getCateId()
  * @method string getAppId()
  */
-class CreateUploadAttachedMediaRequest extends RpcAcsRequest
+class CreateUploadAttachedMediaRequest extends \RpcAcsRequest
 {
 
     /**
@@ -55,7 +53,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -68,7 +66,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -81,7 +79,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setCateIds($cateIds)
     {
         $this->requestParameters['CateIds'] = $cateIds;
-        $this->queryParameters['CateIds']   = $cateIds;
+        $this->queryParameters['CateIds'] = $cateIds;
 
         return $this;
     }
@@ -94,7 +92,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setIcon($icon)
     {
         $this->requestParameters['Icon'] = $icon;
-        $this->queryParameters['Icon']   = $icon;
+        $this->queryParameters['Icon'] = $icon;
 
         return $this;
     }
@@ -107,7 +105,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description']   = $description;
+        $this->queryParameters['Description'] = $description;
 
         return $this;
     }
@@ -120,7 +118,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setFileSize($fileSize)
     {
         $this->requestParameters['FileSize'] = $fileSize;
-        $this->queryParameters['FileSize']   = $fileSize;
+        $this->queryParameters['FileSize'] = $fileSize;
 
         return $this;
     }
@@ -133,7 +131,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -146,7 +144,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title']   = $title;
+        $this->queryParameters['Title'] = $title;
 
         return $this;
     }
@@ -159,7 +157,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setBusinessType($businessType)
     {
         $this->requestParameters['BusinessType'] = $businessType;
-        $this->queryParameters['BusinessType']   = $businessType;
+        $this->queryParameters['BusinessType'] = $businessType;
 
         return $this;
     }
@@ -172,7 +170,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setTags($tags)
     {
         $this->requestParameters['Tags'] = $tags;
-        $this->queryParameters['Tags']   = $tags;
+        $this->queryParameters['Tags'] = $tags;
 
         return $this;
     }
@@ -185,7 +183,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setStorageLocation($storageLocation)
     {
         $this->requestParameters['StorageLocation'] = $storageLocation;
-        $this->queryParameters['StorageLocation']   = $storageLocation;
+        $this->queryParameters['StorageLocation'] = $storageLocation;
 
         return $this;
     }
@@ -198,7 +196,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setUserData($userData)
     {
         $this->requestParameters['UserData'] = $userData;
-        $this->queryParameters['UserData']   = $userData;
+        $this->queryParameters['UserData'] = $userData;
 
         return $this;
     }
@@ -211,7 +209,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setMediaExt($mediaExt)
     {
         $this->requestParameters['MediaExt'] = $mediaExt;
-        $this->queryParameters['MediaExt']   = $mediaExt;
+        $this->queryParameters['MediaExt'] = $mediaExt;
 
         return $this;
     }
@@ -224,7 +222,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setFileName($fileName)
     {
         $this->requestParameters['FileName'] = $fileName;
-        $this->queryParameters['FileName']   = $fileName;
+        $this->queryParameters['FileName'] = $fileName;
 
         return $this;
     }
@@ -237,7 +235,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setCateId($cateId)
     {
         $this->requestParameters['CateId'] = $cateId;
-        $this->queryParameters['CateId']   = $cateId;
+        $this->queryParameters['CateId'] = $cateId;
 
         return $this;
     }
@@ -250,7 +248,7 @@ class CreateUploadAttachedMediaRequest extends RpcAcsRequest
     public function setAppId($appId)
     {
         $this->requestParameters['AppId'] = $appId;
-        $this->queryParameters['AppId']   = $appId;
+        $this->queryParameters['AppId'] = $appId;
 
         return $this;
     }

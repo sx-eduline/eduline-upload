@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -22,7 +20,7 @@ use RpcAcsRequest;
  * @method string getCustomMediaInfo()
  * @method string getStatus()
  */
-class UpdateVideoInfoRequest extends RpcAcsRequest
+class UpdateVideoInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -51,7 +49,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -64,7 +62,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -77,7 +75,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description']   = $description;
+        $this->queryParameters['Description'] = $description;
 
         return $this;
     }
@@ -90,7 +88,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId']   = $videoId;
+        $this->queryParameters['VideoId'] = $videoId;
 
         return $this;
     }
@@ -103,7 +101,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -116,7 +114,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title']   = $title;
+        $this->queryParameters['Title'] = $title;
 
         return $this;
     }
@@ -129,7 +127,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setTags($tags)
     {
         $this->requestParameters['Tags'] = $tags;
-        $this->queryParameters['Tags']   = $tags;
+        $this->queryParameters['Tags'] = $tags;
 
         return $this;
     }
@@ -142,7 +140,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setCoverURL($coverURL)
     {
         $this->requestParameters['CoverURL'] = $coverURL;
-        $this->queryParameters['CoverURL']   = $coverURL;
+        $this->queryParameters['CoverURL'] = $coverURL;
 
         return $this;
     }
@@ -155,7 +153,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setDownloadSwitch($downloadSwitch)
     {
         $this->requestParameters['DownloadSwitch'] = $downloadSwitch;
-        $this->queryParameters['DownloadSwitch']   = $downloadSwitch;
+        $this->queryParameters['DownloadSwitch'] = $downloadSwitch;
 
         return $this;
     }
@@ -168,7 +166,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setCateId($cateId)
     {
         $this->requestParameters['CateId'] = $cateId;
-        $this->queryParameters['CateId']   = $cateId;
+        $this->queryParameters['CateId'] = $cateId;
 
         return $this;
     }
@@ -181,7 +179,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setCustomMediaInfo($customMediaInfo)
     {
         $this->requestParameters['CustomMediaInfo'] = $customMediaInfo;
-        $this->queryParameters['CustomMediaInfo']   = $customMediaInfo;
+        $this->queryParameters['CustomMediaInfo'] = $customMediaInfo;
 
         return $this;
     }
@@ -194,7 +192,7 @@ class UpdateVideoInfoRequest extends RpcAcsRequest
     public function setStatus($status)
     {
         $this->requestParameters['Status'] = $status;
-        $this->queryParameters['Status']   = $status;
+        $this->queryParameters['Status'] = $status;
 
         return $this;
     }

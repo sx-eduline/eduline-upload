@@ -2,11 +2,11 @@
 
 namespace OSS\Result;
 
+
 use OSS\Model\RefererConfig;
 
 /**
  * Class GetRefererResult
- *
  * @package OSS\Result
  */
 class GetRefererResult extends Result
@@ -19,7 +19,7 @@ class GetRefererResult extends Result
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
-        $config  = new RefererConfig();
+        $config = new RefererConfig();
         $config->parseFromXml($content);
         return $config;
     }

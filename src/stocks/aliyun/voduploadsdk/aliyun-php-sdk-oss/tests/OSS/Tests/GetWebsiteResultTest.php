@@ -2,12 +2,12 @@
 
 namespace OSS\Tests;
 
+
 use OSS\Result\GetWebsiteResult;
 use OSS\Http\ResponseCore;
 use OSS\Core\OssException;
-use PHPUnit_Framework_TestCase;
 
-class GetWebsiteResultTest extends PHPUnit_Framework_TestCase
+class GetWebsiteResultTest extends \PHPUnit\Framework\TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?>
@@ -23,8 +23,8 @@ BBBB;
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore([], $this->validXml, 200);
-        $result   = new GetWebsiteResult($response);
+        $response = new ResponseCore(array(), $this->validXml, 200);
+        $result = new GetWebsiteResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -39,12 +39,12 @@ BBBB;
 
     public function testInvalidResponse()
     {
-        $response = new ResponseCore([], $this->validXml, 300);
+        $response = new ResponseCore(array(), $this->validXml, 300);
         try {
-            new GetWebsiteResult($response);
+            $result = new GetWebsiteResult($response);
             $this->assertTrue(false);
         } catch (OssException $e) {
-
+            $this->assertTrue(true);
         }
     }
 }

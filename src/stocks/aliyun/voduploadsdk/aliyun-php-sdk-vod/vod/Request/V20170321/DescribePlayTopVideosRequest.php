@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +12,7 @@ use RpcAcsRequest;
  * @method string getBizDate()
  * @method string getPageNo()
  */
-class DescribePlayTopVideosRequest extends RpcAcsRequest
+class DescribePlayTopVideosRequest extends \RpcAcsRequest
 {
 
     /**
@@ -43,7 +41,7 @@ class DescribePlayTopVideosRequest extends RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize']   = $pageSize;
+        $this->queryParameters['PageSize'] = $pageSize;
 
         return $this;
     }
@@ -56,7 +54,7 @@ class DescribePlayTopVideosRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -69,7 +67,7 @@ class DescribePlayTopVideosRequest extends RpcAcsRequest
     public function setBizDate($bizDate)
     {
         $this->requestParameters['BizDate'] = $bizDate;
-        $this->queryParameters['BizDate']   = $bizDate;
+        $this->queryParameters['BizDate'] = $bizDate;
 
         return $this;
     }
@@ -82,7 +80,7 @@ class DescribePlayTopVideosRequest extends RpcAcsRequest
     public function setPageNo($pageNo)
     {
         $this->requestParameters['PageNo'] = $pageNo;
-        $this->queryParameters['PageNo']   = $pageNo;
+        $this->queryParameters['PageNo'] = $pageNo;
 
         return $this;
     }

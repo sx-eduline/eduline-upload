@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -18,7 +16,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getAuthTimeout()
  */
-class GetMezzanineInfoRequest extends RpcAcsRequest
+class GetMezzanineInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -47,7 +45,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -60,7 +58,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -73,7 +71,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId']   = $videoId;
+        $this->queryParameters['VideoId'] = $videoId;
 
         return $this;
     }
@@ -86,7 +84,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setPreviewSegment($previewSegment)
     {
         $this->requestParameters['PreviewSegment'] = $previewSegment;
-        $this->queryParameters['PreviewSegment']   = $previewSegment;
+        $this->queryParameters['PreviewSegment'] = $previewSegment;
 
         return $this;
     }
@@ -99,7 +97,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setOutputType($outputType)
     {
         $this->requestParameters['OutputType'] = $outputType;
-        $this->queryParameters['OutputType']   = $outputType;
+        $this->queryParameters['OutputType'] = $outputType;
 
         return $this;
     }
@@ -112,7 +110,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setAdditionType($additionType)
     {
         $this->requestParameters['AdditionType'] = $additionType;
-        $this->queryParameters['AdditionType']   = $additionType;
+        $this->queryParameters['AdditionType'] = $additionType;
 
         return $this;
     }
@@ -125,7 +123,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -138,7 +136,7 @@ class GetMezzanineInfoRequest extends RpcAcsRequest
     public function setAuthTimeout($authTimeout)
     {
         $this->requestParameters['AuthTimeout'] = $authTimeout;
-        $this->queryParameters['AuthTimeout']   = $authTimeout;
+        $this->queryParameters['AuthTimeout'] = $authTimeout;
 
         return $this;
     }

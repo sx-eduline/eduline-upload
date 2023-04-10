@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -17,7 +15,7 @@ use RpcAcsRequest;
  * @method string getRegisterMetadatas()
  * @method string getWorkFlowId()
  */
-class RegisterMediaRequest extends RpcAcsRequest
+class RegisterMediaRequest extends \RpcAcsRequest
 {
 
     /**
@@ -46,7 +44,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setUserData($userData)
     {
         $this->requestParameters['UserData'] = $userData;
-        $this->queryParameters['UserData']   = $userData;
+        $this->queryParameters['UserData'] = $userData;
 
         return $this;
     }
@@ -59,7 +57,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -72,7 +70,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setTemplateGroupId($templateGroupId)
     {
         $this->requestParameters['TemplateGroupId'] = $templateGroupId;
-        $this->queryParameters['TemplateGroupId']   = $templateGroupId;
+        $this->queryParameters['TemplateGroupId'] = $templateGroupId;
 
         return $this;
     }
@@ -85,7 +83,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -98,7 +96,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -111,7 +109,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setRegisterMetadatas($registerMetadatas)
     {
         $this->requestParameters['RegisterMetadatas'] = $registerMetadatas;
-        $this->queryParameters['RegisterMetadatas']   = $registerMetadatas;
+        $this->queryParameters['RegisterMetadatas'] = $registerMetadatas;
 
         return $this;
     }
@@ -124,7 +122,7 @@ class RegisterMediaRequest extends RpcAcsRequest
     public function setWorkFlowId($workFlowId)
     {
         $this->requestParameters['WorkFlowId'] = $workFlowId;
-        $this->queryParameters['WorkFlowId']   = $workFlowId;
+        $this->queryParameters['WorkFlowId'] = $workFlowId;
 
         return $this;
     }

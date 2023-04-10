@@ -2,16 +2,17 @@
 
 namespace OSS\Tests;
 
+
 use OSS\Core\OssException;
 use OSS\Core\OssUtil;
-use PHPUnit_Framework_TestCase;
+use OSS\OssClient;
 
-class OssUtilTest extends PHPUnit_Framework_TestCase
+class OssUtilTest extends \PHPUnit\Framework\TestCase
 {
     public function testIsChinese()
     {
         $this->assertEquals(OssUtil::chkChinese("hello,world"), 0);
-        $str    = '你好,这里是卖咖啡!';
+        $str = '你好,这里是卖咖啡!';
         $strGBK = OssUtil::encodePath($str);
         $this->assertEquals(OssUtil::chkChinese($str), 1);
         $this->assertEquals(OssUtil::chkChinese($strGBK), 1);
@@ -46,7 +47,7 @@ class OssUtilTest extends PHPUnit_Framework_TestCase
 
     public function testToQueryString()
     {
-        $option = ["a" => "b"];
+        $option = array("a" => "b");
         $this->assertEquals('a=b', OssUtil::toQueryString($option));
     }
 
@@ -93,13 +94,8 @@ class OssUtilTest extends PHPUnit_Framework_TestCase
         $xml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?><Delete><Quiet>true</Quiet><Object><Key>obj1</Key></Object></Delete>
 BBBB;
-        $a   = ['obj1'];
+        $a = array('obj1');
         $this->assertEquals($xml, $this->cleanXml(OssUtil::createDeleteObjectsXmlBody($a, 'true')));
-    }
-
-    private function cleanXml($xml)
-    {
-        return str_replace("\n", "", str_replace("\r", "", $xml));
     }
 
     public function testCreateCompleteMultipartUploadXmlBody()
@@ -107,16 +103,16 @@ BBBB;
         $xml = <<<BBBB
 <?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload><Part><PartNumber>2</PartNumber><ETag>xx</ETag></Part></CompleteMultipartUpload>
 BBBB;
-        $a   = [["PartNumber" => 2, "ETag" => "xx"]];
+        $a = array(array("PartNumber" => 2, "ETag" => "xx"));
         $this->assertEquals($this->cleanXml(OssUtil::createCompleteMultipartUploadXmlBody($a)), $xml);
     }
 
     public function testCreateBucketXmlBody()
     {
-        $xml          = <<<BBBB
+        $xml = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration><StorageClass>Standard</StorageClass></CreateBucketConfiguration>
 BBBB;
-        $storageClass = "Standard";
+        $storageClass ="Standard";
         $this->assertEquals($this->cleanXml(OssUtil::createBucketXmlBody($storageClass)), $xml);
     }
 
@@ -151,21 +147,25 @@ BBBB;
         $this->assertNotNull($list);
     }
 
-    public function testIsWin()
-    {
-        //$this->assertTrue(OssUtil::isWin());
-    }
+    //public function testIsWin()
+    //{
+    //    //$this->assertTrue(OssUtil::isWin());
+    //}
 
     public function testGetMd5SumForFile()
     {
-        $this->assertEquals(OssUtil::getMd5SumForFile(__FILE__, 0, filesize(__FILE__) - 1), base64_encode(md5(file_get_contents(__FILE__), true)));
+        $this->assertEquals(OssUtil::getMd5SumForFile(__FILE__, 0, sprintf('%u',filesize(__FILE__)) - 1), base64_encode(md5(file_get_contents(__FILE__), true)));
+        // false case
+        $this->assertEquals(OssUtil::getMd5SumForFile(__FILE__, 0, OssClient::OSS_MAX_PART_SIZE + 1), "");
+        $this->assertEquals(OssUtil::getMd5SumForFile(__FILE__, 0, sprintf('%u',filesize(__FILE__)) + 1), "");
+
     }
 
     public function testGenerateFile()
     {
         $path = __DIR__ . DIRECTORY_SEPARATOR . "generatedFile.txt";
         OssUtil::generateFile($path, 1024 * 1024);
-        $this->assertEquals(filesize($path), 1024 * 1024);
+        $this->assertEquals(sprintf('%u',filesize($path)), 1024 * 1024);
         unlink($path);
     }
 
@@ -215,10 +215,86 @@ BBBB;
         $null = "xx";
         try {
             OssUtil::throwOssExceptionWithMessageIfEmpty($null, "xx");
-            $this->assertTrue(true);
+            $this->assertTrue(True);
         } catch (OssException $e) {
             $this->assertTrue(false);
         }
     }
 
+    private function cleanXml($xml)
+    {
+        return str_replace("\n", "", str_replace("\r", "", $xml));
+    }
+
+	public function testGetHostPortFromEndpoint()
+    {
+        $str =  OssUtil::getHostPortFromEndpoint('http://username:password@hostname:80/path?arg=value#anchor');
+        $this->assertEquals('hostname:80', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('hostname:80');
+        $this->assertEquals('hostname:80', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('www.hostname.com');
+        $this->assertEquals('www.hostname.com', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('http://www.hostname.com');
+        $this->assertEquals('www.hostname.com', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('https://www.hostname.com');
+        $this->assertEquals('www.hostname.com', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('192.168.1.10:8080');
+        $this->assertEquals('192.168.1.10:8080', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('file://username:password@hostname:80/path?arg=value#anchor');
+        $this->assertEquals('hostname:80', $str);
+
+        $str =  OssUtil::getHostPortFromEndpoint('https://WWW.hostname.com-_www.test.com');
+        $this->assertEquals('WWW.hostname.com-_www.test.com', $str);
+
+        try {
+            $str =  OssUtil::getHostPortFromEndpoint('http:///path?arg=value#anchor');
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $str =  OssUtil::getHostPortFromEndpoint('https://www.hostname.com\www.test.com');
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $str =  OssUtil::getHostPortFromEndpoint('www.hostname.com-_*www.test.com');
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $str =  OssUtil::getHostPortFromEndpoint('www.hostname.com:ab123');
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $str =  OssUtil::getHostPortFromEndpoint('www.hostname.com:');
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    public function testDecodeKey()
+    {
+        try {
+            OssUtil::decodeKey("key", "unknown");
+            $this->assertTrue(false);
+        } catch (OssException $e) {
+            $this->assertTrue(true);
+        }
+    }
 }

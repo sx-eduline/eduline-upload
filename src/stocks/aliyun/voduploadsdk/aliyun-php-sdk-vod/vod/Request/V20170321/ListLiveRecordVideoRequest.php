@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -22,7 +20,7 @@ use RpcAcsRequest;
  * @method string getStreamName()
  * @method string getQueryType()
  */
-class ListLiveRecordVideoRequest extends RpcAcsRequest
+class ListLiveRecordVideoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -51,7 +49,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -64,7 +62,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -77,7 +75,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setDomainName($domainName)
     {
         $this->requestParameters['DomainName'] = $domainName;
-        $this->queryParameters['DomainName']   = $domainName;
+        $this->queryParameters['DomainName'] = $domainName;
 
         return $this;
     }
@@ -90,7 +88,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime']   = $endTime;
+        $this->queryParameters['EndTime'] = $endTime;
 
         return $this;
     }
@@ -103,7 +101,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime']   = $startTime;
+        $this->queryParameters['StartTime'] = $startTime;
 
         return $this;
     }
@@ -116,7 +114,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -129,7 +127,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setAppName($appName)
     {
         $this->requestParameters['AppName'] = $appName;
-        $this->queryParameters['AppName']   = $appName;
+        $this->queryParameters['AppName'] = $appName;
 
         return $this;
     }
@@ -142,7 +140,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setPageNo($pageNo)
     {
         $this->requestParameters['PageNo'] = $pageNo;
-        $this->queryParameters['PageNo']   = $pageNo;
+        $this->queryParameters['PageNo'] = $pageNo;
 
         return $this;
     }
@@ -155,7 +153,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setPageSize($pageSize)
     {
         $this->requestParameters['PageSize'] = $pageSize;
-        $this->queryParameters['PageSize']   = $pageSize;
+        $this->queryParameters['PageSize'] = $pageSize;
 
         return $this;
     }
@@ -168,7 +166,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setSortBy($sortBy)
     {
         $this->requestParameters['SortBy'] = $sortBy;
-        $this->queryParameters['SortBy']   = $sortBy;
+        $this->queryParameters['SortBy'] = $sortBy;
 
         return $this;
     }
@@ -181,7 +179,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setStreamName($streamName)
     {
         $this->requestParameters['StreamName'] = $streamName;
-        $this->queryParameters['StreamName']   = $streamName;
+        $this->queryParameters['StreamName'] = $streamName;
 
         return $this;
     }
@@ -194,7 +192,7 @@ class ListLiveRecordVideoRequest extends RpcAcsRequest
     public function setQueryType($queryType)
     {
         $this->requestParameters['QueryType'] = $queryType;
-        $this->queryParameters['QueryType']   = $queryType;
+        $this->queryParameters['QueryType'] = $queryType;
 
         return $this;
     }

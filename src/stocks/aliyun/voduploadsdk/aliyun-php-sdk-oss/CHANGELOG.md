@@ -1,5 +1,45 @@
 # ChangeLog - Aliyun OSS SDK for PHP
 
+## v2.4.3 / 2021-08-25
+* Fixed: integer overflow in PHP5.x.
+
+## v2.4.2 / 2021-06-04
+* Compatible with PHP8.
+* Fixed: compatible with PHP5.4.
+* Fixed: the signature is incorrect in some scenarios
+* Update: change $requestUrl from a member variable to a local variable.
+
+## v2.4.1 / 2020-09-29
+* Fixed: the getBucketPolicy bug.
+
+
+## v2.4.0 / 2020-08-31
+
+* Added: disable Expect: 100-continue
+* Added: support getBucketInfo
+* Added: support getBucketStat
+* Added: support bucket policy
+* Added: support bucket encryption
+* Added: support bucket tagging
+* Added: support bucket  worm
+* Added: support versioning
+* Added: support request payment
+* Added: support object tagging
+* Added: support code archive
+* Added: support process object 
+* Added: support traffic limit paramter 
+* Added: support upload object from file handle
+* Added: support getSimplifiedObjectMeta
+* Fixed: the object name can not be '0' stirng.
+* Update: endpoint validity check
+* Update: add new pre-signed url api
+
+
+## v2.3.1 / 2019-01-15
+
+* translate chinese comments into english
+* Added: endpoint validity check
+
 ## v2.3.0 / 2018-01-05
 
 * Fixed: putObject support creating empty files
@@ -65,10 +105,10 @@
 * Increase the ListObjects/ListMultipartUploads special characters
 * Provides the interface to get the details of the OssException
 
+
 ## 2015.11.25
 
-* **Large version upgrade, no longer compatible with previous interface, new version has made great improvements to ease
-  of use, suggesting that users migrate to a new version.**
+* **Large version upgrade, no longer compatible with previous interface, new version has made great improvements to ease of use, suggesting that users migrate to a new version.**
 
 ## Modify the content
 
@@ -79,8 +119,7 @@
 * Introduce namespace
 * Interface naming and modification, using hump naming
 * The interface is modified, and the common parameters are extracted from the Options parameter.
-* The interface returns the result modification, processing the return result, and the user can directly get the data
-  structure easily processed
+* The interface returns the result modification, processing the return result, and the user can directly get the data structure easily processed　
 * OssClient's constructor changes
 * The Endpoint address that support CNAME and IP formats
 * Rearrange the sample file organization structure and use function to organize the function points

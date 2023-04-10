@@ -5,6 +5,7 @@ namespace OSS\Result;
 use OSS\Core\OssException;
 use OSS\Http\ResponseCore;
 
+
 /**
  * Class Result, The result class of The operation of the base class, different requests in dealing with the return of data have different logic,
  * The specific parsing logic postponed to subclass implementation
@@ -14,23 +15,7 @@ use OSS\Http\ResponseCore;
 abstract class Result
 {
     /**
-     * Indicate whether the request is successful
-     */
-    protected $isOk = false;
-    /**
-     * Data parsed by subclasses
-     */
-    protected $parsedData = null;
-    /**
-     * Store the original Response returned by the auth function
-     *
-     * @var ResponseCore
-     */
-    protected $rawResponse;
-
-    /**
      * Result constructor.
-     *
      * @param $response ResponseCore
      * @throws OssException
      */
@@ -42,53 +27,6 @@ abstract class Result
         $this->rawResponse = $response;
         $this->parseResponse();
     }
-
-    /**
-     * @throws OssException
-     */
-    public function parseResponse()
-    {
-        $this->isOk = $this->isResponseOk();
-        if ($this->isOk) {
-            $this->parsedData = $this->parseDataFromResponse();
-        } else {
-            $httpStatus = strval($this->rawResponse->status);
-            $requestId  = strval($this->getRequestId());
-            $code       = $this->retrieveErrorCode($this->rawResponse->body);
-            $message    = $this->retrieveErrorMessage($this->rawResponse->body);
-            $body       = $this->rawResponse->body;
-
-            $details = [
-                'status'     => $httpStatus,
-                'request-id' => $requestId,
-                'code'       => $code,
-                'message'    => $message,
-                'body'       => $body
-            ];
-            throw new OssException($details);
-        }
-    }
-
-    /**
-     * Judging from the return http status code, [200-299] that is OK
-     *
-     * @return bool
-     */
-    protected function isResponseOk()
-    {
-        $status = $this->rawResponse->status;
-        if ((int)(intval($status) / 100) == 2) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Subclass implementation, different requests return data has different analytical logic, implemented by subclasses
-     *
-     * @return mixed
-     */
-    abstract protected function parseDataFromResponse();
 
     /**
      * Get requestId
@@ -108,21 +46,56 @@ abstract class Result
     }
 
     /**
-     * Try to get the error Code from body
+     * Get the returned data, different request returns the data format is different
      *
-     * @param $body
-     * @return string
+     * $return mixed
      */
-    private function retrieveErrorCode($body)
+    public function getData()
     {
-        if (empty($body) || false === strpos($body, '<?xml')) {
-            return '';
+        return $this->parsedData;
+    }
+
+    /**
+     * Subclass implementation, different requests return data has different analytical logic, implemented by subclasses
+     *
+     * @return mixed
+     */
+    abstract protected function parseDataFromResponse();
+
+    /**
+     * Whether the operation is successful
+     *
+     * @return mixed
+     */
+    public function isOK()
+    {
+        return $this->isOk;
+    }
+
+    /**
+     * @throws OssException
+     */
+    public function parseResponse()
+    {
+        $this->isOk = $this->isResponseOk();
+        if ($this->isOk) {
+            $this->parsedData = $this->parseDataFromResponse();
+        } else {
+            $httpStatus = strval($this->rawResponse->status);
+            $requestId = strval($this->getRequestId());
+            $code = $this->retrieveErrorCode($this->rawResponse->body);
+            $message = $this->retrieveErrorMessage($this->rawResponse->body);
+            $body = $this->rawResponse->body;
+
+            $details = array(
+                'status' => $httpStatus,
+                'request-id' => $requestId,
+                'code' => $code,
+                'message' => $message,
+                'body' => $body
+            );
+            throw new OssException($details);
         }
-        $xml = simplexml_load_string($body);
-        if (isset($xml->Code)) {
-            return strval($xml->Code);
-        }
-        return '';
     }
 
     /**
@@ -144,23 +117,35 @@ abstract class Result
     }
 
     /**
-     * Get the returned data, different request returns the data format is different
+     * Try to get the error Code from body
      *
-     * $return mixed
+     * @param $body
+     * @return string
      */
-    public function getData()
+    private function retrieveErrorCode($body)
     {
-        return $this->parsedData;
+        if (empty($body) || false === strpos($body, '<?xml')) {
+            return '';
+        }
+        $xml = simplexml_load_string($body);
+        if (isset($xml->Code)) {
+            return strval($xml->Code);
+        }
+        return '';
     }
 
     /**
-     * Whether the operation is successful
+     * Judging from the return http status code, [200-299] that is OK
      *
-     * @return mixed
+     * @return bool
      */
-    public function isOK()
+    protected function isResponseOk()
     {
-        return $this->isOk;
+        $status = $this->rawResponse->status;
+        if ((int)(intval($status) / 100) == 2) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -172,4 +157,19 @@ abstract class Result
     {
         return $this->rawResponse;
     }
+
+    /**
+     * Indicate whether the request is successful
+     */
+    protected $isOk = false;
+    /**
+     * Data parsed by subclasses
+     */
+    protected $parsedData = null;
+    /**
+     * Store the original Response returned by the auth function
+     *
+     * @var ResponseCore
+     */
+    protected $rawResponse;
 }

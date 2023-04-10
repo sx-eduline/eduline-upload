@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -17,7 +15,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getInterval()
  */
-class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
+class DescribeVodDomainBpsDataRequest extends \RpcAcsRequest
 {
 
     /**
@@ -46,7 +44,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setLocationNameEn($locationNameEn)
     {
         $this->requestParameters['LocationNameEn'] = $locationNameEn;
-        $this->queryParameters['LocationNameEn']   = $locationNameEn;
+        $this->queryParameters['LocationNameEn'] = $locationNameEn;
 
         return $this;
     }
@@ -59,7 +57,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime']   = $startTime;
+        $this->queryParameters['StartTime'] = $startTime;
 
         return $this;
     }
@@ -72,7 +70,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setIspNameEn($ispNameEn)
     {
         $this->requestParameters['IspNameEn'] = $ispNameEn;
-        $this->queryParameters['IspNameEn']   = $ispNameEn;
+        $this->queryParameters['IspNameEn'] = $ispNameEn;
 
         return $this;
     }
@@ -85,7 +83,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setDomainName($domainName)
     {
         $this->requestParameters['DomainName'] = $domainName;
-        $this->queryParameters['DomainName']   = $domainName;
+        $this->queryParameters['DomainName'] = $domainName;
 
         return $this;
     }
@@ -98,7 +96,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime']   = $endTime;
+        $this->queryParameters['EndTime'] = $endTime;
 
         return $this;
     }
@@ -111,7 +109,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -124,7 +122,7 @@ class DescribeVodDomainBpsDataRequest extends RpcAcsRequest
     public function setInterval($interval)
     {
         $this->requestParameters['Interval'] = $interval;
-        $this->queryParameters['Interval']   = $interval;
+        $this->queryParameters['Interval'] = $interval;
 
         return $this;
     }

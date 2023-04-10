@@ -3,22 +3,15 @@
 namespace OSS\Model;
 
 use OSS\Core\OssException;
-use SimpleXMLElement;
+
 
 /**
  * Class CorsRule
- *
  * @package OSS\Model
- * @link    http://help.aliyun.com/document_detail/oss/api-reference/cors/PutBucketcors.html
+ * @link http://help.aliyun.com/document_detail/oss/api-reference/cors/PutBucketcors.html
  */
 class CorsRule
 {
-    private $allowedHeaders = [];
-    private $allowedOrigins = [];
-    private $allowedMethods = [];
-    private $exposeHeaders = [];
-    private $maxAgeSeconds = null;
-
     /**
      * Add an allowedOrigin rule
      *
@@ -126,7 +119,7 @@ class CorsRule
     /**
      * Serialize all the rules into the xml represented by parameter $xmlRule
      *
-     * @param SimpleXMLElement $xmlRule
+     * @param \SimpleXMLElement $xmlRule
      * @throws OssException
      */
     public function appendToXml(&$xmlRule)
@@ -148,4 +141,10 @@ class CorsRule
         }
         $xmlRule->addChild(CorsConfig::OSS_CORS_MAX_AGE_SECONDS, strval($this->maxAgeSeconds));
     }
+
+    private $allowedHeaders = array();
+    private $allowedOrigins = array();
+    private $allowedMethods = array();
+    private $exposeHeaders = array();
+    private $maxAgeSeconds = null;
 }

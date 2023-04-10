@@ -5,7 +5,7 @@ use OSS\OssClient;
 use OSS\Core\OssException;
 use OSS\Model\WebsiteConfig;
 
-$bucket    = Common::getBucketName();
+$bucket = Common::getBucketName();
 $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 
@@ -34,8 +34,8 @@ getBucketWebsite($ossClient, $bucket);
 /**
  * Sets bucket static website configuration
  *
- * @param  $ossClient OssClient
- * @param  $bucket    string bucket name
+ * @param $ossClient OssClient
+ * @param  $bucket string bucket name
  * @return null
  */
 function putBucketWebsite($ossClient, $bucket)
@@ -55,7 +55,7 @@ function putBucketWebsite($ossClient, $bucket)
  * Get bucket static website configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function getBucketWebsite($ossClient, $bucket)
@@ -76,7 +76,7 @@ function getBucketWebsite($ossClient, $bucket)
  * Delete bucket static website configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function deleteBucketWebsite($ossClient, $bucket)

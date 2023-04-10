@@ -7,7 +7,7 @@ use OSS\Model\LifecycleAction;
 use OSS\Model\LifecycleConfig;
 use OSS\Model\LifecycleRule;
 
-$bucket    = Common::getBucketName();
+$bucket = Common::getBucketName();
 $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 
@@ -15,9 +15,9 @@ if (is_null($ossClient)) exit(1);
 
 // Set lifecycle configuration
 $lifecycleConfig = new LifecycleConfig();
-$actions         = [];
-$actions[]       = new LifecycleAction("Expiration", "Days", 3);
-$lifecycleRule   = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
+$actions = array();
+$actions[] = new LifecycleAction("Expiration", "Days", 3);
+$lifecycleRule = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
 $lifecycleConfig->addRule($lifecycleRule);
 $ossClient->putBucketLifecycle($bucket, $lifecycleConfig);
 Common::println("bucket $bucket lifecycleConfig created:" . $lifecycleConfig->serializeToXml());
@@ -30,6 +30,7 @@ Common::println("bucket $bucket lifecycleConfig fetched:" . $lifecycleConfig->se
 $ossClient->deleteBucketLifecycle($bucket);
 Common::println("bucket $bucket lifecycleConfig deleted");
 
+
 //***************************** For complete usage, see the following functions  ***********************************************
 
 putBucketLifecycle($ossClient, $bucket);
@@ -41,18 +42,18 @@ getBucketLifecycle($ossClient, $bucket);
  * Set bucket lifecycle configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function putBucketLifecycle($ossClient, $bucket)
 {
     $lifecycleConfig = new LifecycleConfig();
-    $actions         = [];
-    $actions[]       = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DAYS, 3);
-    $lifecycleRule   = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
+    $actions = array();
+    $actions[] = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DAYS, 3);
+    $lifecycleRule = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
     $lifecycleConfig->addRule($lifecycleRule);
-    $actions       = [];
-    $actions[]     = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DATE, '2022-10-12T00:00:00.000Z');
+    $actions = array();
+    $actions[] = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DATE, '2022-10-12T00:00:00.000Z');
     $lifecycleRule = new LifecycleRule("delete temporary files", "temporary/", "Enabled", $actions);
     $lifecycleConfig->addRule($lifecycleRule);
     try {
@@ -69,7 +70,7 @@ function putBucketLifecycle($ossClient, $bucket)
  * Get bucket lifecycle configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function getBucketLifecycle($ossClient, $bucket)
@@ -90,7 +91,7 @@ function getBucketLifecycle($ossClient, $bucket)
  * Delete bucket lifecycle configuration
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function deleteBucketLifecycle($ossClient, $bucket)

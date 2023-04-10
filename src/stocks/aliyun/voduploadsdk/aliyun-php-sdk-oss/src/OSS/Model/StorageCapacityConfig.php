@@ -2,22 +2,20 @@
 
 namespace OSS\Model;
 
-use SimpleXMLElement;
+use OSS\Core\OssException;
 
 /**
  * Class StorageCapacityConfig
  *
  * @package OSS\Model
- * @link    http://docs.alibaba-inc.com/pages/viewpage.action?pageId=271614763
+ * @link http://docs.alibaba-inc.com/pages/viewpage.action?pageId=271614763
  */
 class StorageCapacityConfig implements XmlConfig
 {
-    private $storageCapacity = 0;
-
     /**
      * StorageCapacityConfig constructor.
      *
-     * @param int $storageCapacity
+     * @param int $storageCapacity            
      */
     public function __construct($storageCapacity)
     {
@@ -33,6 +31,18 @@ class StorageCapacityConfig implements XmlConfig
     }
 
     /**
+     * Serialize StorageCapacityConfig into xml
+     *
+     * @return string
+     */
+    public function serializeToXml()
+    {
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><BucketUserQos></BucketUserQos>');
+        $xml->addChild('StorageCapacity', strval($this->storageCapacity));
+        return $xml->asXML();
+    }
+
+    /**
      * To string
      *
      * @return string
@@ -43,20 +53,18 @@ class StorageCapacityConfig implements XmlConfig
     }
 
     /**
-     * Serialize StorageCapacityConfig into xml
+     * Set storage capacity
      *
-     * @return string
+     * @param int $storageCapacity            
      */
-    public function serializeToXml()
+    public function setStorageCapacity($storageCapacity)
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><BucketUserQos></BucketUserQos>');
-        $xml->addChild('StorageCapacity', strval($this->storageCapacity));
-        return $xml->asXML();
+        $this->storageCapacity = $storageCapacity;
     }
 
     /**
      * Get storage capacity
-     *
+     * 
      * @return int
      */
     public function getStorageCapacity()
@@ -64,13 +72,5 @@ class StorageCapacityConfig implements XmlConfig
         return $this->storageCapacity;
     }
 
-    /**
-     * Set storage capacity
-     *
-     * @param int $storageCapacity
-     */
-    public function setStorageCapacity($storageCapacity)
-    {
-        $this->storageCapacity = $storageCapacity;
-    }
+    private $storageCapacity = 0;
 }

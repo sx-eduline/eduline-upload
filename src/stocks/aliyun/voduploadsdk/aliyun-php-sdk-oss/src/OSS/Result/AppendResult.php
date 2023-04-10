@@ -6,7 +6,6 @@ use OSS\Core\OssException;
 
 /**
  * Class AppendResult
- *
  * @package OSS\Result
  */
 class AppendResult extends Result

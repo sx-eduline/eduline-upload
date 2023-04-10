@@ -8,7 +8,6 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 }
 require_once __DIR__ . '/Config.php';
 
-use OSS\Core\OssUtil;
 use OSS\OssClient;
 use OSS\Core\OssException;
 
@@ -54,16 +53,16 @@ class Common
         $ossClient = self::getOssClient();
         if (is_null($ossClient)) exit(1);
         $bucket = self::getBucketName();
-        $acl    = OssClient::OSS_ACL_TYPE_PUBLIC_READ;
+        $acl = OssClient::OSS_ACL_TYPE_PUBLIC_READ;
         try {
             $ossClient->createBucket($bucket, $acl);
         } catch (OssException $e) {
 
             $message = $e->getMessage();
-            if (OssUtil::startsWith($message, 'http status: 403')) {
+            if (\OSS\Core\OssUtil::startsWith($message, 'http status: 403')) {
                 echo "Please Check your AccessKeyId and AccessKeySecret" . "\n";
                 exit(0);
-            } else if (strpos($message, "BucketAlreadyExists") !== false) {
+            } elseif (strpos($message, "BucketAlreadyExists") !== false) {
                 echo "Bucket already exists. Please check whether the bucket belongs to you, or it was visited with correct endpoint. " . "\n";
                 exit(0);
             }

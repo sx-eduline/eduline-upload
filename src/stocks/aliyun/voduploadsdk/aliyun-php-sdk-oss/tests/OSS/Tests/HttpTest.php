@@ -3,12 +3,11 @@
 namespace OSS\Tests;
 
 use OSS\Http\RequestCore;
-use OSS\Http\RequestCore_Exception;
 use OSS\Http\ResponseCore;
-use PHPUnit_Framework_TestCase;
+use OSS\Http\RequestCore_Exception;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
-class HttpTest extends PHPUnit_Framework_TestCase
+class HttpTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testResponseCore()
@@ -20,7 +19,7 @@ class HttpTest extends PHPUnit_Framework_TestCase
 
     public function testGet()
     {
-        $httpCore     = new RequestCore("http://www.baidu.com");
+        $httpCore = new RequestCore("http://www.baidu.com");
         $httpResponse = $httpCore->send_request();
         $this->assertNotNull($httpResponse);
     }
@@ -34,15 +33,15 @@ class HttpTest extends PHPUnit_Framework_TestCase
             $httpResponse = $httpCore->send_request();
             $this->assertTrue(false);
         } catch (RequestCore_Exception $e) {
-
+            $this->assertTrue(true);
         }
     }
 
     public function testGetParseTrue()
     {
-        $httpCore           = new RequestCore("http://www.baidu.com");
-        $httpCore->curlopts = [CURLOPT_HEADER => true];
-        $url                = $httpCore->send_request(true);
+        $httpCore = new RequestCore("http://www.baidu.com");
+        $httpCore->curlopts = array(CURLOPT_HEADER => true);
+        $url = $httpCore->send_request(true);
         foreach ($httpCore->get_response_header() as $key => $value) {
             $this->assertEquals($httpCore->get_response_header($key), $value);
         }
@@ -53,21 +52,21 @@ class HttpTest extends PHPUnit_Framework_TestCase
     {
         $httpCore = new RequestCore("http://www.baidu.com");
         $response = $httpCore->send_request();
-        $parsed   = $httpCore->process_response(null, $response);
+        $parsed = $httpCore->process_response(null, $response);
         $this->assertNotNull($parsed);
     }
 
     public function testExceptionGet()
     {
-        $httpCore  = null;
+        $httpCore = null;
         $exception = false;
         try {
             $httpCore = new RequestCore("http://www.notexistsitexx.com");
             $httpCore->set_body("");
             $httpCore->set_method("GET");
             $httpCore->connect_timeout = 10;
-            $httpCore->timeout         = 10;
-            $res                       = $httpCore->send_request();
+            $httpCore->timeout = 10;
+            $res = $httpCore->send_request();
         } catch (RequestCore_Exception $e) {
             $exception = true;
         }

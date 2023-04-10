@@ -28,6 +28,7 @@ Common::println("bucket $bucket acl put");
 $acl = $ossClient->getBucketAcl($bucket);
 Common::println("bucket $bucket acl get: " . $acl);
 
+
 //******************************* For complete usage, see the following functions ****************************************************
 
 createBucket($ossClient, $bucket);
@@ -44,7 +45,7 @@ listBuckets($ossClient);
  * The three permissions are separately defined by (OssClient::OSS_ACL_TYPE_PRIVATE,OssClient::OSS_ACL_TYPE_PUBLIC_READ, OssClient::OSS_ACL_TYPE_PUBLIC_READ_WRITE)
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    Name of the bucket to create
+ * @param string $bucket Name of the bucket to create
  * @return null
  */
 function createBucket($ossClient, $bucket)
@@ -63,7 +64,7 @@ function createBucket($ossClient, $bucket)
  * Check whether a bucket exists.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  */
 function doesBucketExist($ossClient, $bucket)
 {
@@ -86,7 +87,7 @@ function doesBucketExist($ossClient, $bucket)
  * A bucket which is not empty indicates that it does not contain any objects or parts that are not completely uploaded during multipart upload
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    Name of the bucket to delete
+ * @param string $bucket Name of the bucket to delete
  * @return null
  */
 function deleteBucket($ossClient, $bucket)
@@ -105,7 +106,7 @@ function deleteBucket($ossClient, $bucket)
  * Set bucket ACL
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function putBucketAcl($ossClient, $bucket)
@@ -121,11 +122,12 @@ function putBucketAcl($ossClient, $bucket)
     print(__FUNCTION__ . ": OK" . "\n");
 }
 
+
 /**
  * Get bucket ACL
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  */
 function getBucketAcl($ossClient, $bucket)
@@ -140,6 +142,7 @@ function getBucketAcl($ossClient, $bucket)
     print(__FUNCTION__ . ": OK" . "\n");
     print('acl: ' . $res);
 }
+
 
 /**
  * List all buckets

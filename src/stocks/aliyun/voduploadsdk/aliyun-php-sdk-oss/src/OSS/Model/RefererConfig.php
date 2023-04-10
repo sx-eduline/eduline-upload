@@ -2,19 +2,14 @@
 
 namespace OSS\Model;
 
-use SimpleXMLElement;
-
 /**
  * Class RefererConfig
  *
  * @package OSS\Model
- * @link    http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketReferer.html
+ * @link http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketReferer.html
  */
 class RefererConfig implements XmlConfig
 {
-    private $allowEmptyReferer = true;
-    private $refererList = [];
-
     /**
      * @param string $strXml
      * @return null
@@ -32,13 +27,6 @@ class RefererConfig implements XmlConfig
         }
     }
 
-    /**
-     * @return string
-     */
-    function __toString()
-    {
-        return $this->serializeToXml();
-    }
 
     /**
      * serialize the RefererConfig object into xml string
@@ -47,7 +35,7 @@ class RefererConfig implements XmlConfig
      */
     public function serializeToXml()
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><RefererConfiguration></RefererConfiguration>');
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><RefererConfiguration></RefererConfiguration>');
         if ($this->allowEmptyReferer) {
             $xml->addChild('AllowEmptyReferer', 'true');
         } else {
@@ -58,6 +46,22 @@ class RefererConfig implements XmlConfig
             $refererList->addChild('Referer', $referer);
         }
         return $xml->asXML();
+    }
+
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->serializeToXml();
+    }
+
+    /**
+     * @param boolean $allowEmptyReferer
+     */
+    public function setAllowEmptyReferer($allowEmptyReferer)
+    {
+        $this->allowEmptyReferer = $allowEmptyReferer;
     }
 
     /**
@@ -77,18 +81,13 @@ class RefererConfig implements XmlConfig
     }
 
     /**
-     * @param boolean $allowEmptyReferer
-     */
-    public function setAllowEmptyReferer($allowEmptyReferer)
-    {
-        $this->allowEmptyReferer = $allowEmptyReferer;
-    }
-
-    /**
      * @return array
      */
     public function getRefererList()
     {
         return $this->refererList;
     }
+
+    private $allowEmptyReferer = true;
+    private $refererList = array();
 }

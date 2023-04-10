@@ -12,15 +12,7 @@ namespace OSS\Model;
 class BucketListInfo
 {
     /**
-     * BucketInfo list
-     *
-     * @var array
-     */
-    private $bucketList = [];
-
-    /**
      * BucketListInfo constructor.
-     *
      * @param array $bucketList
      */
     public function __construct(array $bucketList)
@@ -37,4 +29,11 @@ class BucketListInfo
     {
         return $this->bucketList;
     }
+
+    /**
+     * BucketInfo list
+     *
+     * @var array
+     */
+    private $bucketList = array();
 }

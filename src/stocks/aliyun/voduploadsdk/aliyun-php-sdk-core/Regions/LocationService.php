@@ -55,8 +55,8 @@ class DescribeEndpointRequest extends RpcAcsRequest
     public function __construct($id, $serviceCode, $endPointType)
     {
         parent::__construct(LOCATION_SERVICE_PRODUCT_NAME,
-            LOCATION_SERVICE_VERSION,
-            LOCATION_SERVICE_DESCRIBE_ENDPOINT_ACTION);
+                            LOCATION_SERVICE_VERSION,
+                            LOCATION_SERVICE_DESCRIBE_ENDPOINT_ACTION);
 
         $this->queryParameters['Id']          = $id;
         $this->queryParameters['ServiceCode'] = $serviceCode;
@@ -76,11 +76,11 @@ class LocationService
     /**
      * @var array
      */
-    public static $cache = [];
+    public static $cache = array();
     /**
      * @var array
      */
-    public static $lastClearTimePerProduct = [];
+    public static $lastClearTimePerProduct = array();
     /**
      * @var string
      */

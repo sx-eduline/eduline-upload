@@ -1,14 +1,12 @@
 <?php
-
 namespace OSS\Tests;
 
 use OSS\Http\ResponseCore;
 use OSS\Model\StorageCapacityConfig;
 use OSS\Result\GetStorageCapacityResult;
 use OSS\Core\OssException;
-use PHPUnit_Framework_TestCase;
 
-class StorageCapacityTest extends PHPUnit_Framework_TestCase
+class StorageCapacityTest extends \PHPUnit\Framework\TestCase
 {
 
     private $inValidXml = <<<BBBB
@@ -27,37 +25,39 @@ BBBB;
 
     public function testParseInValidXml()
     {
-        $response = new ResponseCore([], $this->inValidXml, 300);
+        $response = new ResponseCore(array(), $this->inValidXml, 300);
         try {
             new GetStorageCapacityResult($response);
             $this->assertTrue(false);
         } catch (OssException $e) {
+            $this->assertTrue(true);
         }
     }
 
     public function testParseEmptyXml()
     {
-        $response = new ResponseCore([], "", 300);
+        $response = new ResponseCore(array(), "", 300);
         try {
             new GetStorageCapacityResult($response);
             $this->assertTrue(false);
         } catch (OssException $e) {
+            $this->assertTrue(true);
         }
     }
 
     public function testParseValidXml()
     {
-        $response = new ResponseCore([], $this->validXml, 200);
-        $result   = new GetStorageCapacityResult($response);
+        $response = new ResponseCore(array(), $this->validXml, 200);
+        $result = new GetStorageCapacityResult($response);
         $this->assertEquals($result->getData(), 1);
     }
 
     public function testSerializeToXml()
     {
         $xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<BucketUserQos><StorageCapacity>1</StorageCapacity></BucketUserQos>\n";
-
+        
         $storageCapacityConfig = new StorageCapacityConfig(1);
-        $content               = $storageCapacityConfig->serializeToXml();
+        $content = $storageCapacityConfig->serializeToXml();
         $this->assertEquals($content, $xml);
     }
 }

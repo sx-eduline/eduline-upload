@@ -3,14 +3,12 @@
 namespace OSS\Tests;
 
 use OSS\Model\BucketInfo;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Class BucketInfoTest
- *
  * @package OSS\Tests
  */
-class BucketInfoTest extends PHPUnit_Framework_TestCase
+class BucketInfoTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

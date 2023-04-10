@@ -74,7 +74,7 @@ class HttpHelper
         $httpResponse->setStatus(curl_getinfo($ch, CURLINFO_HTTP_CODE));
         if (curl_errno($ch)) {
             throw new ClientException('Server unreachable: Errno: ' . curl_errno($ch) . ' ' . curl_error($ch),
-                'SDK.ServerUnreachable');
+                                      'SDK.ServerUnreachable');
         }
         curl_close($ch);
         return $httpResponse;
@@ -101,7 +101,7 @@ class HttpHelper
      */
     public static function getHttpHearders($headers)
     {
-        $httpHeader = [];
+        $httpHeader = array();
         foreach ($headers as $key => $value) {
             $httpHeader[] = $key . ':' . $value;
         }

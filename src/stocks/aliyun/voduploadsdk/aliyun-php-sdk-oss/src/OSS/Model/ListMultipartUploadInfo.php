@@ -4,24 +4,12 @@ namespace OSS\Model;
 
 /**
  * Class ListMultipartUploadInfo
- *
  * @package OSS\Model
  *
- * @link    http://help.aliyun.com/document_detail/oss/api-reference/multipart-upload/ListMultipartUploads.html
+ * @link http://help.aliyun.com/document_detail/oss/api-reference/multipart-upload/ListMultipartUploads.html
  */
 class ListMultipartUploadInfo
 {
-    private $bucket = "";
-    private $keyMarker = "";
-    private $uploadIdMarker = "";
-    private $nextKeyMarker = "";
-    private $nextUploadIdMarker = "";
-    private $delimiter = "";
-    private $prefix = "";
-    private $maxUploads = 0;
-    private $isTruncated = "false";
-    private $uploads = [];
-
     /**
      * ListMultipartUploadInfo constructor.
      *
@@ -32,22 +20,22 @@ class ListMultipartUploadInfo
      * @param string $nextUploadIdMarker
      * @param string $delimiter
      * @param string $prefix
-     * @param int    $maxUploads
+     * @param int $maxUploads
      * @param string $isTruncated
-     * @param array  $uploads
+     * @param array $uploads
      */
     public function __construct($bucket, $keyMarker, $uploadIdMarker, $nextKeyMarker, $nextUploadIdMarker, $delimiter, $prefix, $maxUploads, $isTruncated, array $uploads)
     {
-        $this->bucket             = $bucket;
-        $this->keyMarker          = $keyMarker;
-        $this->uploadIdMarker     = $uploadIdMarker;
-        $this->nextKeyMarker      = $nextKeyMarker;
+        $this->bucket = $bucket;
+        $this->keyMarker = $keyMarker;
+        $this->uploadIdMarker = $uploadIdMarker;
+        $this->nextKeyMarker = $nextKeyMarker;
         $this->nextUploadIdMarker = $nextUploadIdMarker;
-        $this->delimiter          = $delimiter;
-        $this->prefix             = $prefix;
-        $this->maxUploads         = $maxUploads;
-        $this->isTruncated        = $isTruncated;
-        $this->uploads            = $uploads;
+        $this->delimiter = $delimiter;
+        $this->prefix = $prefix;
+        $this->maxUploads = $maxUploads;
+        $this->isTruncated = $isTruncated;
+        $this->uploads = $uploads;
     }
 
     /**
@@ -132,4 +120,15 @@ class ListMultipartUploadInfo
     {
         return $this->uploads;
     }
+
+    private $bucket = "";
+    private $keyMarker = "";
+    private $uploadIdMarker = "";
+    private $nextKeyMarker = "";
+    private $nextUploadIdMarker = "";
+    private $delimiter = "";
+    private $prefix = "";
+    private $maxUploads = 0;
+    private $isTruncated = "false";
+    private $uploads = array();
 }

@@ -11,7 +11,7 @@ class GetLiveChannelInfoResult extends Result
      */
     protected function parseDataFromResponse()
     {
-        $content     = $this->rawResponse->body;
+        $content = $this->rawResponse->body;
         $channelList = new GetLiveChannelInfo();
         $channelList->parseFromXml($content);
         return $channelList;

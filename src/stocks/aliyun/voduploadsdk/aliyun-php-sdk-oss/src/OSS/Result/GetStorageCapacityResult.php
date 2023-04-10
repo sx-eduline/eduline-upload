@@ -14,7 +14,7 @@ class GetStorageCapacityResult extends Result
 {
     /**
      * Parse data from response
-     *
+     * 
      * @return string
      * @throws OssException
      */

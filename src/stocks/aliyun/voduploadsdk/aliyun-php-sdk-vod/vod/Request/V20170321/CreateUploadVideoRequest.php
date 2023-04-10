@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -28,7 +26,7 @@ use RpcAcsRequest;
  * @method string getWorkflowId()
  * @method string getCustomMediaInfo()
  */
-class CreateUploadVideoRequest extends RpcAcsRequest
+class CreateUploadVideoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -57,7 +55,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -70,7 +68,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -83,7 +81,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setTranscodeMode($transcodeMode)
     {
         $this->requestParameters['TranscodeMode'] = $transcodeMode;
-        $this->queryParameters['TranscodeMode']   = $transcodeMode;
+        $this->queryParameters['TranscodeMode'] = $transcodeMode;
 
         return $this;
     }
@@ -96,7 +94,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setIP($iP)
     {
         $this->requestParameters['IP'] = $iP;
-        $this->queryParameters['IP']   = $iP;
+        $this->queryParameters['IP'] = $iP;
 
         return $this;
     }
@@ -109,7 +107,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description']   = $description;
+        $this->queryParameters['Description'] = $description;
 
         return $this;
     }
@@ -122,7 +120,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setFileSize($fileSize)
     {
         $this->requestParameters['FileSize'] = $fileSize;
-        $this->queryParameters['FileSize']   = $fileSize;
+        $this->queryParameters['FileSize'] = $fileSize;
 
         return $this;
     }
@@ -135,7 +133,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -148,7 +146,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title']   = $title;
+        $this->queryParameters['Title'] = $title;
 
         return $this;
     }
@@ -161,7 +159,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setTags($tags)
     {
         $this->requestParameters['Tags'] = $tags;
-        $this->queryParameters['Tags']   = $tags;
+        $this->queryParameters['Tags'] = $tags;
 
         return $this;
     }
@@ -174,7 +172,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setStorageLocation($storageLocation)
     {
         $this->requestParameters['StorageLocation'] = $storageLocation;
-        $this->queryParameters['StorageLocation']   = $storageLocation;
+        $this->queryParameters['StorageLocation'] = $storageLocation;
 
         return $this;
     }
@@ -187,7 +185,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setCoverURL($coverURL)
     {
         $this->requestParameters['CoverURL'] = $coverURL;
-        $this->queryParameters['CoverURL']   = $coverURL;
+        $this->queryParameters['CoverURL'] = $coverURL;
 
         return $this;
     }
@@ -200,7 +198,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setUserData($userData)
     {
         $this->requestParameters['UserData'] = $userData;
-        $this->queryParameters['UserData']   = $userData;
+        $this->queryParameters['UserData'] = $userData;
 
         return $this;
     }
@@ -213,7 +211,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setFileName($fileName)
     {
         $this->requestParameters['FileName'] = $fileName;
-        $this->queryParameters['FileName']   = $fileName;
+        $this->queryParameters['FileName'] = $fileName;
 
         return $this;
     }
@@ -226,7 +224,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setTemplateGroupId($templateGroupId)
     {
         $this->requestParameters['TemplateGroupId'] = $templateGroupId;
-        $this->queryParameters['TemplateGroupId']   = $templateGroupId;
+        $this->queryParameters['TemplateGroupId'] = $templateGroupId;
 
         return $this;
     }
@@ -239,7 +237,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setCateId($cateId)
     {
         $this->requestParameters['CateId'] = $cateId;
-        $this->queryParameters['CateId']   = $cateId;
+        $this->queryParameters['CateId'] = $cateId;
 
         return $this;
     }
@@ -252,7 +250,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setAppId($appId)
     {
         $this->requestParameters['AppId'] = $appId;
-        $this->queryParameters['AppId']   = $appId;
+        $this->queryParameters['AppId'] = $appId;
 
         return $this;
     }
@@ -265,7 +263,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setWorkflowId($workflowId)
     {
         $this->requestParameters['WorkflowId'] = $workflowId;
-        $this->queryParameters['WorkflowId']   = $workflowId;
+        $this->queryParameters['WorkflowId'] = $workflowId;
 
         return $this;
     }
@@ -278,7 +276,7 @@ class CreateUploadVideoRequest extends RpcAcsRequest
     public function setCustomMediaInfo($customMediaInfo)
     {
         $this->requestParameters['CustomMediaInfo'] = $customMediaInfo;
-        $this->queryParameters['CustomMediaInfo']   = $customMediaInfo;
+        $this->queryParameters['CustomMediaInfo'] = $customMediaInfo;
 
         return $this;
     }

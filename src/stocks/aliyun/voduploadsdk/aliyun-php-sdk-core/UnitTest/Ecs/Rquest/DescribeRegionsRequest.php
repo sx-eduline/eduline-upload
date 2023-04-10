@@ -20,9 +20,7 @@
 
 namespace UnitTest\Ecs\Request;
 
-use RpcAcsRequest;
-
-class DescribeRegionsRequest extends RpcAcsRequest
+class DescribeRegionsRequest extends \RpcAcsRequest
 {
     public function __construct()
     {

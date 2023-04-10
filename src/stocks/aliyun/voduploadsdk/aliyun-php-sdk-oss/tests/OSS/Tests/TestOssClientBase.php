@@ -3,11 +3,10 @@
 namespace OSS\Tests;
 
 use OSS\OssClient;
-use PHPUnit_Framework_TestCase;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Common.php';
 
-class TestOssClientBase extends PHPUnit_Framework_TestCase
+class TestOssClientBase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var OssClient
@@ -19,23 +18,23 @@ class TestOssClientBase extends PHPUnit_Framework_TestCase
      */
     protected $bucket;
 
-    public function setUp()
+    protected function setUp(): void
     {
-        $this->bucket    = Common::getBucketName() . rand(100000, 999999);
+        $this->bucket = Common::getBucketName() .'-'. time();
         $this->ossClient = Common::getOssClient();
         $this->ossClient->createBucket($this->bucket);
         Common::waitMetaSync();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         if (!$this->ossClient->doesBucketExist($this->bucket)) {
             return;
         }
 
         $objects = $this->ossClient->listObjects(
-            $this->bucket, ['max-keys' => 1000, 'delimiter' => ''])->getObjectList();
-        $keys    = [];
+            $this->bucket, array('max-keys' => 1000, 'delimiter' => ''))->getObjectList();
+        $keys = array();
         foreach ($objects as $obj) {
             $keys[] = $obj->getKey();
         }

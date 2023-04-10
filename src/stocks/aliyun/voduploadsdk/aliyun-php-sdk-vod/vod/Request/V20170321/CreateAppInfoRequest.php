@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -16,7 +14,7 @@ use RpcAcsRequest;
  * @method string getResourceRealOwnerId()
  * @method string getOwnerId()
  */
-class CreateAppInfoRequest extends RpcAcsRequest
+class CreateAppInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -45,7 +43,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -58,7 +56,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setAppName($appName)
     {
         $this->requestParameters['AppName'] = $appName;
-        $this->queryParameters['AppName']   = $appName;
+        $this->queryParameters['AppName'] = $appName;
 
         return $this;
     }
@@ -71,7 +69,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -84,7 +82,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description']   = $description;
+        $this->queryParameters['Description'] = $description;
 
         return $this;
     }
@@ -97,7 +95,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setResourceRealOwnerId($resourceRealOwnerId)
     {
         $this->requestParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
-        $this->queryParameters['ResourceRealOwnerId']   = $resourceRealOwnerId;
+        $this->queryParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
 
         return $this;
     }
@@ -110,7 +108,7 @@ class CreateAppInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }

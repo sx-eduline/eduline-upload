@@ -6,9 +6,8 @@ use OSS\Core\OssException;
 use OSS\Model\LifecycleAction;
 use OSS\Model\LifecycleConfig;
 use OSS\Model\LifecycleRule;
-use PHPUnit_Framework_TestCase;
 
-class LifecycleConfigTest extends PHPUnit_Framework_TestCase
+class LifecycleConfigTest extends \PHPUnit\Framework\TestCase
 {
 
     private $validLifecycle = <<<BBBB
@@ -50,13 +49,13 @@ BBBB;
     public function testConstructValidConfig()
     {
         $lifecycleConfig = new LifecycleConfig();
-        $actions         = [];
-        $actions[]       = new LifecycleAction("Expiration", "Days", 3);
-        $lifecycleRule   = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
+        $actions = array();
+        $actions[] = new LifecycleAction("Expiration", "Days", 3);
+        $lifecycleRule = new LifecycleRule("delete obsoleted files", "obsoleted/", "Enabled", $actions);
         $lifecycleConfig->addRule($lifecycleRule);
-        $actions       = [];
-        $actions[]     = new LifecycleAction("Expiration", "Date", '2022-10-12T00:00:00.000Z');
-        $actions[]     = new LifecycleAction("Expiration2", "Date", '2022-10-12T00:00:00.000Z');
+        $actions = array();
+        $actions[] = new LifecycleAction("Expiration", "Date", '2022-10-12T00:00:00.000Z');
+        $actions[] = new LifecycleAction("Expiration2", "Date", '2022-10-12T00:00:00.000Z');
         $lifecycleRule = new LifecycleRule("delete temporary files", "temporary/", "Enabled", $actions);
         $lifecycleConfig->addRule($lifecycleRule);
         try {
@@ -98,11 +97,11 @@ BBBB;
 
     public function testLifecycleRule()
     {
-        $lifecycleRule = new LifecycleRule("x", "x", "x", ['x']);
+        $lifecycleRule = new LifecycleRule("x", "x", "x", array('x'));
         $lifecycleRule->setId("id");
         $lifecycleRule->setPrefix("prefix");
         $lifecycleRule->setStatus("Enabled");
-        $lifecycleRule->setActions([]);
+        $lifecycleRule->setActions(array());
 
         $this->assertEquals('id', $lifecycleRule->getId());
         $this->assertEquals('prefix', $lifecycleRule->getPrefix());

@@ -4,8 +4,8 @@ namespace OSS\Tests;
 
 require_once __DIR__ . '/../../../autoload.php';
 
-use OSS\Core\OssException;
 use OSS\OssClient;
+use OSS\Core\OssException;
 
 /**
  * Class Common
@@ -14,25 +14,6 @@ use OSS\OssClient;
  */
 class Common
 {
-    /**
-     * Tool method, create a bucket
-     */
-    public static function createBucket()
-    {
-        $ossClient = self::getOssClient();
-        if (is_null($ossClient)) exit(1);
-        $bucket = self::getBucketName();
-        $acl    = OssClient::OSS_ACL_TYPE_PUBLIC_READ;
-        try {
-            $ossClient->createBucket($bucket, $acl);
-        } catch (OssException $e) {
-            printf(__FUNCTION__ . ": FAILED\n");
-            printf($e->getMessage() . "\n");
-            return;
-        }
-        print(__FUNCTION__ . ": OK" . "\n");
-    }
-
     /**
      * According to the Config configuration, get an OssClient instance
      *
@@ -56,6 +37,35 @@ class Common
     public static function getBucketName()
     {
         return getenv('OSS_BUCKET');
+    }
+
+    public static function getRegion()
+    {
+		return getenv('OSS_REGION'); 
+    }
+
+	public static function getCallbackUrl()
+    {
+        return getenv('OSS_CALLBACK_URL');
+    }
+
+    /**
+     * Tool method, create a bucket
+     */
+    public static function createBucket()
+    {
+        $ossClient = self::getOssClient();
+        if (is_null($ossClient)) exit(1);
+        $bucket = self::getBucketName();
+        $acl = OssClient::OSS_ACL_TYPE_PUBLIC_READ;
+        try {
+            $ossClient->createBucket($bucket, $acl);
+        } catch (OssException $e) {
+            printf(__FUNCTION__ . ": FAILED\n");
+            printf($e->getMessage() . "\n");
+            return;
+        }
+        print(__FUNCTION__ . ": OK" . "\n");
     }
 
     /**

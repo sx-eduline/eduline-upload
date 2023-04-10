@@ -4,41 +4,31 @@ namespace OSS\Model;
 
 /**
  * Class ListPartsInfo
- *
  * @package OSS\Model
- * @link    http://help.aliyun.com/document_detail/oss/api-reference/multipart-upload/ListParts.html
+ * @link http://help.aliyun.com/document_detail/oss/api-reference/multipart-upload/ListParts.html
  */
 class ListPartsInfo
 {
 
-    private $bucket = "";
-    private $key = "";
-    private $uploadId = "";
-    private $nextPartNumberMarker = 0;
-    private $maxParts = 0;
-    private $isTruncated = "";
-    private $listPart = [];
-
     /**
      * ListPartsInfo constructor.
-     *
      * @param string $bucket
      * @param string $key
      * @param string $uploadId
-     * @param int    $nextPartNumberMarker
-     * @param int    $maxParts
+     * @param int $nextPartNumberMarker
+     * @param int $maxParts
      * @param string $isTruncated
-     * @param array  $listPart
+     * @param array $listPart
      */
     public function __construct($bucket, $key, $uploadId, $nextPartNumberMarker, $maxParts, $isTruncated, array $listPart)
     {
-        $this->bucket               = $bucket;
-        $this->key                  = $key;
-        $this->uploadId             = $uploadId;
+        $this->bucket = $bucket;
+        $this->key = $key;
+        $this->uploadId = $uploadId;
         $this->nextPartNumberMarker = $nextPartNumberMarker;
-        $this->maxParts             = $maxParts;
-        $this->isTruncated          = $isTruncated;
-        $this->listPart             = $listPart;
+        $this->maxParts = $maxParts;
+        $this->isTruncated = $isTruncated;
+        $this->listPart = $listPart;
     }
 
     /**
@@ -96,4 +86,12 @@ class ListPartsInfo
     {
         return $this->listPart;
     }
+
+    private $bucket = "";
+    private $key = "";
+    private $uploadId = "";
+    private $nextPartNumberMarker = 0;
+    private $maxParts = 0;
+    private $isTruncated = "";
+    private $listPart = array();
 }

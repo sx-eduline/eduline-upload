@@ -2,11 +2,11 @@
 
 namespace OSS\Tests;
 
+
 use OSS\Result\ListObjectsResult;
 use OSS\Http\ResponseCore;
-use PHPUnit_Framework_TestCase;
 
-class ListObjectsResultTest extends PHPUnit_Framework_TestCase
+class ListObjectsResultTest extends \PHPUnit\Framework\TestCase
 {
 
     private $validXml1 = <<<BBBB
@@ -79,8 +79,8 @@ BBBB;
 
     public function testParseValidXml1()
     {
-        $response = new ResponseCore([], $this->validXml1, 200);
-        $result   = new ListObjectsResult($response);
+        $response = new ResponseCore(array(), $this->validXml1, 200);
+        $result = new ListObjectsResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -100,8 +100,8 @@ BBBB;
 
     public function testParseValidXml2()
     {
-        $response = new ResponseCore([], $this->validXml2, 200);
-        $result   = new ListObjectsResult($response);
+        $response = new ResponseCore(array(), $this->validXml2, 200);
+        $result = new ListObjectsResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());
@@ -125,8 +125,8 @@ BBBB;
 
     public function testParseValidXmlWithEncodedKey()
     {
-        $response = new ResponseCore([], $this->validXmlWithEncodedKey, 200);
-        $result   = new ListObjectsResult($response);
+        $response = new ResponseCore(array(), $this->validXmlWithEncodedKey, 200);
+        $result = new ListObjectsResult($response);
         $this->assertTrue($result->isOK());
         $this->assertNotNull($result->getData());
         $this->assertNotNull($result->getRawResponse());

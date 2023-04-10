@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -11,7 +9,7 @@ use RpcAcsRequest;
  *
  * @method string getSecurityGroupName()
  */
-class ListAuditSecurityIpRequest extends RpcAcsRequest
+class ListAuditSecurityIpRequest extends \RpcAcsRequest
 {
 
     /**
@@ -40,7 +38,7 @@ class ListAuditSecurityIpRequest extends RpcAcsRequest
     public function setSecurityGroupName($securityGroupName)
     {
         $this->requestParameters['SecurityGroupName'] = $securityGroupName;
-        $this->queryParameters['SecurityGroupName']   = $securityGroupName;
+        $this->queryParameters['SecurityGroupName'] = $securityGroupName;
 
         return $this;
     }

@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +12,7 @@ use RpcAcsRequest;
  * @method string getVideoId()
  * @method string getOwnerId()
  */
-class DescribePlayVideoStatisRequest extends RpcAcsRequest
+class DescribePlayVideoStatisRequest extends \RpcAcsRequest
 {
 
     /**
@@ -43,7 +41,7 @@ class DescribePlayVideoStatisRequest extends RpcAcsRequest
     public function setStartTime($startTime)
     {
         $this->requestParameters['StartTime'] = $startTime;
-        $this->queryParameters['StartTime']   = $startTime;
+        $this->queryParameters['StartTime'] = $startTime;
 
         return $this;
     }
@@ -56,7 +54,7 @@ class DescribePlayVideoStatisRequest extends RpcAcsRequest
     public function setEndTime($endTime)
     {
         $this->requestParameters['EndTime'] = $endTime;
-        $this->queryParameters['EndTime']   = $endTime;
+        $this->queryParameters['EndTime'] = $endTime;
 
         return $this;
     }
@@ -69,7 +67,7 @@ class DescribePlayVideoStatisRequest extends RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId']   = $videoId;
+        $this->queryParameters['VideoId'] = $videoId;
 
         return $this;
     }
@@ -82,7 +80,7 @@ class DescribePlayVideoStatisRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }

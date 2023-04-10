@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -21,7 +19,7 @@ use RpcAcsRequest;
  * @method string getProduceConfig()
  * @method string getProjectId()
  */
-class ProduceEditingProjectVideoRequest extends RpcAcsRequest
+class ProduceEditingProjectVideoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -50,7 +48,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -63,7 +61,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setMediaMetadata($mediaMetadata)
     {
         $this->requestParameters['MediaMetadata'] = $mediaMetadata;
-        $this->queryParameters['MediaMetadata']   = $mediaMetadata;
+        $this->queryParameters['MediaMetadata'] = $mediaMetadata;
 
         return $this;
     }
@@ -76,7 +74,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -89,7 +87,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setDescription($description)
     {
         $this->requestParameters['Description'] = $description;
-        $this->queryParameters['Description']   = $description;
+        $this->queryParameters['Description'] = $description;
 
         return $this;
     }
@@ -102,7 +100,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -115,7 +113,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setTitle($title)
     {
         $this->requestParameters['Title'] = $title;
-        $this->queryParameters['Title']   = $title;
+        $this->queryParameters['Title'] = $title;
 
         return $this;
     }
@@ -128,7 +126,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setCoverURL($coverURL)
     {
         $this->requestParameters['CoverURL'] = $coverURL;
-        $this->queryParameters['CoverURL']   = $coverURL;
+        $this->queryParameters['CoverURL'] = $coverURL;
 
         return $this;
     }
@@ -141,7 +139,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setUserData($userData)
     {
         $this->requestParameters['UserData'] = $userData;
-        $this->queryParameters['UserData']   = $userData;
+        $this->queryParameters['UserData'] = $userData;
 
         return $this;
     }
@@ -154,7 +152,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setTimeline($timeline)
     {
         $this->requestParameters['Timeline'] = $timeline;
-        $this->queryParameters['Timeline']   = $timeline;
+        $this->queryParameters['Timeline'] = $timeline;
 
         return $this;
     }
@@ -167,7 +165,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setProduceConfig($produceConfig)
     {
         $this->requestParameters['ProduceConfig'] = $produceConfig;
-        $this->queryParameters['ProduceConfig']   = $produceConfig;
+        $this->queryParameters['ProduceConfig'] = $produceConfig;
 
         return $this;
     }
@@ -180,7 +178,7 @@ class ProduceEditingProjectVideoRequest extends RpcAcsRequest
     public function setProjectId($projectId)
     {
         $this->requestParameters['ProjectId'] = $projectId;
-        $this->queryParameters['ProjectId']   = $projectId;
+        $this->queryParameters['ProjectId'] = $projectId;
 
         return $this;
     }

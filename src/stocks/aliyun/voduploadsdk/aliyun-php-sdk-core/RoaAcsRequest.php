@@ -28,11 +28,11 @@ abstract class RoaAcsRequest extends AcsRequest
     /**
      * @var array
      */
-    protected $pathParameters = [];
+    protected $pathParameters = array();
     /**
      * @var array
      */
-    private $domainParameters = [];
+    private $domainParameters = array();
     /**
      * @var string
      */
@@ -97,7 +97,7 @@ abstract class RoaAcsRequest extends AcsRequest
         $signString                     .= $queryString;
         $this->stringToBeSigned         = $signString;
         $this->headers['Authorization'] = 'acs ' . $credential->getAccessKeyId() . ':'
-            . $iSigner->signString($signString, $credential->getAccessSecret());
+                                          . $iSigner->signString($signString, $credential->getAccessSecret());
         $requestUrl                     = $this->getProtocol() . '://' . $domain . $queryString;
         return $requestUrl;
     }
@@ -179,7 +179,7 @@ abstract class RoaAcsRequest extends AcsRequest
      */
     private function buildCanonicalHeaders()
     {
-        $sortMap = [];
+        $sortMap = array();
         foreach ($this->headers as $headerKey => $headerValue) {
             $key = strtolower($headerKey);
             if (strpos($key, 'x-acs-') === 0) {
@@ -202,7 +202,7 @@ abstract class RoaAcsRequest extends AcsRequest
     private function splitSubResource($uri)
     {
         $queIndex = strpos($uri, '?');
-        $uriParts = [];
+        $uriParts = array();
         if (null != $queIndex) {
             $uriParts[] = substr($uri, 0, $queIndex);
             $uriParts[] = substr($uri, $queIndex + 1);

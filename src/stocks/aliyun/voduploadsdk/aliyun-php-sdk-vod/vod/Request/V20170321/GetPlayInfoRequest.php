@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -26,7 +24,7 @@ use RpcAcsRequest;
  * @method string getAuthTimeout()
  * @method string getAuthInfo()
  */
-class GetPlayInfoRequest extends RpcAcsRequest
+class GetPlayInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -55,7 +53,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -68,7 +66,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setStreamType($streamType)
     {
         $this->requestParameters['StreamType'] = $streamType;
-        $this->queryParameters['StreamType']   = $streamType;
+        $this->queryParameters['StreamType'] = $streamType;
 
         return $this;
     }
@@ -81,7 +79,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setFormats($formats)
     {
         $this->requestParameters['Formats'] = $formats;
-        $this->queryParameters['Formats']   = $formats;
+        $this->queryParameters['Formats'] = $formats;
 
         return $this;
     }
@@ -94,7 +92,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -107,7 +105,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setChannel($channel)
     {
         $this->requestParameters['Channel'] = $channel;
-        $this->queryParameters['Channel']   = $channel;
+        $this->queryParameters['Channel'] = $channel;
 
         return $this;
     }
@@ -120,7 +118,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setVideoId($videoId)
     {
         $this->requestParameters['VideoId'] = $videoId;
-        $this->queryParameters['VideoId']   = $videoId;
+        $this->queryParameters['VideoId'] = $videoId;
 
         return $this;
     }
@@ -133,7 +131,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setPlayerVersion($playerVersion)
     {
         $this->requestParameters['PlayerVersion'] = $playerVersion;
-        $this->queryParameters['PlayerVersion']   = $playerVersion;
+        $this->queryParameters['PlayerVersion'] = $playerVersion;
 
         return $this;
     }
@@ -146,7 +144,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -159,7 +157,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setResultType($resultType)
     {
         $this->requestParameters['ResultType'] = $resultType;
-        $this->queryParameters['ResultType']   = $resultType;
+        $this->queryParameters['ResultType'] = $resultType;
 
         return $this;
     }
@@ -172,7 +170,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setRand($rand)
     {
         $this->requestParameters['Rand'] = $rand;
-        $this->queryParameters['Rand']   = $rand;
+        $this->queryParameters['Rand'] = $rand;
 
         return $this;
     }
@@ -185,7 +183,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setReAuthInfo($reAuthInfo)
     {
         $this->requestParameters['ReAuthInfo'] = $reAuthInfo;
-        $this->queryParameters['ReAuthInfo']   = $reAuthInfo;
+        $this->queryParameters['ReAuthInfo'] = $reAuthInfo;
 
         return $this;
     }
@@ -198,7 +196,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setPlayConfig($playConfig)
     {
         $this->requestParameters['PlayConfig'] = $playConfig;
-        $this->queryParameters['PlayConfig']   = $playConfig;
+        $this->queryParameters['PlayConfig'] = $playConfig;
 
         return $this;
     }
@@ -211,7 +209,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setOutputType($outputType)
     {
         $this->requestParameters['OutputType'] = $outputType;
-        $this->queryParameters['OutputType']   = $outputType;
+        $this->queryParameters['OutputType'] = $outputType;
 
         return $this;
     }
@@ -224,7 +222,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setDefinition($definition)
     {
         $this->requestParameters['Definition'] = $definition;
-        $this->queryParameters['Definition']   = $definition;
+        $this->queryParameters['Definition'] = $definition;
 
         return $this;
     }
@@ -237,7 +235,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setAuthTimeout($authTimeout)
     {
         $this->requestParameters['AuthTimeout'] = $authTimeout;
-        $this->queryParameters['AuthTimeout']   = $authTimeout;
+        $this->queryParameters['AuthTimeout'] = $authTimeout;
 
         return $this;
     }
@@ -250,7 +248,7 @@ class GetPlayInfoRequest extends RpcAcsRequest
     public function setAuthInfo($authInfo)
     {
         $this->requestParameters['AuthInfo'] = $authInfo;
-        $this->queryParameters['AuthInfo']   = $authInfo;
+        $this->queryParameters['AuthInfo'] = $authInfo;
 
         return $this;
     }

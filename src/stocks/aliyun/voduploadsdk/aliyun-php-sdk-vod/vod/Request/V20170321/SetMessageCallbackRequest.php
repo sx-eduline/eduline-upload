@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -24,7 +22,7 @@ use RpcAcsRequest;
  * @method string getAuthSwitch()
  * @method string getCallbackURL()
  */
-class SetMessageCallbackRequest extends RpcAcsRequest
+class SetMessageCallbackRequest extends \RpcAcsRequest
 {
 
     /**
@@ -53,7 +51,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setAuthKey($authKey)
     {
         $this->requestParameters['AuthKey'] = $authKey;
-        $this->queryParameters['AuthKey']   = $authKey;
+        $this->queryParameters['AuthKey'] = $authKey;
 
         return $this;
     }
@@ -66,7 +64,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -79,7 +77,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -92,7 +90,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setOwnerAccount($ownerAccount)
     {
         $this->requestParameters['OwnerAccount'] = $ownerAccount;
-        $this->queryParameters['OwnerAccount']   = $ownerAccount;
+        $this->queryParameters['OwnerAccount'] = $ownerAccount;
 
         return $this;
     }
@@ -105,7 +103,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setEventTypeList($eventTypeList)
     {
         $this->requestParameters['EventTypeList'] = $eventTypeList;
-        $this->queryParameters['EventTypeList']   = $eventTypeList;
+        $this->queryParameters['EventTypeList'] = $eventTypeList;
 
         return $this;
     }
@@ -118,7 +116,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setMnsQueueName($mnsQueueName)
     {
         $this->requestParameters['MnsQueueName'] = $mnsQueueName;
-        $this->queryParameters['MnsQueueName']   = $mnsQueueName;
+        $this->queryParameters['MnsQueueName'] = $mnsQueueName;
 
         return $this;
     }
@@ -131,7 +129,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setResourceRealOwnerId($resourceRealOwnerId)
     {
         $this->requestParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
-        $this->queryParameters['ResourceRealOwnerId']   = $resourceRealOwnerId;
+        $this->queryParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
 
         return $this;
     }
@@ -144,7 +142,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -157,7 +155,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setCallbackType($callbackType)
     {
         $this->requestParameters['CallbackType'] = $callbackType;
-        $this->queryParameters['CallbackType']   = $callbackType;
+        $this->queryParameters['CallbackType'] = $callbackType;
 
         return $this;
     }
@@ -170,7 +168,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setCallbackSwitch($callbackSwitch)
     {
         $this->requestParameters['CallbackSwitch'] = $callbackSwitch;
-        $this->queryParameters['CallbackSwitch']   = $callbackSwitch;
+        $this->queryParameters['CallbackSwitch'] = $callbackSwitch;
 
         return $this;
     }
@@ -183,7 +181,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setMnsEndpoint($mnsEndpoint)
     {
         $this->requestParameters['MnsEndpoint'] = $mnsEndpoint;
-        $this->queryParameters['MnsEndpoint']   = $mnsEndpoint;
+        $this->queryParameters['MnsEndpoint'] = $mnsEndpoint;
 
         return $this;
     }
@@ -196,7 +194,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setAppId($appId)
     {
         $this->requestParameters['AppId'] = $appId;
-        $this->queryParameters['AppId']   = $appId;
+        $this->queryParameters['AppId'] = $appId;
 
         return $this;
     }
@@ -209,7 +207,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setAuthSwitch($authSwitch)
     {
         $this->requestParameters['AuthSwitch'] = $authSwitch;
-        $this->queryParameters['AuthSwitch']   = $authSwitch;
+        $this->queryParameters['AuthSwitch'] = $authSwitch;
 
         return $this;
     }
@@ -222,7 +220,7 @@ class SetMessageCallbackRequest extends RpcAcsRequest
     public function setCallbackURL($callbackURL)
     {
         $this->requestParameters['CallbackURL'] = $callbackURL;
-        $this->queryParameters['CallbackURL']   = $callbackURL;
+        $this->queryParameters['CallbackURL'] = $callbackURL;
 
         return $this;
     }

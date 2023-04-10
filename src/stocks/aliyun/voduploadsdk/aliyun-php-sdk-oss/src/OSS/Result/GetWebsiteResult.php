@@ -6,7 +6,6 @@ use OSS\Model\WebsiteConfig;
 
 /**
  * Class GetWebsiteResult
- *
  * @package OSS\Result
  */
 class GetWebsiteResult extends Result
@@ -19,7 +18,7 @@ class GetWebsiteResult extends Result
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
-        $config  = new WebsiteConfig();
+        $config = new WebsiteConfig();
         $config->parseFromXml($content);
         return $config;
     }

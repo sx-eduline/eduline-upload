@@ -8,9 +8,7 @@
 
 namespace UnitTest\Ft;
 
-use RpcAcsRequest;
-
-class TestRpcApiRequest extends RpcAcsRequest
+class TestRpcApiRequest extends \RpcAcsRequest
 {
     public function __construct()
     {

@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -17,7 +15,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getAuthTimeout()
  */
-class GetAttachedMediaInfoRequest extends RpcAcsRequest
+class GetAttachedMediaInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -46,7 +44,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -59,7 +57,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -72,7 +70,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setOutputType($outputType)
     {
         $this->requestParameters['OutputType'] = $outputType;
-        $this->queryParameters['OutputType']   = $outputType;
+        $this->queryParameters['OutputType'] = $outputType;
 
         return $this;
     }
@@ -85,7 +83,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setMediaIds($mediaIds)
     {
         $this->requestParameters['MediaIds'] = $mediaIds;
-        $this->queryParameters['MediaIds']   = $mediaIds;
+        $this->queryParameters['MediaIds'] = $mediaIds;
 
         return $this;
     }
@@ -98,7 +96,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setResourceRealOwnerId($resourceRealOwnerId)
     {
         $this->requestParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
-        $this->queryParameters['ResourceRealOwnerId']   = $resourceRealOwnerId;
+        $this->queryParameters['ResourceRealOwnerId'] = $resourceRealOwnerId;
 
         return $this;
     }
@@ -111,7 +109,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -124,7 +122,7 @@ class GetAttachedMediaInfoRequest extends RpcAcsRequest
     public function setAuthTimeout($authTimeout)
     {
         $this->requestParameters['AuthTimeout'] = $authTimeout;
-        $this->queryParameters['AuthTimeout']   = $authTimeout;
+        $this->queryParameters['AuthTimeout'] = $authTimeout;
 
         return $this;
     }

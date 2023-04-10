@@ -2,12 +2,12 @@
 
 namespace OSS\Tests;
 
+
 use OSS\Core\OssException;
 use OSS\Result\InitiateMultipartUploadResult;
 use OSS\Http\ResponseCore;
-use PHPUnit_Framework_TestCase;
 
-class InitiateMultipartUploadResultTest extends PHPUnit_Framework_TestCase
+class InitiateMultipartUploadResultTest extends \PHPUnit\Framework\TestCase
 {
     private $validXml = <<<BBBB
 <?xml version="1.0" encoding="UTF-8"?>
@@ -26,21 +26,22 @@ BBBB;
 </InitiateMultipartUploadResult>
 BBBB;
 
+
     public function testParseValidXml()
     {
-        $response = new ResponseCore([], $this->validXml, 200);
-        $result   = new InitiateMultipartUploadResult($response);
+        $response = new ResponseCore(array(), $this->validXml, 200);
+        $result = new InitiateMultipartUploadResult($response);
         $this->assertEquals("0004B9894A22E5B1888A1E29F8236E2D", $result->getData());
     }
 
     public function testParseInvalidXml()
     {
-        $response = new ResponseCore([], $this->invalidXml, 200);
+        $response = new ResponseCore(array(), $this->invalidXml, 200);
         try {
             $result = new InitiateMultipartUploadResult($response);
             $this->assertTrue(false);
         } catch (OssException $e) {
-
+            $this->assertTrue(true);
         }
     }
 }

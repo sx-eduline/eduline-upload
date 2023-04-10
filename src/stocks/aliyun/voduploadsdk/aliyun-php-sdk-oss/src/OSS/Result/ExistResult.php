@@ -4,7 +4,6 @@ namespace OSS\Result;
 
 /**
  * Class ExistResult checks if bucket or object exists, according to the http status in response headers.
- *
  * @package OSS\Result
  */
 class ExistResult extends Result

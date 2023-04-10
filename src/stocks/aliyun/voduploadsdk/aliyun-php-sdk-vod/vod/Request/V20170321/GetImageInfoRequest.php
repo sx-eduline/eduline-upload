@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -16,7 +14,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getAuthTimeout()
  */
-class GetImageInfoRequest extends RpcAcsRequest
+class GetImageInfoRequest extends \RpcAcsRequest
 {
 
     /**
@@ -45,7 +43,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -58,7 +56,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setImageId($imageId)
     {
         $this->requestParameters['ImageId'] = $imageId;
-        $this->queryParameters['ImageId']   = $imageId;
+        $this->queryParameters['ImageId'] = $imageId;
 
         return $this;
     }
@@ -71,7 +69,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -84,7 +82,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setOutputType($outputType)
     {
         $this->requestParameters['OutputType'] = $outputType;
-        $this->queryParameters['OutputType']   = $outputType;
+        $this->queryParameters['OutputType'] = $outputType;
 
         return $this;
     }
@@ -97,7 +95,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -110,7 +108,7 @@ class GetImageInfoRequest extends RpcAcsRequest
     public function setAuthTimeout($authTimeout)
     {
         $this->requestParameters['AuthTimeout'] = $authTimeout;
-        $this->queryParameters['AuthTimeout']   = $authTimeout;
+        $this->queryParameters['AuthTimeout'] = $authTimeout;
 
         return $this;
     }

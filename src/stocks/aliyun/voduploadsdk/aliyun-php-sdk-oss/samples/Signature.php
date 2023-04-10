@@ -6,7 +6,7 @@ use OSS\Http\ResponseCore;
 use OSS\OssClient;
 use OSS\Core\OssException;
 
-$bucket    = Common::getBucketName();
+$bucket = Common::getBucketName();
 $ossClient = Common::getOssClient();
 if (is_null($ossClient)) exit(1);
 
@@ -23,7 +23,7 @@ $signedUrl = $ossClient->signUrl($bucket, "a.file", "3600", "PUT");
 Common::println($signedUrl);
 
 // Generate the signed url for putting an object from local file. The url can be used directly to upload the file to "a.file".
-$signedUrl = $ossClient->signUrl($bucket, "a.file", 3600, "PUT", ['Content-Type' => 'txt']);
+$signedUrl = $ossClient->signUrl($bucket, "a.file", 3600, "PUT", array('Content-Type' => 'txt'));
 Common::println($signedUrl);
 
 //******************************* For complete usage, see the following functions ****************************************************
@@ -36,12 +36,12 @@ getSignedUrlForGettingObject($ossClient, $bucket);
  * Generate the signed url for getObject() to control read accesses under private privilege
  *
  * @param $ossClient OssClient OssClient instance
- * @param $bucket    string bucket name
+ * @param $bucket string bucket name
  * @return null
  */
 function getSignedUrlForGettingObject($ossClient, $bucket)
 {
-    $object  = "test/test-signature-test-upload-and-download.txt";
+    $object = "test/test-signature-test-upload-and-download.txt";
     $timeout = 3600;
     try {
         $signedUrl = $ossClient->signUrl($bucket, $object, $timeout);
@@ -63,20 +63,20 @@ function getSignedUrlForGettingObject($ossClient, $bucket)
         print(__FUNCTION__ . ": OK" . "\n");
     } else {
         print(__FUNCTION__ . ": FAILED" . "\n");
-    }
+    };
 }
 
 /**
  * Generate the signed url for PutObject to control write accesses under private privilege.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @return null
  * @throws OssException
  */
 function getSignedUrlForPuttingObject($ossClient, $bucket)
 {
-    $object  = "test/test-signature-test-upload-and-download.txt";
+    $object = "test/test-signature-test-upload-and-download.txt";
     $timeout = 3600;
     $options = NULL;
     try {
@@ -101,22 +101,22 @@ function getSignedUrlForPuttingObject($ossClient, $bucket)
         print(__FUNCTION__ . ": OK" . "\n");
     } else {
         print(__FUNCTION__ . ": FAILED" . "\n");
-    }
+    };
 }
 
 /**
  * Generate the signed url for PutObject's signed url. User could use the signed url to upload file directly.
  *
  * @param OssClient $ossClient OssClient instance
- * @param string    $bucket    bucket name
+ * @param string $bucket bucket name
  * @throws OssException
  */
 function getSignedUrlForPuttingObjectFromFile($ossClient, $bucket)
 {
-    $file    = __FILE__;
-    $object  = "test/test-signature-test-upload-and-download.txt";
+    $file = __FILE__;
+    $object = "test/test-signature-test-upload-and-download.txt";
     $timeout = 3600;
-    $options = ['Content-Type' => 'txt'];
+    $options = array('Content-Type' => 'txt');
     try {
         $signedUrl = $ossClient->signUrl($bucket, $object, $timeout, "PUT", $options);
     } catch (OssException $e) {
@@ -130,7 +130,7 @@ function getSignedUrlForPuttingObjectFromFile($ossClient, $bucket)
     $request->set_method('PUT');
     $request->add_header('Content-Type', 'txt');
     $request->set_read_file($file);
-    $request->set_read_stream_size(filesize($file));
+    $request->set_read_stream_size(sprintf('%u',filesize($file)));
     $request->send_request();
     $res = new ResponseCore($request->get_response_header(),
         $request->get_response_body(), $request->get_response_code());
@@ -138,5 +138,5 @@ function getSignedUrlForPuttingObjectFromFile($ossClient, $bucket)
         print(__FUNCTION__ . ": OK" . "\n");
     } else {
         print(__FUNCTION__ . ": FAILED" . "\n");
-    }
+    };
 }

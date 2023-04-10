@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -14,7 +12,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getObjectType()
  */
-class RefreshVodObjectCachesRequest extends RpcAcsRequest
+class RefreshVodObjectCachesRequest extends \RpcAcsRequest
 {
 
     /**
@@ -43,7 +41,7 @@ class RefreshVodObjectCachesRequest extends RpcAcsRequest
     public function setSecurityToken($securityToken)
     {
         $this->requestParameters['SecurityToken'] = $securityToken;
-        $this->queryParameters['SecurityToken']   = $securityToken;
+        $this->queryParameters['SecurityToken'] = $securityToken;
 
         return $this;
     }
@@ -56,7 +54,7 @@ class RefreshVodObjectCachesRequest extends RpcAcsRequest
     public function setObjectPath($objectPath)
     {
         $this->requestParameters['ObjectPath'] = $objectPath;
-        $this->queryParameters['ObjectPath']   = $objectPath;
+        $this->queryParameters['ObjectPath'] = $objectPath;
 
         return $this;
     }
@@ -69,7 +67,7 @@ class RefreshVodObjectCachesRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -82,7 +80,7 @@ class RefreshVodObjectCachesRequest extends RpcAcsRequest
     public function setObjectType($objectType)
     {
         $this->requestParameters['ObjectType'] = $objectType;
-        $this->queryParameters['ObjectType']   = $objectType;
+        $this->queryParameters['ObjectType'] = $objectType;
 
         return $this;
     }

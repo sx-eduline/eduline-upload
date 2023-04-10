@@ -2,9 +2,9 @@
 
 namespace OSS\Result;
 
+
 /**
  * Class BodyResult
- *
  * @package OSS\Result
  */
 class BodyResult extends Result

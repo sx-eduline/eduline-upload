@@ -2,8 +2,6 @@
 
 namespace vod\Request\V20170321;
 
-use RpcAcsRequest;
-
 /**
  * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
@@ -15,7 +13,7 @@ use RpcAcsRequest;
  * @method string getOwnerId()
  * @method string getProjectId()
  */
-class GetEditingProjectRequest extends RpcAcsRequest
+class GetEditingProjectRequest extends \RpcAcsRequest
 {
 
     /**
@@ -44,7 +42,7 @@ class GetEditingProjectRequest extends RpcAcsRequest
     public function setResourceOwnerId($resourceOwnerId)
     {
         $this->requestParameters['ResourceOwnerId'] = $resourceOwnerId;
-        $this->queryParameters['ResourceOwnerId']   = $resourceOwnerId;
+        $this->queryParameters['ResourceOwnerId'] = $resourceOwnerId;
 
         return $this;
     }
@@ -57,7 +55,7 @@ class GetEditingProjectRequest extends RpcAcsRequest
     public function setResourceOwnerAccount($resourceOwnerAccount)
     {
         $this->requestParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
-        $this->queryParameters['ResourceOwnerAccount']   = $resourceOwnerAccount;
+        $this->queryParameters['ResourceOwnerAccount'] = $resourceOwnerAccount;
 
         return $this;
     }
@@ -70,7 +68,7 @@ class GetEditingProjectRequest extends RpcAcsRequest
     public function setOwnerAccount($ownerAccount)
     {
         $this->requestParameters['OwnerAccount'] = $ownerAccount;
-        $this->queryParameters['OwnerAccount']   = $ownerAccount;
+        $this->queryParameters['OwnerAccount'] = $ownerAccount;
 
         return $this;
     }
@@ -83,7 +81,7 @@ class GetEditingProjectRequest extends RpcAcsRequest
     public function setOwnerId($ownerId)
     {
         $this->requestParameters['OwnerId'] = $ownerId;
-        $this->queryParameters['OwnerId']   = $ownerId;
+        $this->queryParameters['OwnerId'] = $ownerId;
 
         return $this;
     }
@@ -96,7 +94,7 @@ class GetEditingProjectRequest extends RpcAcsRequest
     public function setProjectId($projectId)
     {
         $this->requestParameters['ProjectId'] = $projectId;
-        $this->queryParameters['ProjectId']   = $projectId;
+        $this->queryParameters['ProjectId'] = $projectId;
 
         return $this;
     }

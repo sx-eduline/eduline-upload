@@ -2,31 +2,23 @@
 
 namespace OSS\Model;
 
-use SimpleXMLElement;
-
 /**
  * Class LifecycleAction
- *
  * @package OSS\Model
- * @link    http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketLifecycle.html
+ * @link http://help.aliyun.com/document_detail/oss/api-reference/bucket/PutBucketLifecycle.html
  */
 class LifecycleAction
 {
-    private $action;
-    private $timeSpec;
-    private $timeValue;
-
     /**
      * LifecycleAction constructor.
-     *
      * @param string $action
      * @param string $timeSpec
      * @param string $timeValue
      */
     public function __construct($action, $timeSpec, $timeValue)
     {
-        $this->action    = $action;
-        $this->timeSpec  = $timeSpec;
+        $this->action = $action;
+        $this->timeSpec = $timeSpec;
         $this->timeValue = $timeValue;
     }
 
@@ -81,12 +73,16 @@ class LifecycleAction
     /**
      * Use appendToXml to insert actions into xml.
      *
-     * @param SimpleXMLElement $xmlRule
+     * @param \SimpleXMLElement $xmlRule
      */
     public function appendToXml(&$xmlRule)
     {
         $xmlAction = $xmlRule->addChild($this->action);
         $xmlAction->addChild($this->timeSpec, $this->timeValue);
     }
+
+    private $action;
+    private $timeSpec;
+    private $timeValue;
 
 }

@@ -2,10 +2,6 @@
 
 namespace OSS\Core;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use SimpleXMLElement;
-
 /**
  * Class OssUtil
  *
@@ -26,12 +22,12 @@ class OssUtil
     /**
      * Generate query params
      *
-     * @param array $options : a key-value pair array.
+     * @param array $options: a key-value pair array.
      * @return string: the key-value list in the format such as key1=value1&key2=value2
      */
-    public static function toQueryString($options = [])
+    public static function toQueryString($options = array())
     {
-        $temp = [];
+        $temp = array();
         uksort($options, 'strnatcasecmp');
         foreach ($options as $key => $value) {
             if (is_string($key) && !is_array($value)) {
@@ -39,6 +35,30 @@ class OssUtil
             }
         }
         return implode('&', $temp);
+    }
+
+    /**
+     * Html encoding '<', '>', '&', '\', '"' in subject parameter. 
+     *
+     * @param string $subject
+     * @return string
+     */
+    public static function sReplace($subject)
+    {
+        $search = array('<', '>', '&', '\'', '"');
+        $replace = array('&lt;', '&gt;', '&amp;', '&apos;', '&quot;');
+        return str_replace($search, $replace, $subject);
+    }
+
+    /**
+     * Check whether the string includes any chinese character
+     *
+     * @param $str
+     * @return int
+     */
+    public static function chkChinese($str)
+    {
+        return preg_match('/[\x80-\xff]./', $str);
     }
 
     /**
@@ -69,7 +89,7 @@ class OssUtil
     /**
      * Checks if the string is encoded by GBK
      *
-     * @param string  $str
+     * @param string $str
      * @param boolean $gbk
      * @return boolean
      */
@@ -79,18 +99,18 @@ class OssUtil
             $v = ord($str[$i]);
             if ($v > 127) {
                 if (($v >= 228) && ($v <= 233)) {
-                    if (($i + 2) >= (strlen($str) - 1)) return $gbk ? true : false;  // not enough characters
+                    if (($i + 2) >= (strlen($str) - 1)) return $gbk ? true : FALSE;  // not enough characters
                     $v1 = ord($str[$i + 1]);
                     $v2 = ord($str[$i + 2]);
                     if ($gbk) {
-                        return (($v1 >= 128) && ($v1 <= 191) && ($v2 >= 128) && ($v2 <= 191)) ? false : true;//GBK
+                        return (($v1 >= 128) && ($v1 <= 191) && ($v2 >= 128) && ($v2 <= 191)) ? FALSE : TRUE;//GBK
                     } else {
-                        return (($v1 >= 128) && ($v1 <= 191) && ($v2 >= 128) && ($v2 <= 191)) ? true : false;
+                        return (($v1 >= 128) && ($v1 <= 191) && ($v2 >= 128) && ($v2 <= 191)) ? TRUE : FALSE;
                     }
                 }
             }
         }
-        return $gbk ? true : false;
+        return $gbk ? TRUE : FALSE;
     }
 
     /**
@@ -125,13 +145,14 @@ class OssUtil
     public static function validateObject($object)
     {
         $pattern = '/^.{1,1023}$/';
-        if (empty($object) || !preg_match($pattern, $object) ||
+        if (!preg_match($pattern, $object) ||
             self::startsWith($object, '/') || self::startsWith($object, '\\')
         ) {
             return false;
         }
         return true;
     }
+
 
     /**
      * Checks if $str starts with $findMe
@@ -149,6 +170,7 @@ class OssUtil
         }
     }
 
+
     /**
      * Generate the xml message of createBucketXmlBody.
      *
@@ -157,8 +179,8 @@ class OssUtil
      */
     public static function createBucketXmlBody($storageClass)
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration></CreateBucketConfiguration>');
-        $xml->addChild('StorageClass', $storageClass);
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration></CreateBucketConfiguration>');
+        $xml->addChild('StorageClass',  $storageClass);
         return $xml->asXML();
     }
 
@@ -166,8 +188,8 @@ class OssUtil
      * validate $options
      *
      * @param array $options
-     * @return boolean
      * @throws OssException
+     * @return boolean
      */
     public static function validateOptions($options)
     {
@@ -193,14 +215,16 @@ class OssUtil
     /**
      * Check if BUCKET/OBJECT/OBJECT GROUP is empty.
      *
-     * @param string $name
-     * @param string $errMsg
-     * @return void
+     * @param  string $name
+     * @param  string $errMsg
      * @throws OssException
+     * @return void
      */
     public static function throwOssExceptionWithMessageIfEmpty($name, $errMsg)
     {
         if (empty($name)) {
+            if (is_string($name) && $name == '0')
+                return;
             throw new OssException($errMsg);
         }
     }
@@ -213,12 +237,12 @@ class OssUtil
      */
     public static function generateFile($filename, $size)
     {
-        if (file_exists($filename) && $size == filesize($filename)) {
+        if (file_exists($filename) && $size == sprintf('%u',filesize($filename))) {
             echo $filename . " already exists, no need to create again. ";
             return;
         }
-        $part_size  = 1 * 1024 * 1024;
-        $fp         = fopen($filename, "w");
+        $part_size = 1 * 1024 * 1024;
+        $fp = fopen($filename, "w");
         $characters = <<<BBB
 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 BBB;
@@ -231,10 +255,10 @@ BBB;
                 } else {
                     $write_size = $part_size;
                 }
-                $size    -= $write_size;
-                $a       = $characters[rand(0, $charactersLength - 1)];
+                $size -= $write_size;
+                $a = $characters[rand(0, $charactersLength - 1)];
                 $content = str_repeat($a, $write_size);
-                $flag    = fwrite($fp, $content);
+                $flag = fwrite($fp, $content);
                 if (!$flag) {
                     echo "write to " . $filename . " failed. <br>";
                     break;
@@ -260,14 +284,14 @@ BBB;
         if (($to_pos - $from_pos) > self::OSS_MAX_PART_SIZE) {
             return $content_md5;
         }
-        $filesize = filesize($filename);
+        $filesize = sprintf('%u',filesize($filename));
         if ($from_pos >= $filesize || $to_pos >= $filesize || $from_pos < 0 || $to_pos < 0) {
             return $content_md5;
         }
 
         $total_length = $to_pos - $from_pos + 1;
-        $buffer       = 8192;
-        $left_length  = $total_length;
+        $buffer = 8192;
+        $left_length = $total_length;
         if (!file_exists($filename)) {
             return $content_md5;
         }
@@ -287,7 +311,7 @@ BBB;
             if ($read_length <= 0) {
                 break;
             } else {
-                $data        .= fread($fh, $read_length);
+                $data .= fread($fh, $read_length);
                 $left_length = $left_length - $read_length;
             }
         }
@@ -297,8 +321,18 @@ BBB;
     }
 
     /**
+     * Check if the OS is Windows. The default encoding in Windows is GBK.
+     *
+     * @return bool
+     */
+    public static function isWin()
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) == "WIN";
+    }
+
+    /**
      * Encodes the file path from GBK to UTF-8.
-     * The default encoding in Windows is GBK.
+     * The default encoding in Windows is GBK. 
      * And if the file path is in Chinese, the file would not be found without the transcoding to UTF-8.
      *
      * @param $file_path
@@ -313,27 +347,6 @@ BBB;
     }
 
     /**
-     * Check whether the string includes any chinese character
-     *
-     * @param $str
-     * @return int
-     */
-    public static function chkChinese($str)
-    {
-        return preg_match('/[\x80-\xff]./', $str);
-    }
-
-    /**
-     * Check if the OS is Windows. The default encoding in Windows is GBK.
-     *
-     * @return bool
-     */
-    public static function isWin()
-    {
-        return strtoupper(substr(PHP_OS, 0, 3)) == "WIN";
-    }
-
-    /**
      * Check if the endpoint is in the IPv4 format, such as xxx.xxx.xxx.xxx:port or xxx.xxx.xxx.xxx.
      *
      * @param string $endpoint The endpoint to check.
@@ -343,7 +356,7 @@ BBB;
     {
         $ip_array = explode(":", $endpoint);
         $hostname = $ip_array[0];
-        $ret      = filter_var($hostname, FILTER_VALIDATE_IP);
+        $ret = filter_var($hostname, FILTER_VALIDATE_IP);
         if (!$ret) {
             return false;
         } else {
@@ -352,35 +365,86 @@ BBB;
     }
 
     /**
+     * Get the host:port from endpoint.
+     *
+     * @param string $endpoint the endpoint.
+     * @return boolean
+     */
+    public static function getHostPortFromEndpoint($endpoint)
+    {
+        $str = $endpoint;
+        $pos = strpos($str, "://");
+        if ($pos !== false) {
+            $str = substr($str, $pos+3);
+        }
+    
+        $pos = strpos($str, '#');
+        if ($pos !== false) {
+            $str = substr($str, 0, $pos);
+        }
+    
+        $pos = strpos($str, '?');
+        if ($pos !== false) {
+            $str = substr($str, 0, $pos);
+        }
+    
+        $pos = strpos($str, '/');
+        if ($pos !== false) {
+            $str = substr($str, 0, $pos);
+        }
+    
+        $pos = strpos($str, '@');
+        if ($pos !== false) {
+            $str = substr($str, $pos+1);
+        }
+       
+        if (!preg_match('/^[\w.-]+(:[0-9]+)?$/', $str)) {
+            throw new OssException("endpoint is invalid:" . $endpoint);
+        }
+
+        return $str;
+    }
+
+    /**
      * Generate the xml message of DeleteMultiObjects.
      *
      * @param string[] $objects
-     * @param bool     $quiet
+     * @param bool $quiet
      * @return string
      */
     public static function createDeleteObjectsXmlBody($objects, $quiet)
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><Delete></Delete>');
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><Delete></Delete>');
         $xml->addChild('Quiet', $quiet);
         foreach ($objects as $object) {
             $sub_object = $xml->addChild('Object');
-            $object     = OssUtil::sReplace($object);
+            $object = OssUtil::sReplace($object);
             $sub_object->addChild('Key', $object);
         }
         return $xml->asXML();
     }
 
     /**
-     * Html encoding '<', '>', '&', '\', '"' in subject parameter.
+     * Generate the xml message of DeleteMultiObjects.
      *
-     * @param string $subject
+     * @param DeleteObjectInfo[] $objects
+     * @param bool $quiet
      * @return string
      */
-    public static function sReplace($subject)
+    public static function createDeleteObjectVersionsXmlBody($objects, $quiet)
     {
-        $search  = ['<', '>', '&', '\'', '"'];
-        $replace = ['&lt;', '&gt;', '&amp;', '&apos;', '&quot;'];
-        return str_replace($search, $replace, $subject);
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><Delete></Delete>');
+        $xml->addChild('Quiet', $quiet);
+        foreach ($objects as $object) {
+            $sub_object = $xml->addChild('Object');
+            $key = OssUtil::sReplace($object->getKey());
+            $sub_object->addChild('Key', $key);
+            $versionId = $object->getVersionId();
+            if (!empty($versionId)) {
+                $sub_object->addChild('VersionId', $object->getVersionId());
+            }
+        }
+        return $xml->asXML();
     }
 
     /**
@@ -391,7 +455,7 @@ BBB;
      */
     public static function createCompleteMultipartUploadXmlBody($listParts)
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload></CompleteMultipartUpload>');
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload></CompleteMultipartUpload>');
         foreach ($listParts as $node) {
             $part = $xml->addChild('Part');
             $part->addChild('PartNumber', $node['PartNumber']);
@@ -405,25 +469,25 @@ BBB;
      *
      * @param string $dir
      * @param string $exclude
-     * @param bool   $recursive
+     * @param bool $recursive
      * @return string[]
      */
     public static function readDir($dir, $exclude = ".|..|.svn|.git", $recursive = false)
     {
-        $file_list_array = [];
-        $base_path       = $dir;
-        $exclude_array   = explode("|", $exclude);
-        $exclude_array   = array_unique(array_merge($exclude_array, ['.', '..']));
+        $file_list_array = array();
+        $base_path = $dir;
+        $exclude_array = explode("|", $exclude);
+        $exclude_array = array_unique(array_merge($exclude_array, array('.', '..')));
 
         if ($recursive) {
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $new_file) {
+            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir)) as $new_file) {
                 if ($new_file->isDir()) continue;
                 $object = str_replace($base_path, '', $new_file);
                 if (!in_array(strtolower($object), $exclude_array)) {
                     $object = ltrim($object, '/');
                     if (is_file($new_file)) {
-                        $key                   = md5($new_file . $object, false);
-                        $file_list_array[$key] = ['path' => $new_file, 'file' => $object,];
+                        $key = md5($new_file . $object, false);
+                        $file_list_array[$key] = array('path' => $new_file, 'file' => $object,);
                     }
                 }
             }
@@ -431,11 +495,11 @@ BBB;
             while (false !== ($file = readdir($handle))) {
                 if (!in_array(strtolower($file), $exclude_array)) {
                     $new_file = $dir . '/' . $file;
-                    $object   = $file;
-                    $object   = ltrim($object, '/');
+                    $object = $file;
+                    $object = ltrim($object, '/');
                     if (is_file($new_file)) {
-                        $key                   = md5($new_file . $object, false);
-                        $file_list_array[$key] = ['path' => $new_file, 'file' => $object,];
+                        $key = md5($new_file . $object, false);
+                        $file_list_array[$key] = array('path' => $new_file, 'file' => $object,);
                     }
                 }
             }
