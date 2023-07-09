@@ -3,10 +3,16 @@ declare (strict_types=1);
 
 namespace eduline\upload;
 
-use app\common\model\Attach;
-
 /**
- * 上传入口类
+ * Class Client
+ *
+ * @package eduline\upload
+ *
+ * @method  array putFile($savepath, $file, $savename) 上传文件到本地, 只有local储存可调用。参数: 保存路径, 临时文件名称, 保存的文件文件
+ * @method void putYunFile($attach) 上传到云端，非local储存可调用。参数：附件数据
+ * @method string url(array $data = []) 获取附件预览的地址。参数：附件数据
+ * @method string path(array $data = []) 获取附件储存的路径。参数：附件数据
+ * @method array getVideoList(array $params = []) 获取视频列表。参数：第三方储存请求参数
  */
 class Client
 {
@@ -18,26 +24,6 @@ class Client
         $class = __NAMESPACE__ . '\\stocks\\' . $stock . '\\File';
 
         $this->stock = new $class();
-    }
-
-    /**
-     * 上传文件
-     * Author   Martinsun<syh@sunyonghong.com>
-     * Date:  2020-03-29
-     *
-     * @param string $savepath 需要保存的路径
-     * @param    [type]                         $file     [description]
-     * @param    [type]                         $savename [description]
-     * @return   [type]                                   [description]
-     */
-    public function putFile($savepath = '', $file, $savename)
-    {
-        return $this->stock->putFile($savepath, $file, $savename);
-    }
-
-    public function putYunFile(Attach $attach)
-    {
-        return $this->stock->putYunFile($attach);
     }
 
     /**

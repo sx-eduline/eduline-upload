@@ -29,7 +29,7 @@ class File implements FileInterface
      *
      * @return   [type]                         [description]
      */
-    public function putFile()
+    public function putFile($savepath, $file, $savename)
     {
         throw new FileException('暂不支持该方式上传');
 
@@ -45,7 +45,7 @@ class File implements FileInterface
      * @param string $name [description]
      * @return   [type]                               [description]
      */
-    public function putYunFile(Attach $attach)
+    public function putYunFile($attach)
     {
         try {
             // if (Util::isAudio($attach->mimetype, $attach->extension) || Util::isVideo($attach->mimetype, $attach->extension)) {
@@ -72,7 +72,7 @@ class File implements FileInterface
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
-        } catch (ClientException|FileException|Exception $e) {
+        } catch (ClientException | FileException | Exception $e) {
             // Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new LogicException($e->getMessage());
@@ -152,6 +152,7 @@ class File implements FileInterface
         $hash          = md5($value);
         $param['hash'] = strtoupper($hash);
         unset($param['salt']);
+
         return $param;
     }
 
@@ -163,6 +164,7 @@ class File implements FileInterface
     public function path(array $data = [])
     {
         $path = $data['bucket'] . ':' . $data['savepath'] . '/' . $data['savename'];
+
         return str_replace('\\', '/', $path);
     }
 
@@ -184,6 +186,7 @@ class File implements FileInterface
             'filesize'   => $attach->getData('filesize'),
             'notify_url' => $this->config['notify_url'],
         ];
+
         return $this->client($uri, $param);
     }
 
@@ -211,7 +214,7 @@ class File implements FileInterface
         }
     }
 
-    public function getVideoList($param)
+    public function getVideoList(array $param = [])
     {
         //
         $uri = $this->sparkapi . "/videos/v7";
@@ -219,7 +222,19 @@ class File implements FileInterface
         $param['userid'] = $this->config['userid'];
         // $param['format'] = 'json';
         //
-        return $this->client($uri, $param);
+        $result = $this->client($uri, $param);
+
+        $ret = [
+            'total'      => $result['total'] ?? 0,
+            'video_list' => [],
+        ];
+
+        if ($result['videos'] ?? null) {
+            $ret['video_list'] = $result['videos']['video'] ?? [];
+        }
+
+        return $ret;
+
     }
 
     public function updateVideo($attachId, $cloudId): array

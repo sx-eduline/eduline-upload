@@ -33,7 +33,7 @@ class File implements FileInterface
      *
      * @return   [type]                         [description]
      */
-    public function putFile()
+    public function putFile($savepath, $file, $savename)
     {
         throw new FileException('暂不支持该方式上传');
 
@@ -49,7 +49,7 @@ class File implements FileInterface
      * @param string $name [description]
      * @return   [type]                               [description]
      */
-    public function putYunFile(Attach $attach)
+    public function putYunFile($attach)
     {
         try {
             $secretId  = $this->config['secret_id'];
@@ -111,6 +111,7 @@ class File implements FileInterface
             if ($re) {
                 @unlink($filepath);
             }
+
             return $re;
         } catch (Exception $e) {
             Attach::update(['status' => 2], ['id' => $attach->id]);
@@ -254,6 +255,7 @@ class File implements FileInterface
         } catch (Exception $e) {
             $url = '';
         }
+
         return $url;
     }
 
@@ -265,6 +267,23 @@ class File implements FileInterface
     public function path(array $data = [])
     {
         $path = $data['bucket'] . ':' . $data['savepath'] . '/' . $data['savename'];
+
         return str_replace('\\', '/', $path);
+    }
+
+    /**
+     * getVideoList
+     *
+     * @param array $params
+     * @return mixed|void
+     */
+    public function getVideoList(array $params = [])
+    {
+        // TODO: Implement getVideoList() method.
+
+        return [
+            'total'      => 0,
+            'video_list' => []
+        ];
     }
 }

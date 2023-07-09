@@ -33,7 +33,7 @@ class File implements FileInterface
      *
      * @return   [type]                         [description]
      */
-    public function putFile()
+    public function putFile($savepath, $file, $savename)
     {
         throw new FileException('暂不支持该方式上传');
 
@@ -49,7 +49,7 @@ class File implements FileInterface
      * @param string $name [description]
      * @return   [type]                               [description]
      */
-    public function putYunFile(Attach $attach)
+    public function putYunFile($attach)
     {
         try {
             $accessKeyId     = $this->config['accessKey_id'];
@@ -121,6 +121,7 @@ class File implements FileInterface
             if ($re) {
                 @unlink($filepath);
             }
+
             return $re;
         } catch (Exception $e) {
             Attach::update(['status' => 2], ['id' => $attach->id]);
@@ -137,19 +138,12 @@ class File implements FileInterface
      */
     public function url(array $data = [])
     {
-        $accessKeyId     = $this->config['accessKey_id'];
-        $accessKeySecret = $this->config['accessKey_secret'];
-        $regionId        = $this->config['vod_region_id'] ?? 'cn-shanghai';
-        $url             = '';
-        AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
-            ->regionId($regionId)
-            ->connectTimeout(1)
-            ->timeout(3)
-            ->name('AliyunVod');
+        $url    = '';
+        $client = $this->createClient();
         try {
             if (Util::isImage($data['mimetype'])) {
                 // 图片
-                $result = Vod::V20170321()->getImageInfo()->client('AliyunVod')->withImageId($data['savename'])->format('JSON')->request();
+                $result = $client->getImageInfo()->withImageId($data['savename'])->format('JSON')->request();
                 if ($result->isSuccess()) {
                     $url = $result->ImageInfo->URL;
                 }
@@ -157,7 +151,7 @@ class File implements FileInterface
             } else if (Util::isAudio($data['mimetype'], $data['extension']) || Util::isVideo($data['mimetype'], $data['extension'])) {
                 $url = [];
                 // 音视频
-                $result = Vod::V20170321()->getPlayInfo()->client('AliyunVod')->withVideoId($data['savename'])->format('JSON')->request();
+                $result = $client->getPlayInfo()->withVideoId($data['savename'])->format('JSON')->request();
                 if ($result->isSuccess()) {
                     $items = $result->PlayInfoList->PlayInfo;
                     foreach ($items as $item) {
@@ -168,8 +162,10 @@ class File implements FileInterface
                     }
                 }
             } else {
-                $endpoint  = $this->config['domain'] ?? $this->config['endpoint'];
-                $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+                $accessKeyId     = $this->config['accessKey_id'];
+                $accessKeySecret = $this->config['accessKey_secret'];
+                $endpoint        = $this->config['domain'] ?? $this->config['endpoint'];
+                $ossClient       = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
 
                 $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');
             }
@@ -188,24 +184,65 @@ class File implements FileInterface
     public function path(array $data = [])
     {
         $path = $data['bucket'] . ':' . $data['savepath'] . '/' . $data['savename'];
+
         return str_replace('\\', '/', $path);
     }
 
     public function playAuth($videoId)
     {
+        $client = $this->createClient();
+
+        $result = $client->getVideoPlayAuth()->withVideoId($videoId)->withAuthInfoTimeout(120)->request()->toArray();
+
+        return $result['PlayAuth'] ?? '';
+    }
+
+    /**
+     * getVideoList
+     *
+     * @param array $params
+     * @return mixed|void
+     */
+    public function getVideoList(array $params = [])
+    {
+        // TODO: Implement getVideoList() method.
+        $client = $this->createClient();
+        $result = $client->getVideoList()
+            ->withPageNo($params['pageNo'])
+            ->withPageSize($params['pageSize'])
+            ->request();
+
+        $ret = [
+            'total'      => 0,
+            'video_list' => []
+        ];
+
+        if ($result->isSuccess()) {
+            $datas = $result->toArray();
+            $ret   = [
+                'total'      => $datas['Total'],
+                'video_list' => $datas['VideoList']['Video'] ?? []
+            ];
+        }
+
+        return $ret;
+
+    }
+
+    private function createClient()
+    {
         $accessKeyId     = $this->config['accessKey_id'];
         $accessKeySecret = $this->config['accessKey_secret'];
         $regionId        = $this->config['vod_region_id'] ?? 'cn-shanghai';
-        $url             = '';
+
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
-            ->regionId($regionId)->asDefaultClient()->options([]);
+            ->regionId($regionId)
+            ->connectTimeout(1)
+            ->timeout(3)
+            ->asDefaultClient();
 
-        $request = Vod::v20170321()->getVideoPlayAuth();
-        $result  = $request
-            ->withVideoId($videoId)
-            ->withAuthInfoTimeout(120)
-            ->request()->toArray();
+        // ->name('AliyunVod');
 
-        return $result['PlayAuth'] ?? '';
+        return Vod::v20170321();//->client('AliyunVod');
     }
 }

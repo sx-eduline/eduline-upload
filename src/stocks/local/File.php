@@ -23,17 +23,17 @@ class File implements FileInterface
      * @param string $name [description]
      * @return   [type]                               [description]
      */
-    public function putFile($path = '', $file = null, string $name = '')
+    public function putFile($savepath, $file, $savename)
     {
-        $savepath = Config::get('upload_dir') . $path;
+        $savepath = Config::get('upload_dir') . $savepath;
         try {
-            Filesystem::disk(Config::get('bucket'))->putFileAs($savepath, $file, $name);
+            Filesystem::disk(Config::get('bucket'))->putFileAs($savepath, $file, $savename);
 
             return [
                 'stock'    => 'local',
                 'bucket'   => Config::get('bucket'),
                 'savepath' => $savepath,
-                'savename' => $name,
+                'savename' => $savename,
             ];
         } catch (Exception $e) {
             throw new FileException($e->getMessage());
@@ -50,7 +50,7 @@ class File implements FileInterface
      * @param Attach $attach [description]
      * @return   [type]                                 [description]
      */
-    public function putYunFile(Attach $attach)
+    public function putYunFile($attach)
     {
         throw new FileException('暂不支持该方式上传');
     }
@@ -72,6 +72,7 @@ class File implements FileInterface
                 ],
             ];
         }
+
         return $url;
     }
 
@@ -86,5 +87,20 @@ class File implements FileInterface
         $path .= DIRECTORY_SEPARATOR . $data['savepath'] . DIRECTORY_SEPARATOR . $data['savename'];
 
         return str_replace('/', DIRECTORY_SEPARATOR, $path);
+    }
+
+    /**
+     * getVideoList
+     *
+     * @param array $params
+     * @return array
+     */
+    public function getVideoList(array $params = [])
+    {
+        // TODO: Implement getVideoList() method.
+        return [
+            'total'      => 0,
+            'video_list' => []
+        ];
     }
 }

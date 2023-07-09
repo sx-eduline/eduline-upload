@@ -9,3 +9,4 @@ vendor/
 .phpintel/
 .DS_Store
 *.cache
+composer.lock
