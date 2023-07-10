@@ -243,7 +243,7 @@ class File implements FileInterface
         if ($attach->isEmpty() || $attach->status == 2) return [];
 
         $uri                 = $this->sparkapi . "/video/update";
-        $param['videoid']    = $videoId;
+        $param['videoid']    = $attach->savename;
         $param['userid']     = $this->config['userid'];
         $param['categoryid'] = $cloudId;
 
