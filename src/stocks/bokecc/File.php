@@ -72,7 +72,7 @@ class File implements FileInterface
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
-        } catch (ClientException | FileException | Exception $e) {
+        } catch (ClientException|FileException|Exception $e) {
             // Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new LogicException($e->getMessage());
@@ -225,11 +225,12 @@ class File implements FileInterface
         $result = $this->client($uri, $param);
 
         $ret = [
-            'total'      => $result['total'] ?? 0,
+            'total'      => 0,
             'video_list' => [],
         ];
 
         if ($result['videos'] ?? null) {
+            $ret['total']      = $result['videos']['total'] ?? 0;
             $ret['video_list'] = $result['videos']['video'] ?? [];
         }
 
