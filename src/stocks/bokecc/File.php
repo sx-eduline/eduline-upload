@@ -91,19 +91,37 @@ class File implements FileInterface
 
         try {
             if (Util::isVideo($data['mimetype'], $data['extension'])) {
-                $uri   = $this->sparkapi . "/video/original";
+                // $uri   = $this->sparkapi . "/video/original";
+                // $param = [
+                //     'userid'  => $this->config['userid'],
+                //     'videoid' => $data['savename'],
+                //     'format'  => 'json'
+                // ];
+                //
+                // $response = $this->client($uri, $param);
+                //
+                // if (isset($response['error'])) throw new FileException($response['error']);
+                //
+                // $video = $response['video'] ?? ['url' => ''];
+                // $url   = [['play_url' => $video['url']]];
+                $uri   = 'https://p.bokecc.com/api/mobile';
                 $param = [
-                    'userid'  => $this->config['userid'],
-                    'videoid' => $data['savename'],
-                    'format'  => 'json'
+                    'userid'          => $this->config['userid'],
+                    'videoid'         => $data['savename'],
+                    'httpsflag'       => 1,
+                    'hlsflag'         => 0,
+                    'force_unencrypt' => 1,
+                    'format'          => 'json'
                 ];
 
                 $response = $this->client($uri, $param);
 
                 if (isset($response['error'])) throw new FileException($response['error']);
 
-                $video = $response['video'] ?? ['url' => ''];
-                $url   = [['play_url' => $video['url']]];
+                $video      = $response['video'] ?? [];
+                $copy       = $video["copy"] ?? [];
+                $firstVideo = current($copy);
+                $url        = [['play_url' => $firstVideo['playurl']]];
 
             } else if (Util::isAudio($data['mimetype'], $data['extension'])) {
 
