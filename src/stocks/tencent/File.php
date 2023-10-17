@@ -11,6 +11,7 @@ use Qcloud\Cos\Client;
 use TencentCloud\Common\Credential;
 use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
+use TencentCloud\Vod\V20180717\Models\DeleteMediaRequest;
 use TencentCloud\Vod\V20180717\Models\DescribeMediaInfosRequest;
 use TencentCloud\Vod\V20180717\VodClient;
 use think\exception\FileException;
@@ -286,4 +287,57 @@ class File implements FileInterface
             'video_list' => []
         ];
     }
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
+    {
+        $secretId  = $this->config['secret_id'];
+        $secretKey = $this->config['secret_key'];
+
+        // 是否VOD储存
+        $isImage = Util::isImage($attach->mimetype);
+        $isVod   = $isImage || Util::isAudio($attach->mimetype, $attach->extension) || Util::isVideo($attach->mimetype, $attach->extension);
+        try {
+            if ($isVod) {
+                $cred        = new Credential($secretId, $secretKey);
+                $httpProfile = new HttpProfile();
+                $httpProfile->setEndpoint("vod.tencentcloudapi.com");
+
+                $clientProfile = new ClientProfile();
+                $clientProfile->setHttpProfile($httpProfile);
+                $vodRegion = $this->config['vod_region'] ?? 'ap-chengdu';
+                $client    = new VodClient($cred, $vodRegion, $clientProfile);
+
+                $req = new DeleteMediaRequest();
+
+                $params = [
+                    "FileIds" => $attach->savename,
+                ];
+                $req->fromJsonString(json_encode($params));
+
+                $client->DeleteMedia($req);
+            } else {
+                $region = $this->config['cos_region'];
+                $client = new Client([
+                    'region'      => $region,
+                    'schema'      => 'https', //协议头部，默认为http
+                    'credentials' => [
+                        'secretId'  => $secretId,
+                        'secretKey' => $secretKey,
+                    ],
+                ]);
+
+                $bucket = $attach->bucket;
+                $key    = $attach->savepath . '/' . $attach->savename;
+
+                $client->doesObjectExist($bucket, $key);
+            }
+        } catch (Exception $e) {
+        }
+    }
+
 }
