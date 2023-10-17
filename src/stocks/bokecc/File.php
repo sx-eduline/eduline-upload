@@ -256,17 +256,34 @@ class File implements FileInterface
 
     }
 
-    public function updateVideo($attachId, $cloudId): array
+    // public function updateVideo($attachId, $cloudId): array
+    // {
+    //     $attach = app(Attach::class)->findOrEmpty($attachId);
+    //     if ($attach->isEmpty() || $attach->status == 2) return [];
+    //
+    //     $uri                 = $this->sparkapi . "/video/update";
+    //     $param['videoid']    = $videoId;
+    //     $param['userid']     = $this->config['userid'];
+    //     $param['categoryid'] = $cloudId;
+    //
+    //     return $this->client($uri, $param);
+    // }
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
     {
-        $attach = app(Attach::class)->findOrEmpty($attachId);
-        if ($attach->isEmpty() || $attach->status == 2) return [];
+        // 接口地址: 删除视频
+        $uri = $this->sparkapi . "/video/delete";
+        // 用户
+        $param['userid']  = $this->config['userid'];
+        $param['videoid'] = $attach->savename;
+        $param['format']  = 'json';
 
-        $uri                 = $this->sparkapi . "/video/update";
-        $param['videoid']    = $videoId;
-        $param['userid']     = $this->config['userid'];
-        $param['categoryid'] = $cloudId;
-
-        return $this->client($uri, $param);
+        $this->client($uri, $param);
     }
 
 }

@@ -13,6 +13,7 @@ namespace eduline\upload;
  * @method string url(array $data = []) 获取附件预览的地址。参数：附件数据
  * @method string path(array $data = []) 获取附件储存的路径。参数：附件数据
  * @method array getVideoList(array $params = []) 获取视频列表。参数：第三方储存请求参数
+ * @method void delete($attach) 删除文件 如果在云端，也会执行删除
  */
 class Client
 {

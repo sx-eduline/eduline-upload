@@ -245,4 +245,43 @@ class File implements FileInterface
 
         return Vod::v20170321();//->client('AliyunVod');
     }
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
+    {
+        $client = $this->createClient();
+        try {
+            if (Util::isImage($attach->mimetype)) {
+                // 图片
+                $client->deleteImage()
+                    ->withDeleteImageType('ImageId')
+                    ->withImageIds($attach->savename)
+                    ->format('JSON')
+                    ->request();
+                // if ($result->isSuccess()) {
+                //     // 删除成功
+                // }
+
+            } else if (Util::isAudio($attach->mimetype, $attach->extension) || Util::isVideo($attach->mimetype, $attach->extension)) {
+                // 音视频
+                $client->deleteVideo()
+                    ->withVideoIds($attach->savename)
+                    ->format('JSON')
+                    ->request();
+            } else {
+                // 其他文件
+                $accessKeyId     = $this->config['accessKey_id'];
+                $accessKeySecret = $this->config['accessKey_secret'];
+                $endpoint        = $this->config['domain'] ?? $this->config['endpoint'];
+                $ossClient       = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+
+                $ossClient->deleteObject($attach->bucket, $attach->savepath . '/' . $attach->savename);
+            }
+        } catch (Exception $e) {
+        }
+    }
 }

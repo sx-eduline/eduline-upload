@@ -103,4 +103,17 @@ class File implements FileInterface
             'video_list' => []
         ];
     }
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
+    {
+        $filepath = $attach->getAttr('filepath');
+        if (file_exists($filepath)) {
+            @unlink($filepath);
+        }
+    }
 }
