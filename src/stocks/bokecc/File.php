@@ -7,6 +7,7 @@ use app\admin\model\material\Category;
 use app\common\library\Queue;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
+use eduline\upload\stocks\bokecc\sdk\Upload;
 use eduline\upload\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
@@ -52,7 +53,7 @@ class File implements FileInterface
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
 
                 // 附件本地地址
-                $filepath = $attach->getAttr('filepath');
+                // $filepath = $attach->getAttr('filepath');
                 // 创建视频上传信息
                 $response = $this->createUploadInfo($attach);
                 if (isset($response['uploadinfo'])) {
@@ -63,12 +64,19 @@ class File implements FileInterface
                 // 更新为上传中
                 Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
 
-                Queue::push('BokeccUpload', [
-                    'filepath'   => $filepath,
+                // Queue::push('BokeccUpload', [
+                //     'filepath'   => $filepath,
+                //     'attach_id'  => $attach->id,
+                //     'uploadinfo' => $response['uploadinfo'],
+                //     'config'     => $this->config
+                // ]);
+                $params       = [
                     'attach_id'  => $attach->id,
                     'uploadinfo' => $response['uploadinfo'],
                     'config'     => $this->config
-                ]);
+                ];
+                $uploadAdpert = new Upload($params);
+                $uploadAdpert->run();
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
