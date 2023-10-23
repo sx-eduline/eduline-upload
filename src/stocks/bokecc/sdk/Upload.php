@@ -48,7 +48,7 @@ class Upload
         $attach         = app(Attach::class)->findOrEmpty($this->attachId);
         // 配置
         $this->config   = $params['config'];// Request::post('config');
-        $this->filepath = $attach->getAttr('filepath');// Request::post('filepath');
+        $this->filepath = $params['filepath'];//Request::post('filepath');
         // 参数
         $this->filesize  = $attach->getData('filesize');
         $this->filemd5   = $attach->getData('filemd5');
@@ -73,7 +73,6 @@ class Upload
         try {
             // 查询文件上传状态及断点位置
             $uploadmeta = $this->uploadmeta();
-            $queue      = false;
             if (isset($uploadmeta['result'])) {
                 switch ($uploadmeta['result']) {
                     case 1: // 文件已全部接收，上传成功
