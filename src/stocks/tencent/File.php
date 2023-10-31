@@ -315,7 +315,7 @@ class File implements FileInterface
                 $req = new DeleteMediaRequest();
 
                 $params = [
-                    "FileIds" => $attach->savename,
+                    "FileId" => $attach->savename,
                 ];
                 $req->fromJsonString(json_encode($params));
 
