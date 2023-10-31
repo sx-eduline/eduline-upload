@@ -331,10 +331,10 @@ class File implements FileInterface
                     ],
                 ]);
 
-                $bucket = $attach->bucket;
-                $key    = $attach->savepath . '/' . $attach->savename;
-
-                $client->doesObjectExist($bucket, $key);
+                $client->deleteObject([
+                    'Bucket' => $attach->bucket,
+                    'Key'    => $attach->savepath . '/' . $attach->savename
+                ]);
             }
         } catch (Exception $e) {
         }
