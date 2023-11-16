@@ -39,11 +39,14 @@ class Upload
      */
     protected $maxAttempts = 5;
 
+    protected $readStream;
+
     /**
      *
      */
     public function __construct(array $params)
     {
+        ini_set("memory_limit", "-1");
         $this->attachId = $params['attach_id'];
         $attach         = app(Attach::class)->findOrEmpty($this->attachId);
         // 配置
@@ -53,14 +56,17 @@ class Upload
         $this->filesize  = $attach->getData('filesize');
         $this->filemd5   = $attach->getData('filemd5');
         $this->filename  = $attach->getData('filename');
-        $this->savename  = $attach->getData('savename');
         $this->limit     = 1024 * 1024 * 2; // 2M分片大小
-        $this->rangeSize = $this->limit - 1;
+        $this->rangeSize = $this->limit;
         // uploadinfo
         $this->uploadInfo = $uploadInfo = $params['uploadinfo'];//Request::post('uploadinfo');
+        $this->savename   = $uploadInfo['videoid'];// $attach->getData('savename');
         $this->videoId    = $uploadInfo['videoid'];
         $this->metaurl    = $uploadInfo['metaurl'];
         $this->chunkurl   = $uploadInfo['chunkurl'] . '?ccvid=' . $this->videoId;
+        if (file_exists($this->filepath)) {
+            $this->readStream = fopen($this->filepath, 'r');
+        }
     }
 
     /**
@@ -105,7 +111,7 @@ class Upload
     {
         $param = [
             'uid'         => $this->config['userid'],
-            'ccvid'       => $this->savename,
+            'ccvid'       => $this->videoId,
             'filename'    => $this->filename,
             'filesize'    => $this->filesize,
             'servicetype' => $this->uploadInfo['servicetype']
@@ -119,35 +125,46 @@ class Upload
      */
     public function uploadChunk(int $retryCount = 0)
     {
-        // 文件总大小
-        $size = $this->filesize;
-        // 分片大小
-        $rangeSize = $this->rangeSize;
-        // 开始分片上传的位置
-        $start = $this->received;
-        // 剩余未传大小
-        $rest = $size - $start;
+        // 余下未传的大小
+        $rest = $this->filesize - $this->received;
+        // 当前分片大小: 取指定分片大小 或则 余下未传的大小不足以分片 则取余下未传的大小
+        $length = min($this->rangeSize, $rest);
         // 结束分片上传的位置
-        $end = $rest > $rangeSize ? $start + $rangeSize : $size - 1;
+        $end = $length + $this->received - 1;//$rest > $this->rangeSize ? $this->received + $this->rangeSize : $this->filesize - 1;
 
-        $block = file_get_contents($this->filepath, true, null, $start, $this->limit);
-        $data  = [
+        // $block = file_get_contents($this->filepath, true, null, $start, $this->limit);
+        //Log::write(sprintf("开始 %d,结束 %d, 大小 %d", $this->received, $end, $length));
+
+        /**
+         * // 文件总大小超过开始读取的位置  且 开始读取的位置与文件指针不一致 => 调整文件指针
+         * $seek = $this->received == 0 ? 0 : $this->received - 1;
+         * if ($this->received == 0 && $seek !== ftell($this->readStream)) {
+         * if (fseek($this->readStream, $seek) !== 0) {
+         * throw new  FileException("读取文件失败");
+         * }
+         * }**/
+        $block = fread($this->readStream, $length); // Remaining upload data or cURL's requested chunk size
+
+        $data = [
             'block'    => $block,
             'name'     => 'file',
             'filename' => $this->filename,
-            'start'    => $start,
+            'start'    => $this->received,
             'end'      => $end,
-            'size'     => $size,
+            'size'     => $this->filesize,
         ];
 
         $result = $this->postData($this->chunkurl, $data);
 
+        unset($block,$data);
+
         $result = json_decode($result, true);
+        //Log::write("CC返回数据:" . json_encode($result));
         if ($result['result'] === 0) {
             // 接受分片完成
             $this->received = $result['received'];
             $this->uploadChunk();
-        } else if ($result['result'] === 1 || $result['received'] == $size) {
+        } else if ($result['result'] === 1 || $result['received'] == $this->filesize) {
             // 上传完成
         } else if ($result['result'] === -2) {
             // 服务器内部错误，重试
@@ -168,7 +185,7 @@ class Upload
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        $this->curl_custom_postfields($ch, $data);
+        $ch         = $this->curl_custom_postfields($ch, $data);
         $dxycontent = curl_exec($ch);
         curl_close($ch);
 
@@ -192,7 +209,7 @@ class Upload
         $body[] = "--{$boundary}--";
         $body[] = "";
 
-        return @curl_setopt_array($ch, [
+        curl_setopt_array($ch, [
             CURLOPT_POST       => true,
             CURLOPT_POSTFIELDS => implode("\r\n", $body),
             CURLOPT_HTTPHEADER => [
@@ -204,6 +221,8 @@ class Upload
                 'Connection: keep-alive',
             ],
         ]);
+
+        return $ch;
     }
 
     /**
@@ -248,6 +267,17 @@ class Upload
         unset($param['salt']);
 
         return $param;
+    }
+
+    public function __destruct()
+    {
+        if ($this->readStream) {
+            fclose($this->readStream);
+        }
+
+        if (file_exists($this->filepath)) {
+            @unlink($this->filepath);
+        }
     }
 
 }

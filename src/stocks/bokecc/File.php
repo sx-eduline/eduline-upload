@@ -61,7 +61,7 @@ class File implements FileInterface
                     throw new FileException($response['error']);
                 }
                 // 更新为上传中
-                Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
+                Attach::update(['status' => 3], ['id' => $attach->id]);
 
                 $params       = [
                     'attach_id'  => $attach->id,
@@ -71,6 +71,7 @@ class File implements FileInterface
                 ];
                 $uploadAdpert = new Upload($params);
                 $uploadAdpert->run();
+                Attach::update(['status' => 4, 'savename' => $videoId], ['id' => $attach->id]);
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
