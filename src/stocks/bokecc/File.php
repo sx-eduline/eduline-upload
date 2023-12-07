@@ -61,7 +61,7 @@ class File implements FileInterface
                     throw new FileException($response['error']);
                 }
                 // 更新为上传中
-                Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
+                Attach::update(['status' => 3], ['id' => $attach->id]);
 
                 $params       = [
                     'attach_id'  => $attach->id,
@@ -76,7 +76,6 @@ class File implements FileInterface
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
         } catch (ClientException|FileException|Exception $e) {
-            // Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new LogicException($e->getMessage());
         }
@@ -286,7 +285,7 @@ class File implements FileInterface
         $param['videoid'] = $attach->savename;
         $param['format']  = 'json';
 
-        return $this->client($uri, $param);
+        $this->client($uri, $param);
     }
 
 }
