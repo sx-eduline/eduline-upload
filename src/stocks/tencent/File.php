@@ -11,6 +11,7 @@ use Qcloud\Cos\Client;
 use TencentCloud\Common\Credential;
 use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
+use TencentCloud\Vod\V20180717\Models\DeleteMediaRequest;
 use TencentCloud\Vod\V20180717\Models\DescribeMediaInfosRequest;
 use TencentCloud\Vod\V20180717\VodClient;
 use think\exception\FileException;
@@ -52,8 +53,8 @@ class File implements FileInterface
     public function putYunFile($attach)
     {
         try {
-            $secretId  = $this->config['secret_id'];
-            $secretKey = $this->config['secret_key'];
+            $secretId  = $this->config['secret_id'] ?? '';
+            $secretKey = $this->config['secret_key'] ?? '';
             $filepath  = $attach->getAttr('filepath');
             // 更新为上传中
             Attach::update(['status' => 3], ['id' => $attach->id]);
@@ -84,8 +85,8 @@ class File implements FileInterface
                 // $attach->savepath = '';
                 // $attach->bucket   = '';
             } else {
-                $region = $this->config['cos_region'];
-                $bucket = $this->config['bucket'];
+                $region = $this->config['cos_region'] ?? '';
+                $bucket = $this->config['bucket'] ?? '';
 
                 $client = new Client([
                     'region'      => $region,
@@ -133,8 +134,8 @@ class File implements FileInterface
      */
     protected function doUpload($filepath, $filename, $procedure = null)
     {
-        $secretId      = $this->config['secret_id'];
-        $secretKey     = $this->config['secret_key'];
+        $secretId      = $this->config['secret_id'] ?? '';
+        $secretKey     = $this->config['secret_key'] ?? '';
         $storageRegion = $this->config['vod_storage_region'] ?? '';
         $region        = $this->config['vod_region'] ?? 'ap-chengdu';
         // 初始化
@@ -160,8 +161,8 @@ class File implements FileInterface
      */
     public function url(array $data = [])
     {
-        $secretId  = $this->config['secret_id'];
-        $secretKey = $this->config['secret_key'];
+        $secretId  = $this->config['secret_id'] ?? '';
+        $secretKey = $this->config['secret_key'] ?? '';
 
         $url = '';
         // 是否VOD储存
@@ -237,7 +238,7 @@ class File implements FileInterface
                 }
 
             } else {
-                $region = $this->config['cos_region'];
+                $region = $this->config['cos_region'] ?? '';
                 $client = new Client([
                     'region'      => $region,
                     'schema'      => 'https', //协议头部，默认为http
@@ -286,4 +287,57 @@ class File implements FileInterface
             'video_list' => []
         ];
     }
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
+    {
+        $secretId  = $this->config['secret_id'] ?? '';
+        $secretKey = $this->config['secret_key'] ?? '';
+
+        // 是否VOD储存
+        $isImage = Util::isImage($attach->mimetype);
+        $isVod   = $isImage || Util::isAudio($attach->mimetype, $attach->extension) || Util::isVideo($attach->mimetype, $attach->extension);
+        try {
+            if ($isVod) {
+                $cred        = new Credential($secretId, $secretKey);
+                $httpProfile = new HttpProfile();
+                $httpProfile->setEndpoint("vod.tencentcloudapi.com");
+
+                $clientProfile = new ClientProfile();
+                $clientProfile->setHttpProfile($httpProfile);
+                $vodRegion = $this->config['vod_region'] ?? 'ap-chengdu';
+                $client    = new VodClient($cred, $vodRegion, $clientProfile);
+
+                $req = new DeleteMediaRequest();
+
+                $params = [
+                    "FileId" => $attach->savename,
+                ];
+                $req->fromJsonString(json_encode($params));
+
+                $client->DeleteMedia($req);
+            } else {
+                $region = $this->config['cos_region'] ?? '';
+                $client = new Client([
+                    'region'      => $region,
+                    'schema'      => 'https', //协议头部，默认为http
+                    'credentials' => [
+                        'secretId'  => $secretId,
+                        'secretKey' => $secretKey,
+                    ],
+                ]);
+
+                $client->deleteObject([
+                    'Bucket' => $attach->bucket,
+                    'Key'    => $attach->savepath . '/' . $attach->savename
+                ]);
+            }
+        } catch (Exception $e) {
+        }
+    }
+
 }

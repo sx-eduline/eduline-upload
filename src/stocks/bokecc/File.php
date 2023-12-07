@@ -72,7 +72,7 @@ class File implements FileInterface
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
-        } catch (ClientException | FileException | Exception $e) {
+        } catch (ClientException|FileException|Exception $e) {
             // Db::name('test')->save(['msg' => 'sys:' . $e->getFile() . $e->getLine() . $e->getMessage()]);
             Attach::update(['status' => 2], ['id' => $attach->id]);
             throw new LogicException($e->getMessage());
@@ -93,7 +93,7 @@ class File implements FileInterface
             if (Util::isVideo($data['mimetype'], $data['extension'])) {
                 $uri   = $this->sparkapi . "/video/original";
                 $param = [
-                    'userid'  => $this->config['userid'],
+                    'userid'  => $this->config['userid'] ?? '',
                     'videoid' => $data['savename'],
                     'format'  => 'json'
                 ];
@@ -147,7 +147,7 @@ class File implements FileInterface
     {
         ksort($param);
         $param['time'] = time();
-        $param['salt'] = $this->config['apikey'];
+        $param['salt'] = $this->config['apikey'] ?? '';
         $value         = http_build_query($param);
         $hash          = md5($value);
         $param['hash'] = strtoupper($hash);
@@ -180,11 +180,11 @@ class File implements FileInterface
     {
         $uri   = $this->sparkapi . "/video/create/v2";
         $param = [
-            'userid'     => $this->config['userid'],
+            'userid'     => $this->config['userid'] ?? '',
             'title'      => $attach->getAttr('filename'),
             'filename'   => $attach->getAttr('filename'),
             'filesize'   => $attach->getData('filesize'),
-            'notify_url' => $this->config['notify_url'],
+            'notify_url' => $this->config['notify_url'] ?? '',
         ];
 
         return $this->client($uri, $param);
@@ -201,7 +201,7 @@ class File implements FileInterface
     {
         $uri   = $this->sparkapi . "/category/create";
         $param = [
-            'userid' => $this->config['userid'],
+            'userid' => $this->config['userid'] ?? '',
             'name'   => $cate->title,
             'format' => 'json'
         ];
@@ -219,7 +219,7 @@ class File implements FileInterface
         //
         $uri = $this->sparkapi . "/videos/v7";
         //
-        $param['userid'] = $this->config['userid'];
+        $param['userid'] = $this->config['userid'] ?? '';
         // $param['format'] = 'json';
         //
         $result = $this->client($uri, $param);
@@ -244,7 +244,7 @@ class File implements FileInterface
 
         $uri                 = $this->sparkapi . "/video/update";
         $param['videoid']    = $attach->savename;
-        $param['userid']     = $this->config['userid'];
+        $param['userid']     = $this->config['userid'] ?? '';
         $param['categoryid'] = $cloudId;
 
         return $this->client($uri, $param);

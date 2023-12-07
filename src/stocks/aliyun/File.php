@@ -31,7 +31,9 @@ class File implements FileInterface
      * Author   Martinsun<syh@sunyonghong.com>
      * Date:  2020-08-15
      *
-     * @return   [type]                         [description]
+     * @param $savepath
+     * @param $file
+     * @param $savename
      */
     public function putFile($savepath, $file, $savename)
     {
@@ -44,16 +46,14 @@ class File implements FileInterface
      * Author   Martinsun<syh@sunyonghong.com>
      * Date:  2020-03-30
      *
-     * @param string $path [description]
      * @param    [type]                         $file [description]
-     * @param string $name [description]
-     * @return   [type]                               [description]
+     * @return mixed [type]                               [description]
      */
     public function putYunFile($attach)
     {
         try {
-            $accessKeyId     = $this->config['accessKey_id'];
-            $accessKeySecret = $this->config['accessKey_secret'];
+            $accessKeyId     = $this->config['accessKey_id'] ?? '';
+            $accessKeySecret = $this->config['accessKey_secret'] ?? '';
             $filepath        = $attach->getAttr('filepath');
             // 更新为上传中
             Attach::update(['status' => 3], ['id' => $attach->id]);
@@ -61,11 +61,11 @@ class File implements FileInterface
             // 判断是否是图片 音视频
             if (Util::isVideo($attach->mimetype, $attach->extension)) {
                 // 视频上传
-                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id'] ?? '');
                 $uploadVideoRequest = new UploadVideoRequest($filepath, $attach->filename);
                 // 是否配置了视频处理流程
                 if ($this->config['vod_video_workflow_id'] ?? false) {
-                    $uploadVideoRequest->setWorkflowId($this->config['vod_video_workflow_id']);
+                    $uploadVideoRequest->setWorkflowId($this->config['vod_video_workflow_id'] ?? '');
                     $status = 4;
                 }
 
@@ -77,11 +77,11 @@ class File implements FileInterface
 
             } else if (Util::isAudio($attach->mimetype, $attach->extension)) {
                 // 音频上传
-                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id'] ?? '');
                 $uploadVideoRequest = new UploadVideoRequest($filepath, $attach->filename);
                 // 是否配置了音频处理流程
                 if ($this->config['vod_audio_workflow_id'] ?? false) {
-                    $uploadVideoRequest->setWorkflowId($this->config['vod_audio_workflow_id']);
+                    $uploadVideoRequest->setWorkflowId($this->config['vod_audio_workflow_id']??'');
                     $status = 4;
                 }
 
@@ -92,7 +92,7 @@ class File implements FileInterface
                 $attach->bucket   = '';
             } else if (Util::isImageFile($attach->mimetype, $filepath)) {
                 // 图片上传
-                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id']);
+                $uploader           = new AliyunVodUploader($accessKeyId, $accessKeySecret, $this->config['vod_region_id'] ?? '');
                 $uploadVideoRequest = new UploadImageRequest($filepath, $attach->filename);
 
                 $image = $uploader->uploadLocalImage($uploadVideoRequest);
@@ -102,9 +102,9 @@ class File implements FileInterface
                 $attach->bucket   = '';
             } else {
                 // 其他文件,上传到OSS
-                $internalEndpoint = $this->config['internal_endpoint'];
-                $endpoint         = $this->config['endpoint'];
-                $bucket           = $this->config['bucket'];
+                $internalEndpoint = $this->config['internal_endpoint']??'';
+                $endpoint         = $this->config['endpoint']??'';
+                $bucket           = $this->config['bucket']??'';
 
                 $point = $internalEndpoint ?: $endpoint;
 
@@ -162,9 +162,9 @@ class File implements FileInterface
                     }
                 }
             } else {
-                $accessKeyId     = $this->config['accessKey_id'];
-                $accessKeySecret = $this->config['accessKey_secret'];
-                $endpoint        = $this->config['domain'] ?? $this->config['endpoint'];
+                $accessKeyId     = $this->config['accessKey_id'] ?? '';
+                $accessKeySecret = $this->config['accessKey_secret'] ?? '';
+                $endpoint        = $this->config['domain'] ?? ($this->config['endpoint'] ?? '');
                 $ossClient       = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
 
                 $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');
@@ -201,7 +201,7 @@ class File implements FileInterface
      * getVideoList
      *
      * @param array $params
-     * @return mixed|void
+     * @return array
      */
     public function getVideoList(array $params = [])
     {
@@ -231,8 +231,8 @@ class File implements FileInterface
 
     private function createClient()
     {
-        $accessKeyId     = $this->config['accessKey_id'];
-        $accessKeySecret = $this->config['accessKey_secret'];
+        $accessKeyId     = $this->config['accessKey_id'] ?? '';
+        $accessKeySecret = $this->config['accessKey_secret'] ?? '';
         $regionId        = $this->config['vod_region_id'] ?? 'cn-shanghai';
 
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
