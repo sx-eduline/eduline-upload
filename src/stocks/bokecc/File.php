@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace eduline\upload\stocks\bokecc;
 
 use app\admin\model\material\Category;
-use app\common\library\Queue;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
+use eduline\upload\stocks\bokecc\sdk\Upload;
 use eduline\upload\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
@@ -63,12 +63,15 @@ class File implements FileInterface
                 // 更新为上传中
                 Attach::update(['savename' => $videoId, 'status' => 3], ['id' => $attach->id]);
 
-                Queue::push('BokeccUpload', [
-                    'filepath'   => $filepath,
+                $params       = [
                     'attach_id'  => $attach->id,
+                    'filepath'   => $filepath,
                     'uploadinfo' => $response['uploadinfo'],
                     'config'     => $this->config
-                ]);
+                ];
+                $uploadAdpert = new Upload($params);
+                $uploadAdpert->run();
+                Attach::update(['status' => 4, 'savename' => $videoId], ['id' => $attach->id]);
             } else {
                 Attach::update(['bucket' => 'local', 'stock' => 'local', 'to_stock' => 'local', 'status' => 1], ['id' => $attach->id]);
             }
@@ -91,19 +94,37 @@ class File implements FileInterface
 
         try {
             if (Util::isVideo($data['mimetype'], $data['extension'])) {
-                $uri   = $this->sparkapi . "/video/original";
+                // $uri   = $this->sparkapi . "/video/original";
+                // $param = [
+                //     'userid'  => $this->config['userid'],
+                //     'videoid' => $data['savename'],
+                //     'format'  => 'json'
+                // ];
+                //
+                // $response = $this->client($uri, $param);
+                //
+                // if (isset($response['error'])) throw new FileException($response['error']);
+                //
+                // $video = $response['video'] ?? ['url' => ''];
+                // $url   = [['play_url' => $video['url']]];
+                $uri   = 'https://p.bokecc.com/api/mobile';
                 $param = [
-                    'userid'  => $this->config['userid'] ?? '',
-                    'videoid' => $data['savename'],
-                    'format'  => 'json'
+                    'userid'          => $this->config['userid'] ?? '',
+                    'videoid'         => $data['savename'],
+                    'httpsflag'       => 1,
+                    'hlsflag'         => 0,
+                    'force_unencrypt' => 1,
+                    'format'          => 'json'
                 ];
 
                 $response = $this->client($uri, $param);
 
                 if (isset($response['error'])) throw new FileException($response['error']);
 
-                $video = $response['video'] ?? ['url' => ''];
-                $url   = [['play_url' => $video['url']]];
+                $video      = $response['video'] ?? [];
+                $copy       = $video["copy"] ?? [];
+                $firstVideo = current($copy);
+                $url        = [['play_url' => $firstVideo['playurl']]];
 
             } else if (Util::isAudio($data['mimetype'], $data['extension'])) {
 
@@ -225,11 +246,12 @@ class File implements FileInterface
         $result = $this->client($uri, $param);
 
         $ret = [
-            'total'      => $result['total'] ?? 0,
+            'total'      => 0,
             'video_list' => [],
         ];
 
         if ($result['videos'] ?? null) {
+            $ret['total']      = $result['videos']['total'] ?? 0;
             $ret['video_list'] = $result['videos']['video'] ?? [];
         }
 
@@ -237,15 +259,32 @@ class File implements FileInterface
 
     }
 
-    public function updateVideo($attachId, $cloudId): array
-    {
-        $attach = app(Attach::class)->findOrEmpty($attachId);
-        if ($attach->isEmpty() || $attach->status == 2) return [];
+    // public function updateVideo($attachId, $cloudId): array
+    // {
+    //     $attach = app(Attach::class)->findOrEmpty($attachId);
+    //     if ($attach->isEmpty() || $attach->status == 2) return [];
+    //
+    //     $uri                 = $this->sparkapi . "/video/update";
+    //     $param['videoid']    = $videoId;
+    //     $param['userid']     = $this->config['userid'];
+    //     $param['categoryid'] = $cloudId;
+    //
+    //     return $this->client($uri, $param);
+    // }
 
-        $uri                 = $this->sparkapi . "/video/update";
-        $param['videoid']    = $attach->savename;
-        $param['userid']     = $this->config['userid'] ?? '';
-        $param['categoryid'] = $cloudId;
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     */
+    public function delete($attach)
+    {
+        // 接口地址: 删除视频
+        $uri = $this->sparkapi . "/video/delete";
+        // 用户
+        $param['userid']  = $this->config['userid'] ?? '';
+        $param['videoid'] = $attach->savename;
+        $param['format']  = 'json';
 
         return $this->client($uri, $param);
     }

@@ -40,10 +40,18 @@ interface FileInterface
     public function path(array $data = []);
 
     /**
-     * getVideoList
+     * 列表
      *
      * @param array $params
      * @return mixed
      */
     public function getVideoList(array $params = []);
+
+    /**
+     * 删除文件
+     *
+     * @param $attach
+     * @return mixed
+     */
+    public function delete($attach);
 }

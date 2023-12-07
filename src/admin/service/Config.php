@@ -21,13 +21,13 @@ class Config extends BaseService
     public function index()
     {
         $data   = Stock::getStocks();
-        $upload = SystemConfig::get('system.package.upload', [], request()->mhm_id);
+        $upload = SystemConfig::get('system.package.upload', [], request()->mhm_id, true);
         // 查询配置
         foreach ($data as $key => $stock) {
             // 储存配置key
             $__key                = 'system.package.upload.' . $stock['key'];
             $data[$key]['__key']  = $__key;
-            $data[$key]['config'] = SystemConfig::get($__key, [], request()->mhm_id);
+            $data[$key]['config'] = SystemConfig::get($__key, [], request()->mhm_id, true);
             $data[$key]['status'] = (isset($upload['stock']) && $upload['stock'] == $stock['key']) ? 1 : 0;
         }
         // 定义字段
