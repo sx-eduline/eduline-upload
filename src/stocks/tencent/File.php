@@ -3,6 +3,7 @@ declare (strict_types=1);
 
 namespace eduline\upload\stocks\tencent;
 
+// use app\common\exception\LogicException;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\utils\Util;
@@ -161,8 +162,12 @@ class File implements FileInterface
      */
     public function url(array $data = [])
     {
+        // if (empty($this->config)) throw new LogicException('上传参数错误，请联系客服');
+
         $secretId  = $this->config['secret_id'] ?? '';
         $secretKey = $this->config['secret_key'] ?? '';
+
+        // if (!$secretId || !$secretKey) throw new LogicException('上传参数错误，请联系客服');
 
         $url = '';
         // 是否VOD储存

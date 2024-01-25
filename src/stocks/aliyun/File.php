@@ -6,6 +6,7 @@ namespace eduline\upload\stocks\aliyun;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Vod\Vod;
 use AliyunVodUploader;
+// use app\common\exception\LogicException;
 use app\common\model\Attach;
 use eduline\upload\interfaces\FileInterface;
 use eduline\upload\utils\Util;
@@ -139,6 +140,14 @@ class File implements FileInterface
     public function url(array $data = [])
     {
         $url    = '';
+
+        // if (empty($this->config)) throw new LogicException('上传参数错误，请联系客服');
+
+        $accessKeyId     = $this->config['accessKey_id'] ?? '';
+        $accessKeySecret = $this->config['accessKey_secret'] ?? '';
+        
+        // if (!$accessKeyId || !$accessKeySecret) throw new LogicException('上传参数错误，请联系客服');
+
         $client = $this->createClient();
         try {
             if (Util::isImage($data['mimetype'])) {
