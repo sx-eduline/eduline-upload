@@ -18,13 +18,14 @@ namespace eduline\upload;
 class Client
 {
     protected $stock;
+    protected $mhmId;
 
-    public function __construct($stock = null)
+    public function __construct($stock = null, $mhmId = null)
     {
         // 当前处理类
         $class = __NAMESPACE__ . '\\stocks\\' . $stock . '\\File';
 
-        $this->stock = new $class();
+        $this->stock = new $class($mhmId);
     }
 
     /**

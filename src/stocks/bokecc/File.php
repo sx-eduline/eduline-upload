@@ -16,10 +16,11 @@ class File implements FileInterface
 {
     protected $sparkapi = 'https://spark.bokecc.com/api';
     protected $config;
+    protected $mhmId;
 
-    public function __construct()
+    public function __construct($mhmId = null)
     {
-        $this->config = Config::get();
+        $this->config = Config::get(null,null,$mhmId);
     }
 
     /**

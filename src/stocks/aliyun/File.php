@@ -21,10 +21,11 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'voduploadsdk' . DIRECTORY_SEPARATO
 class File implements FileInterface
 {
     protected $config;
+    protected $mhmId;
 
-    public function __construct()
+    public function __construct($mhmId = null)
     {
-        $this->config = Config::get();
+        $this->config = Config::get(null,null,$mhmId);
     }
 
     /**
@@ -145,7 +146,7 @@ class File implements FileInterface
 
         $accessKeyId     = $this->config['accessKey_id'] ?? '';
         $accessKeySecret = $this->config['accessKey_secret'] ?? '';
-        
+
         // if (!$accessKeyId || !$accessKeySecret) throw new LogicException('上传参数错误，请联系客服');
 
         $client = $this->createClient();
@@ -173,7 +174,8 @@ class File implements FileInterface
             } else {
                 $accessKeyId     = $this->config['accessKey_id'] ?? '';
                 $accessKeySecret = $this->config['accessKey_secret'] ?? '';
-                $endpoint        = $this->config['domain'] ?? ($this->config['endpoint'] ?? '');
+                // $endpoint        = $this->config['domain'] ?? ($this->config['endpoint'] ?? '');
+                $endpoint        = isset($this->config['domain']) && !empty($this->config['domain']) ? $this->config['domain'] : ($this->config['endpoint'] ?? '');
                 $ossClient       = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
 
                 $url = $ossClient->signUrl($data['bucket'], $data['savepath'] . '/' . $data['savename'], 3600 * 10, 'GET');

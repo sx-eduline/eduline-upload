@@ -22,10 +22,11 @@ use Vod\VodUploadClient;
 class File implements FileInterface
 {
     protected $config;
+    protected $mhmId;
 
-    public function __construct()
+    public function __construct($mhmId = null)
     {
-        $this->config = Config::get();
+        $this->config = Config::get(null,null,$mhmId);
     }
 
     /**
