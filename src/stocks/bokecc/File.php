@@ -78,7 +78,7 @@ class File implements FileInterface
             }
         } catch (ClientException|FileException|Exception $e) {
             Attach::update(['status' => 2], ['id' => $attach->id]);
-            throw new LogicException($e->getMessage());
+            throw new FileException($e->getMessage());
         }
 
     }
