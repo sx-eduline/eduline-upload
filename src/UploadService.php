@@ -11,10 +11,10 @@ class UploadService extends Service
     {
         $this->registerRoutes(function () {
             /** 接口路由 */
-            Route::group('system/package/upload', function () {
+            Route::group('admin/system/package/upload', function () {
                 Route::get('/list', '@index')->name('system.package.upload'); // 上传配置页面
                 Route::get('/<stock>/config', '@config')->pattern(['stock' => '[a-zA-Z_]+'])->name('system.package.upload.config'); // 上传配置页面
-            })->prefix('\eduline\upload\admin\service\Config')->middleware(['adminRoute']);
+            })->prefix('\eduline\upload\admin\service\Config')->middleware(['adminRoute', 'init', 'bindLoginUser']);
             // 阿里云视频点播事件通知路由
             Route::post('/aliyun/vod/event', '\eduline\upload\stocks\aliyun\event\VodEvent@handle')->middleware(['\eduline\upload\stocks\aliyun\middleware\VodAuth']);
             // 腾讯云视频点播事件通知路由
